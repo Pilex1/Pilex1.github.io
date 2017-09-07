@@ -1,6 +1,178 @@
 <!DOCTYPE html>
 <html>
-<body>
-<script src="https://gist.github.com/PandaSandStudio/1b91890117e7da0e764a71face8eab20.js"></script>
-</body>
+  <head>
+    <title>Pilex1 - Better Than You</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  
+  <body>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      
+      .wrapper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-color: #262626;
+        width: 100vw;
+        height: 100vh;
+        color: #FFF;
+      }
+      
+      .button {
+        position: relative;
+        top: 15px;
+        background: #d35400;
+        padding: 20px 30px;
+        font-size: 25px;
+        -webkit-border-radius: 20px;
+           -moz-border-radius: 20px;
+                border-radius: 20px;
+        cursor: pointer;
+        -webkit-transition: .13s;
+        -o-transition: .13s;
+        -moz-transition: .13s;
+        transition: .13s;
+      }
+      
+      .button:hover {
+        background: #d66e12;
+      }
+      
+      .showcase-text {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+      
+      .showcase-text ul {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        -webkit-transition: 1s ease-in-out;
+        -o-transition: 1s ease-in-out;
+        -moz-transition: 1s ease-in-out;
+        transition: 1s ease-in-out;
+      }
+      
+      .showcase-text ul li {
+        display: inline-block;
+        position: absolute;
+        left: 50vw;
+        top: 46vh;
+        -webkit-transform: translate(-50%, -50%);
+           -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+             -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        list-style: none;
+        width: 620px;
+        max-width: 90vw;
+        height: 200px;
+        text-align: center;
+        font-size: 30px;
+      }
+      
+      .copyright {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        background: #c0392b;
+      }
+      
+      .copyright a {
+        text-decoration: none;
+        color: #DDDDDF;
+      }
+      
+      .header {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        font-size: 17px;
+        opacity: .2;
+      }
+    </style>
+    
+    <script>
+      function init() {
+        var showcase = document.querySelectorAll('.showcase-text ul li');
+        var buttons = document.querySelectorAll('.showcase-text ul li a');
+        var showcaseContainer = document.querySelector('.showcase-text ul');
+        
+        function resize() {
+          for (var i = 0; i < showcase.length; i++) {
+            var text = showcase[i];
+            text.style.left = (100 * i + 50) + 'vw';
+          }
+        }
+        resize();
+        
+        for (var i = buttons.length; i--;)
+          (function(i) {
+            var button = buttons[i];
+            button.addEventListener('click', function() {
+              var margin = i < buttons.length - 1 ? i + 1 : 0;
+              showcaseContainer.style.marginLeft = -margin * 100 + 'vw';
+            });
+          })(i);
+      }
+      
+      window.addEventListener('load', init);
+    </script>
+    
+    <div class="wrapper">
+      <div class="header">
+        Scroll Through The Slides To Find A Bit About Me!
+      </div>
+      
+      <div class="showcase-text">
+        <ul>
+          <!--Change the text in here for different slides!-->
+          <li>
+            Pilex1 - Github Page<br><hr>
+            Languages used: c++, java, html css, and js<br><br>
+            <a class="button">Continue</a>
+          </li>
+          <li>
+            Pilex1 - Github Page<br><hr>
+            Languages used: c++, java, html css, and js<br><br>
+            <a class="button">Continue</a>
+          </li>
+          <li>
+            Pilex1 - Github Page<br><hr>
+            Languages used: c++, java, html css, and js<br><br>
+            <a class="button">Continue</a>
+          </li>
+          <li>
+            Pilex1 - Github Page<br><hr>
+            Languages used: c++, java, html css, and js<br><br>
+            <a class="button">Continue</a>
+          </li>
+          <li>
+            Pilex1 - Github Page<br><hr>
+            Languages used: c++, java, html css, and js<br><br>
+            <a class="button">Continue</a>
+          </li>
+          <li>
+            Pilex1 - Github Page<br><hr>
+            Languages used: c++, java, html css, and js<br><br>
+            <a class="button">Continue</a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="copyright">&copy; Pilex1 - Alex Tan - <a href="https://github.com/pilex1/" target="_blank">https://github.com/pilex1/</a></div>
+    </div>
+  </body>
 </html>
