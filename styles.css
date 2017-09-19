@@ -2,8 +2,16 @@ h1 {
 	color: cornflowerblue;
 	font-family: "advent-pro";
 	font-style: normal;
-	font-weight: 100;
+	font-weight: bold;
 	font-size: 48px;
+}
+
+h2 {
+	color: #355FAA;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 32px;
 }
 
 body {
@@ -20,4 +28,11 @@ p {
 
 body {
 	margin: 30px;
+}
+
+.copyright {
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 14px;
 }
