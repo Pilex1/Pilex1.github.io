@@ -1,23 +1,38 @@
+.site-header {
+	background-color: #3A4046;
+	text-align: center;
+	padding: 10px;
+	box-shadow: 0px 1px 5px #6C6C6C;
+}
 h1 {
 	color: cornflowerblue;
 	font-family: "advent-pro";
 	font-style: normal;
 	font-weight: bold;
 	font-size: 48px;
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
-
-h2 {
-	color: #355FAA;
+.heading {
+	color: cornflowerblue;
 	font-family: "advent-pro";
 	font-style: normal;
-	font-weight: 100;
+	font-weight: bold;
 	font-size: 32px;
+}
+
+.subheading {
+	color: #FFFFFF;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	margin-top: 70px;
 }
 
 body {
 	background-color: #2E3237;
 }
-
 p {
 	color: aliceblue;
 	font-family: "advent-pro", abel;
@@ -25,14 +40,14 @@ p {
 	font-weight: 100;
 	font-size: 20px;
 }
-
-body {
-	margin: 30px;
+.margin {
+	margin-left: 30px;
+	margin-right: 30px;
 }
-
 .copyright {
 	font-family: "advent-pro";
 	font-style: normal;
 	font-weight: 100;
 	font-size: 14px;
+	text-align: center;
 }
