@@ -126,9 +126,16 @@ p {
 }
 
 .image {
-	width: 1320;
-	height: 742;
+	max-width: 1320px;
+	max-height: 742px;
 	border-style: groove;
 	border-color: aliceblue;
 	margin-bottom: 50px;
+}
+
+.video {
+	margin: auto;
+	display: block;
+	width: 1320px;
+	height: 742px;
 }
