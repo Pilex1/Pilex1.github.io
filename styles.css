@@ -23,8 +23,12 @@ h1 {
 	color: cornflowerblue;
 	font-family: "advent-pro";
 	font-style: normal;
-	font-weight: bold;
+	font-weight: 100;
 	font-size: 32px;
+	text-decoration: none;
+}
+.heading:hover{
+	font-weight: bold;
 }
 
 h3 {
@@ -34,6 +38,7 @@ h3 {
 	font-weight: bold;
 	font-size: 24px;
 	margin-top: 70px;
+	text-decoration: underline;
 }
 
 body {
@@ -118,4 +123,12 @@ p {
 .canvas {
 	border-color: aliceblue;
 	border-style: groove;
+}
+
+.image {
+	width: 1320;
+	height: 742;
+	border-style: groove;
+	border-color: aliceblue;
+	margin-bottom: 50px;
 }
