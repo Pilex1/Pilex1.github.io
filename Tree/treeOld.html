@@ -1,0 +1,96 @@
+<html>
+
+	<title>
+		Trees
+	</title>
+
+    <h1 style = "color: black; font-size: 26;">
+        Computer generated trees
+    </h1>
+
+
+
+	<body onload = "App.init(); ">
+
+	    
+	    <div>
+		    <div style = "float: left; padding-right: 5; border-style: groove; border-width: 0 10 0 0; border-color: gray">
+		        <canvas id = "gamecanvas" width = "800" height = "600"></canvas>
+		    </div>
+
+			<div style = "margin-left: 15px; float: left;">
+
+	        	<style type="text/css">.spaced {
+	        		width:100;
+	        		margin-bottom:4;
+	        	}</style>
+	        	<style type="text/css">.double_spaced {
+	        		width:200;
+	        		margin-bottom:4;
+	        	}</style>
+
+				<h2>Mechanics</h2>
+
+			    <input type = "submit" class = double_spaced value = "Stabilise electrons" onclick = "Terrain.stabilise();">
+			    <br>
+
+			    <input type = "submit" class = double_spaced value = "Activate initialisers" onclick = "Terrain.activate_initialisers = true;">
+			    <br>
+
+			    <input id = cbx_toggleConductors type = checkbox onclick = "Terrain.activate_toggleConductors = cbx_toggleConductors.checked"> <label style = "width:200;margin-bottom:4" >Activate Toggleable Conductors</label><br>
+
+			    
+	        
+	        	<input id = "slider_fps" type = "range" min = 0 max = 30 value = "10" style = "width:200;margin-bottom:4" oninput = "txt_fps.innerHTML = 'Updates per second: ' + slider_fps.value; Terrain.update_cooldown.cooldown = 1000 / slider_fps.value">
+	        	<label id = "txt_fps">Updates per second: 10</label>
+	        	<br>
+	        
+	        
+	        	<input id = "slider_zoom" type = "range" min = 50 max = 250 value = "120" step = 1 style = "width:200;margin-bottom:4" oninput = "txt_zoom.innerHTML = 'Zoom: ' + slider_zoom.value; Camera.position[2] = -1 * slider_zoom.value">
+	        	<label id = "txt_zoom">Zoom: 120</label>
+	        	<br>
+	        	
+	        	<input id = "slider_zoom" type = "range" min = 50 max = 250 value = "120" step = 1 style = "width:200;margin-bottom:4" oninput = "txt_zoom.innerHTML = 'Zoom: ' + slider_zoom.value; Camera.position[2] = -1 * slider_zoom.value">
+	        	<label id = "txt_zoom">Zoom: 120</label>
+	        	<br>
+	        	
+	        	<input id = "slider_zoom" type = "range" min = 50 max = 250 value = "120" step = 1 style = "width:200;margin-bottom:4" oninput = "txt_zoom.innerHTML = 'Zoom: ' + slider_zoom.value; Camera.position[2] = -1 * slider_zoom.value">
+	        	<label id = "txt_zoom">Zoom: 120</label>
+	        	<br>
+	        	<input id = "slider_zoom" type = "range" min = 50 max = 250 value = "120" step = 1 style = "width:200;margin-bottom:4" oninput = "txt_zoom.innerHTML = 'Zoom: ' + slider_zoom.value; Camera.position[2] = -1 * slider_zoom.value">
+	        	<label id = "txt_zoom">Zoom: 120</label>
+	        	<br>
+	        	
+	        	<input id = "slider_zoom" type = "range" min = 50 max = 250 value = "120" step = 1 style = "width:200;margin-bottom:4" oninput = "txt_zoom.innerHTML = 'Zoom: ' + slider_zoom.value; Camera.position[2] = -1 * slider_zoom.value">
+	        	<label id = "txt_zoom">Zoom: 120</label>
+	        	<br>
+	        	
+	        	<input id = "slider_zoom" type = "range" min = 50 max = 250 value = "120" step = 1 style = "width:200;margin-bottom:4" oninput = "txt_zoom.innerHTML = 'Zoom: ' + slider_zoom.value; Camera.position[2] = -1 * slider_zoom.value">
+	        	<label id = "txt_zoom">Zoom: 120</label>
+	        	<br>
+
+			</div>
+
+		</div>
+		
+
+		<div style = "clear: left;">
+		<br>
+		Copyright Alex Tan 2016
+		</div>
+	</body>
+	
+
+
+	<script src = gl-matrix.js></script>
+	<script src = app.js></script>
+	<script src = util.js></script>
+	<script src = terrain.js></script>
+	<script src = model.js></script>
+	<script src = renderer.js></script>
+	<script src = camera.js></script>
+	<script src = input.js></script>
+	<script src = gametime.js></script>
+	<script src = logictest.js></script>
+
+</html>
