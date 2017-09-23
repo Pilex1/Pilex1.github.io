@@ -1,8 +1,8 @@
 .site-header {
 	background-color: #3A4046;
 	text-align: center;
-	padding: 10px;
 	box-shadow: 0px 1px 5px #6C6C6C;
+	padding-bottom: 0px;
 }
 
 html {
@@ -37,8 +37,8 @@ h3 {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 24px;
-	margin-top: 70px;
 	text-decoration: underline;
+	margin-top: 0px;
 }
 
 body {
@@ -138,4 +138,69 @@ p {
 	display: block;
 	width: 1320px;
 	height: 742px;
+}
+
+div {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 30px;
+}
+
+.main-nav {
+	list-style: none;
+	padding: 2px;
+	border-style: groove;
+	border-color: #2E3237;
+	border-width: medium;
+}
+
+.main-nav li {
+	display: inline;
+}
+
+.header_heading {
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 32px;
+	text-decoration: none;
+	background-color: #2E3237;
+	border-style: groove;
+	border-color: #3A4046;
+	border-width: medium;
+	border-bottom: 1px;
+	margin: 1px 4px 1px 4px;
+	padding: 1px 4px 1px 4px;
+}
+.header_heading:hover {
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 32px;
+	text-decoration: none;
+	background-color: #2E3237;
+	border-style: groove;
+	border-color: #3A4046;
+	border-width: medium;
+	border-bottom: 1px;
+	margin: 1px 4px 1px 4px;
+	padding: 1px 4px 1px 4px;
+}
+
+.header_current_heading {
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 40px;
+	text-decoration: none;
+	background-color: #2E3237;
+	border-style: groove;
+	border-color: #3A4046;
+	border-width: medium;
+	border-bottom: 1px;
+	margin: 1px 4px 1px 4px;
+	padding: 1px 4px 1px 4px;
 }
