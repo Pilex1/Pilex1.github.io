@@ -9,7 +9,7 @@ class Argand {
 	
 	constructor() {
 		this.center = math.complex(0, 0);	
-		this.zoom = 60;
+		this.zoom = 100;
 		this.frameCount = 0;
 		
 		this.storePoints = true;

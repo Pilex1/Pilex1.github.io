@@ -24,11 +24,13 @@ function initPixi() {
 	var main = document.getElementById("canvas");
 	console.log(main);
 
+	renderer.view.style.width = "800px";
+	renderer.view.style.height = "450px";
 	renderer.view.style.paddingLeft = "0px";
 	renderer.view.style.paddingRight = "0px";
 	renderer.view.style.marginLeft = "auto";
 	renderer.view.style.marginRight = "auto";
-	renderer.view.style.display = "inline";
+	renderer.view.style.display = "inline-block";
 	// inserts into the first position
 	main.insertBefore(renderer.view, main.firstChild);
 
@@ -49,18 +51,29 @@ function onMouseClick(e) {
 
 // actual program code
 
-var i = -1;
-var j = -1;
+var loopLimit = 200;
+var bounds = 1;
+
+var i = -bounds;
+var j = -bounds;
 var loopCtr = 0;
 var z = math.complex(0, 0);
 var speed = 30;
-
-var loopLimit = 200;
+var incr = 0.05;
 
 var argand = new Argand();
 
+function updateGui() {
+	document.getElementById("btn_zoomin").value = "Zoom in [" + argand.zoom + "]";
+	document.getElementById("btn_zoomout").value = "Zoom out [" + argand.zoom + "]";
+	document.getElementById("btn_incrspeed").value = "Increase speed [" + speed + "]";
+	document.getElementById("btn_decrspeed").value = "Decrease speed [" + speed + "]";
+}
+
 function gameLoop() {
 	requestAnimationFrame(gameLoop);
+	
+	updateGui();
 	
 	for (var k = 0; k < speed; k++) {
 		z = mandelbrot(z, math.complex(i, j));
@@ -70,22 +83,22 @@ function gameLoop() {
 			loopCtr = 0;
 			z = math.complex(0, 0);
 
-			if (i < 1) {
-				i += 0.05;
-			} else if (j < 1) {
-				j += 0.05;
-				i = -1;
+			if (i < bounds) {
+				i += incr;
+			} else if (j < bounds) {
+				j += incr;
+				i = -bounds;
 			}
 
 		}
 	}
-	
 	
 	argand.render();
 	
 	renderer.render(stage);
 	frameCount++;
 }
+
 
 function mandelbrot(z, c) {
 	var zn = z.mul(z).add(c);

@@ -58,14 +58,13 @@
         </nav>
     </header>
     <br>
-    <main id>
+    <main style="width: 100%; margin: 0 auto 0 auto">
 		<div id="canvas" class="margin" style="display: inline-block" onClick="onMouseClick(event);">
 			<!--Main drawing canvas-->
 		</div>
-      	 
        	 <div class="margin" style="display: inline-block; width: 400px;">
-            <input type="submit" class="button spacing" value="Zoom in" onclick = "argand.zoomIn();">
-            <input type="submit" class="button spacing" value="Zoom out" onclick = "argand.zoomOut();">
+            <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick = "argand.zoomIn();">
+            <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick = "argand.zoomOut();">
             
              <div style="margin: 0px">
             	<input type="submit" class="button spacing" style="width: 40px" value="▲" onClick="argand.panUp();">
@@ -76,8 +75,10 @@
             	<input type="submit" class="button spacing" style="width: 40px" value="▶" onClick="argand.panRight();">
             </div>
             
-            <input type="submit" class="button spacing" value="Increase speed" onclick = "increaseSpeed();">
-            <input type="submit" class="button spacing" value="Decrease speed" onclick = "decreaseSpeed();">
+            <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick = "increaseSpeed();">
+            <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick = "decreaseSpeed();">
+            
+            <br><br><br><br><br><br><br><br><br><br><br><br>
 		</div>
     </main>
     <script src="main.js" type="text/javascript"></script>
