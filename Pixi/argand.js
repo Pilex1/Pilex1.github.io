@@ -16,7 +16,7 @@ class Argand {
 		this.points = [];
 		this.refresh = true;
 		
-		this.pan = 1;
+		this.pan = 20;
 	}
 	
 	renderCoordinate(z) {
@@ -97,22 +97,22 @@ class Argand {
 	}
 	
 	panLeft() {
-		this.center.re -= this.pan*this.zoom;
+		this.center.re -= this.pan/this.zoom;
 		this.refresh = true;
 	}
 	
 	panRight() {
-		this.center.re += this.pan;
+		this.center.re += this.pan/this.zoom;
 		this.refresh = true;
 	}
 	
 	panUp() {
-		this.center.im += this.pan;
+		this.center.im += this.pan/this.zoom;
 		this.refresh = true;
 	}
 	
 	panDown() {
-		this.center.im -= this.pan;
+		this.center.im -= this.pan/this.zoom;
 		this.refresh = true;
 	}
 	
