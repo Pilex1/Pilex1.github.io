@@ -1,10 +1,14 @@
 /*global PIXI*/
+/*global Argand*/
 /*global math*/
+/*global colorsys*/
 
 "use strict";
 
 var stage;
 var renderer;
+
+var frameCount = 0;
 
 function initPixi() {
 	var type = "WebGL";
@@ -17,13 +21,14 @@ function initPixi() {
 	renderer = PIXI.autoDetectRenderer(800, 450);
 
 	//Add the canvas to the HTML document
-	var main = document.children[0].children[1].children[2];
+	var main = document.getElementById("canvas");
+	console.log(main);
 
 	renderer.view.style.paddingLeft = "0px";
 	renderer.view.style.paddingRight = "0px";
 	renderer.view.style.marginLeft = "auto";
 	renderer.view.style.marginRight = "auto";
-	renderer.view.style.display = "block";
+	renderer.view.style.display = "inline";
 	// inserts into the first position
 	main.insertBefore(renderer.view, main.firstChild);
 
@@ -33,34 +38,60 @@ function initPixi() {
 }
 initPixi();
 
+var graphics = new PIXI.Graphics();
+stage.addChild(graphics);
 
+// mouse events
 
-
-/* 
- * Actual program code
- */
-
-
-var x = 0;
-var rectangle = new PIXI.Graphics();
-stage.addChild(rectangle);
-
-var z = math.complex(5, 0);
-for (var i = 0; i < 10; i++) {
-	console.log(z);
-	z = collatz(z);
+function onMouseClick(e) {
+	var m = argand.calculateMouseCoordinate(e);
 }
+
+// actual program code
+
+var i = -1;
+var j = -1;
+var loopCtr = 0;
+var z = math.complex(0, 0);
+var speed = 60;
+
+var loopLimit = 200;
+
+var argand = new Argand();
 
 function gameLoop() {
 	requestAnimationFrame(gameLoop);
 	
-	rectangle.beginFill(0x66CCFF);
-	rectangle.drawRect(x, 0, 100, 100);
-	rectangle.endFill();
-	rectangle.x += 1;
+	for (var k = 0; k < speed; k++) {
+		z = mandelbrot(z, math.complex(i, j));
+		loopCtr++;
+
+		if (loopCtr === loopLimit) {
+			loopCtr = 0;
+			z = math.complex(0, 0);
+
+			if (i < 1) {
+				i += 0.05;
+			} else if (j < 1) {
+				j += 0.05;
+				i = -1;
+			}
+
+		}
+	}
+	
+	
+	argand.render();
 	
 	renderer.render(stage);
-	
+	frameCount++;
+}
+
+function mandelbrot(z, c) {
+	var zn = z.mul(z).add(c);
+	var clr = Number("0x"+colorsys.rgb_to_hex(255*zn.abs(), 255*(i+1)/2, 255*(j+1)/2).substring(1));
+	argand.addCoordinate({point: zn, color: clr});
+	return zn;
 }
 
 function collatz(z) {
@@ -71,6 +102,15 @@ function collatz(z) {
 		z = z.add(1);
 	}
 	return z;
+}
+
+function increaseSpeed() {
+	speed += 20;
+}
+
+function decreaseSpeed() {
+	speed -= 20;
+	speed = math.max(speed, 20);
 }
 
 gameLoop();
