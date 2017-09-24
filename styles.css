@@ -146,7 +146,7 @@ div {
 	margin-bottom: 30px;
 }
 
-.main-nav {
+.main-nav ul {
 	list-style: none;
 	padding: 2px;
 	border-style: groove;
@@ -154,7 +154,7 @@ div {
 	border-width: medium;
 }
 
-.main-nav li {
+.main-nav ul li {
 	display: inline;
 }
 
