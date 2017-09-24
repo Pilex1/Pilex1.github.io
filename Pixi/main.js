@@ -53,7 +53,7 @@ var i = -1;
 var j = -1;
 var loopCtr = 0;
 var z = math.complex(0, 0);
-var speed = 60;
+var speed = 30;
 
 var loopLimit = 200;
 
@@ -105,12 +105,12 @@ function collatz(z) {
 }
 
 function increaseSpeed() {
-	speed += 20;
+	speed += 10;
 }
 
 function decreaseSpeed() {
-	speed -= 20;
-	speed = math.max(speed, 20);
+	speed -= 10;
+	speed = math.max(speed, 10);
 }
 
 gameLoop();

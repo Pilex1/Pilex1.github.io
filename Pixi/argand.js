@@ -16,7 +16,7 @@ class Argand {
 		this.points = [];
 		this.refresh = true;
 		
-		this.pan = 20;
+		this.pan = 40;
 	}
 	
 	renderCoordinate(z) {
