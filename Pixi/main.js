@@ -1,4 +1,6 @@
 /*global PIXI*/
+/*global math*/
+
 "use strict";
 
 var stage;
@@ -43,6 +45,11 @@ var x = 0;
 var rectangle = new PIXI.Graphics();
 stage.addChild(rectangle);
 
+var z = math.complex(5, 0);
+for (var i = 0; i < 10; i++) {
+	console.log(z);
+	z = collatz(z);
+}
 
 function gameLoop() {
 	requestAnimationFrame(gameLoop);
@@ -55,4 +62,15 @@ function gameLoop() {
 	renderer.render(stage);
 	
 }
+
+function collatz(z) {
+	if (z.re%2===0 && z.im%2===0) {
+		z = z.div(2);
+	} else {
+		z = z.mul(3);
+		z = z.add(1);
+	}
+	return z;
+}
+
 gameLoop();
