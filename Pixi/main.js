@@ -17,7 +17,7 @@ function initPixi() {
 	}
 	PIXI.utils.sayHello(type);
 	renderer = PIXI.autoDetectRenderer(800, 450);
-	var main = document.getElementById("canvas");
+	var main = document.getElementById("divCanvas");
 	renderer.view.style.width = "800px";
 	renderer.view.style.height = "450px";
 	renderer.view.style.paddingLeft = "0px";
@@ -25,6 +25,8 @@ function initPixi() {
 	renderer.view.style.marginLeft = "auto";
 	renderer.view.style.marginRight = "auto";
 	renderer.view.style.display = "inline-block";
+	renderer.view.tabIndex = "1";
+	renderer.view.id = "canvas";
 	// inserts into the first position
 	main.insertBefore(renderer.view, main.firstChild);
 	stage = new PIXI.Container();
@@ -35,7 +37,10 @@ var graphics = new PIXI.Graphics();
 stage.addChild(graphics);
 
 // events
-document.addEventListener("keypress", function(e) {
+document.addEventListener("keydown", function(e) {
+	if (document.activeElement !== document.getElementById("canvas")) {
+		return;
+	}
 	if (e.key === 'a' || e.key === '37') {
 		panLeft();
 	} else if (e.key === 'd' || e.key === '39') {
