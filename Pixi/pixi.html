@@ -60,6 +60,12 @@
             <!--Main drawing canvas-->
         </div>
         <div class="margin" style="display: inline-block; width: 400px;">
+            <div style="margin: 0px">
+                <input type="text" class="button spacing" id="txtbx_formula" style="width: 250px" value="z^2+c">
+                <input type="submit" class="button spacing" style="width: 50px" value="Go" onClick="updateFormula();">
+            </div>
+            
+            
             <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick = "argand.zoomIn();">
             <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick = "argand.zoomOut();">
             <div style="margin: 0px">
@@ -70,10 +76,8 @@
                 <input type="submit" class="button spacing" style="width: 40px" value="◀" onClick="argand.panLeft();">
                 <input type="submit" class="button spacing" style="width: 40px" value="▶" onClick="argand.panRight();">
             </div>
-            <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick = "increaseSpeed();">
-            <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick = "decreaseSpeed();">
-            <br>
-            <br>
+            <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick="increaseSpeed();">
+            <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick="decreaseSpeed();">
             <br>
             <br>
             <br>

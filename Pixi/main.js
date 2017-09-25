@@ -58,8 +58,9 @@ var i = -bounds;
 var j = -bounds;
 var loopCtr = 0;
 var z = math.complex(0, 0);
-var speed = 30;
+var speed = 500;
 var incr = 0.05;
+var fn = null;
 
 var argand = new Argand();
 
@@ -76,7 +77,7 @@ function gameLoop() {
 	updateGui();
 	
 	for (var k = 0; k < speed; k++) {
-		z = mandelbrot(z, math.complex(i, j));
+		z = mandelbrot(z, math.complex(i, j), fn);
 		loopCtr++;
 
 		if (loopCtr === loopLimit) {
@@ -100,8 +101,12 @@ function gameLoop() {
 }
 
 
-function mandelbrot(z, c) {
-	var zn = z.mul(z).add(c);
+function mandelbrot(z, c, fn) {
+	var scope = {
+		z: z,
+		c: c
+	};
+	var zn = fn.eval(scope);
 	var clr = Number("0x"+colorsys.rgb_to_hex(255*zn.abs(), 255*(i+1)/2, 255*(j+1)/2).substring(1));
 	argand.addCoordinate({point: zn, color: clr});
 	return zn;
@@ -126,4 +131,18 @@ function decreaseSpeed() {
 	speed = math.max(speed, 10);
 }
 
+function reset() {
+	i = -bounds;
+	j = -bounds;
+	loopCtr = 0;
+}
+
+function updateFormula() {
+	var text = document.getElementById("txtbx_formula").value;
+	fn = math.compile(text);
+	argand.clear();
+	reset();
+}
+
+updateFormula();
 gameLoop();
