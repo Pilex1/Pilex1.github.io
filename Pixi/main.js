@@ -16,14 +16,8 @@ function initPixi() {
 	  type = "canvas";
 	}
 	PIXI.utils.sayHello(type);
-
-	//Create the renderer
 	renderer = PIXI.autoDetectRenderer(800, 450);
-
-	//Add the canvas to the HTML document
 	var main = document.getElementById("canvas");
-	console.log(main);
-
 	renderer.view.style.width = "800px";
 	renderer.view.style.height = "450px";
 	renderer.view.style.paddingLeft = "0px";
@@ -33,9 +27,6 @@ function initPixi() {
 	renderer.view.style.display = "inline-block";
 	// inserts into the first position
 	main.insertBefore(renderer.view, main.firstChild);
-
-
-	//Create a container object called the `stage`
 	stage = new PIXI.Container();
 }
 initPixi();
@@ -43,32 +34,73 @@ initPixi();
 var graphics = new PIXI.Graphics();
 stage.addChild(graphics);
 
-// mouse events
+// events
+document.addEventListener("keypress", function(e) {
+	if (e.key === 'a' || e.key === '37') {
+		panLeft();
+	} else if (e.key === 'd' || e.key === '39') {
+		panRight();
+	} else if (e.key === 'w' || e.key === '38') {
+		panUp();
+	} else if (e.key === 's' || e.key === '40') {
+		panDown();
+	}
+});
 
-function onMouseClick(e) {
-	var m = argand.calculateMouseCoordinate(e);
-}
+document.getElementById("canvas").addEventListener("wheel", function(e) {
+	if (e.deltaY < 0) {
+		zoomIn();
+	} else if (e.deltaY > 0) {
+		zoomOut();
+	}
+});
+
+document.getElementById("canvas").addEventListener("mousemove", function(e) {
+	return;
+	if (e.buttons%2 === 1) {
+		var p = argand.calculateMouseCoordinate(e);
+		var z = math.complex(0, 0);
+		for (var i = 0; i < 100; i++) {
+			var scope = {
+				z: z,
+				c: p
+			};
+			z = math.complex(fn.eval(scope));
+			var clr = Number("0x"+colorsys.rgb_to_hex(255*z.abs(), 255*(p.re+1)/2, 255*(p.im+1)/2).substring(1));
+			argand.addCoordinate({point: z, color: clr});
+		}	
+	}
+
+});
 
 // actual program code
 
 var loopLimit = 200;
 var bounds = 1;
 
-var i = -bounds;
-var j = -bounds;
+var i = 0;
+var j = 0;
 var loopCtr = 0;
 var z = math.complex(0, 0);
 var speed = 100;
-var incr = 0.05;
+var delta = 0.05;
 var fn = null;
 
 var argand = new Argand();
 
 function updateGui() {
-	document.getElementById("btn_zoomin").value = "Zoom in [" + argand.zoom + "]";
-	document.getElementById("btn_zoomout").value = "Zoom out [" + argand.zoom + "]";
-	document.getElementById("btn_incrspeed").value = "Increase speed [" + speed + "]";
-	document.getElementById("btn_decrspeed").value = "Decrease speed [" + speed + "]";
+	
+	document.getElementById("btn_incrloop").value = "Increase loop limit [" + Math.round(loopLimit) + "]";
+	document.getElementById("btn_decrloop").value = "Decrease loop limit [" + Math.round(loopLimit) + "]";
+	document.getElementById("btn_incrbounds").value = "Increase bounds [" + bounds.toFixed(4) + "]";
+	document.getElementById("btn_decrbounds").value = "Decrease bounds [" + bounds.toFixed(4) + "]";
+	document.getElementById("btn_incrdelta").value = "Increase delta [" + delta.toFixed(4) + "]";
+	document.getElementById("btn_decrdelta").value = "Decrease delta [" + delta.toFixed(4) + "]";
+	
+	document.getElementById("btn_zoomin").value = "Zoom in [" + Math.round(argand.zoom) + "]";
+	document.getElementById("btn_zoomout").value = "Zoom out [" + Math.round(argand.zoom) + "]";
+	document.getElementById("btn_incrspeed").value = "Increase speed [" + Math.round(speed) + "]";
+	document.getElementById("btn_decrspeed").value = "Decrease speed [" + Math.round(speed) + "]";
 }
 
 function gameLoop() {
@@ -84,10 +116,27 @@ function gameLoop() {
 			loopCtr = 0;
 			z = math.complex(0, 0);
 
-			if (i < bounds) {
-				i += incr;
+			/*if (i < bounds) {
+				i *= -1;
+				if (i === 0) {
+					i += delta;
+				} else {
+					i += math.sign(i)*delta;
+				}
 			} else if (j < bounds) {
-				j += incr;
+				j *= -1;
+				if (j === 0) {
+					j += delta;
+				} else {
+					j += math.sign(j)*delta;
+				}
+				i = 0;
+			}*/
+			
+			if (i < bounds) {
+				i += delta;
+			} else if (j < bounds) {
+				j += delta;
 				i = -bounds;
 			}
 
@@ -100,13 +149,12 @@ function gameLoop() {
 	frameCount++;
 }
 
-
 function mandelbrot(z, c, fn) {
 	var scope = {
 		z: z,
 		c: c
 	};
-	var zn = fn.eval(scope);
+	var zn = math.complex(fn.eval(scope));
 	var clr = Number("0x"+colorsys.rgb_to_hex(255*zn.abs(), 255*(i+1)/2, 255*(j+1)/2).substring(1));
 	argand.addCoordinate({point: zn, color: clr});
 	return zn;
@@ -123,26 +171,75 @@ function collatz(z) {
 }
 
 function increaseSpeed() {
-	speed += 10;
+	speed *= 1.2;
 }
 
 function decreaseSpeed() {
-	speed -= 10;
-	speed = math.max(speed, 10);
+	speed /= 1.2;
 }
 
 function reset() {
+	/*i = 0;
+	j = 0;*/
 	i = -bounds;
 	j = -bounds;
 	loopCtr = 0;
 }
 
-function updateFormula() {
+function increaseLoopLimit() {
+	loopLimit += 100;
+}
+
+function decreaseLoopLimit() {
+	loopLimit = math.max(loopLimit-100, 100);
+}
+
+function increaseBounds() {
+	bounds *= 1.2;
+}
+
+function decreaseBounds() {
+	bounds /= 1.2;
+}
+
+function increaseDelta() {
+	delta *= 1.2;
+}	
+
+function decreaseDelta() {
+	delta /= 1.2;
+}
+
+function zoomIn() {
+	argand.zoomIn();
+}
+
+function zoomOut() {
+	argand.zoomOut();
+}
+
+function panLeft() {
+	argand.panLeft();
+}
+
+function panRight() {
+	argand.panRight();
+}
+
+function panUp() {
+	argand.panUp();
+}
+
+function panDown() {
+	argand.panDown();
+}
+
+function relaunch() {
 	var text = document.getElementById("txtbx_formula").value;
 	fn = math.compile(text);
 	argand.clear();
 	reset();
 }
 
-updateFormula();
+relaunch();
 gameLoop();

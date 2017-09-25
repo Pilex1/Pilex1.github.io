@@ -56,38 +56,33 @@
     </header>
     <br>
     <main style="width: 100%; margin: 0 auto 0 auto">
-        <div id="canvas" class="margin" style="display: inline-block" onClick="onMouseClick(event);">
+        <div id="canvas" class="margin" style="display: inline-block">
             <!--Main drawing canvas-->
         </div>
         <div class="margin" style="display: inline-block; width: 400px;">
-            <div style="margin: 0px">
-                <input type="text" class="button spacing" id="txtbx_formula" style="width: 250px" value="z^2+c">
-                <input type="submit" class="button spacing" style="width: 50px" value="Go" onClick="updateFormula();">
+            <div>
+                <input type="text" class="button spacing" id="txtbx_formula" value="z^2+c">
+                <input type="submit" class="button spacing" id="btn_incrloop" value="Increase loop limit" onClick="increaseLoopLimit();">
+                <input type="submit" class="button spacing" id="btn_decrloop" value="Decrease loop limit" onClick="decreaseLoopLimit();">
+                <input type="submit" class="button spacing" id="btn_incrbounds" value="Increase bounds" onClick="increaseBounds();">
+                <input type="submit" class="button spacing" id="btn_decrbounds" value="Decrease bounds" onClick="decreaseBounds();">
+                <input type="submit" class="button spacing" id="btn_incrdelta" value="Increase delta" onClick="increaseDelta();">
+                <input type="submit" class="button spacing" id="btn_decrdelta" value="Decrease delta" onClick="decreaseDelta();">
+                <br>
+                <input type="submit" class="button spacing" value="Reset" onClick="relaunch();">
             </div>
-            
-            
-            <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick = "argand.zoomIn();">
-            <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick = "argand.zoomOut();">
+            <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick = "zoomIn();">
+            <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick = "zoomOut();">
             <div style="margin: 0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="▲" onClick="argand.panUp();">
-                <input type="submit" class="button spacing" style="width: 40px" value="▼" onClick="argand.panDown();">
+                <input type="submit" class="button spacing" style="width: 40px" value="▲" onClick="panUp();">
+                <input type="submit" class="button spacing" style="width: 40px" value="▼" onClick="panDown();">
             </div>
             <div style="margin: 0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="◀" onClick="argand.panLeft();">
-                <input type="submit" class="button spacing" style="width: 40px" value="▶" onClick="argand.panRight();">
+                <input type="submit" class="button spacing" style="width: 40px" value="◀" onClick="panLeft();">
+                <input type="submit" class="button spacing" style="width: 40px" value="▶" onClick="panRight();">
             </div>
             <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick="increaseSpeed();">
             <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick="decreaseSpeed();">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
         </div>
     </main>
     <script src="main.js" type="text/javascript">
