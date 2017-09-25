@@ -58,7 +58,7 @@ var i = -bounds;
 var j = -bounds;
 var loopCtr = 0;
 var z = math.complex(0, 0);
-var speed = 500;
+var speed = 100;
 var incr = 0.05;
 var fn = null;
 
