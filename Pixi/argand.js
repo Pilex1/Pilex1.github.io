@@ -9,7 +9,7 @@ class Argand {
 	
 	constructor() {
 		this.center = math.complex(0, 0);	
-		this.zoom = 100;
+		this.zoom = 200;
 		this.frameCount = 0;
 		this.gridSize = 1;
 		
@@ -17,7 +17,7 @@ class Argand {
 		this.points = [];
 		this.refresh = true;
 		
-		this.pan = 40;
+		this.pan = 10;
 	}
 	
 	renderCoordinate(z) {

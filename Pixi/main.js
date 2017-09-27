@@ -5,6 +5,8 @@
 
 "use strict";
 
+var keys = {};
+
 var stage;
 var renderer;
 
@@ -16,10 +18,10 @@ function initPixi() {
 		type = "canvas";
 	}
 	PIXI.utils.sayHello(type);
-	renderer = PIXI.autoDetectRenderer(800, 450);
+	renderer = PIXI.autoDetectRenderer(1280, 720);
 	var main = document.getElementById("divCanvas");
-	renderer.view.style.width = "800px";
-	renderer.view.style.height = "450px";
+	renderer.view.style.width = "auto";
+	renderer.view.style.height = "auto";
 	renderer.view.style.paddingLeft = "0px";
 	renderer.view.style.paddingRight = "0px";
 	renderer.view.style.marginLeft = "auto";
@@ -30,6 +32,9 @@ function initPixi() {
 	// inserts into the first position
 	main.insertBefore(renderer.view, main.firstChild);
 	stage = new PIXI.Container();
+
+	// deserialize data in url
+	var url = window.location.href;
 }
 initPixi();
 
@@ -37,19 +42,15 @@ var graphics = new PIXI.Graphics();
 stage.addChild(graphics);
 
 // events
-document.addEventListener("keydown", function (e) {
-	if (document.activeElement !== document.getElementById("canvas")) {
-		return;
-	}
-	if (e.key === 'a' || e.key === '37') {
-		panLeft();
-	} else if (e.key === 'd' || e.key === '39') {
-		panRight();
-	} else if (e.key === 'w' || e.key === '38') {
-		panUp();
-	} else if (e.key === 's' || e.key === '40') {
-		panDown();
-	}
+document.getElementById("canvas").addEventListener("keydown", function (e) {
+	keys[e.code] = true;
+});
+document.getElementById("canvas").addEventListener("keyup", function (e) {
+	keys[e.code] = false;
+});
+
+document.getElementById("canvas").addEventListener("wheel", function (e) {
+	e.preventDefault();
 });
 
 document.getElementById("canvas").addEventListener("wheel", function (e) {
@@ -80,20 +81,23 @@ document.getElementById("canvas").addEventListener("mousemove", function (e) {
 
 // actual program code
 
-var loopLimit = 1;
-var bounds = 1;
+var loopLimit = 60;
+var bounds = 0.8;
 
 var i = 0;
 var j = 0;
 var loopCtr = 0;
 var z = math.complex(0, 0);
-var speed = 100;
-var delta = 0.05;
+var speed = 50;
+var delta = 0.1;
 var fn = null;
+var colorFactor = 0.8;
 
 var done = false;
 
 var argand = new Argand();
+
+deserializeUrl();
 
 function updateGui() {
 
@@ -114,6 +118,10 @@ function updateGui() {
 			document.getElementById("btn_render").onclick();
 		}
 	});
+
+	var url = getSerializedUrl();
+	document.getElementById("exportedLink").text = url;
+	document.getElementById("exportedLink").href = url;
 }
 
 function gameLoop() {
@@ -121,9 +129,22 @@ function gameLoop() {
 
 	updateGui();
 
+	if (document.activeElement === document.getElementById("canvas")) {
+		if (keys["KeyA"] || keys["ArrowLeft"]) {
+			panLeft();
+		} else if (keys["KeyD"] || keys["ArrowRight"]) {
+			panRight();
+		} else if (keys["KeyW"] || keys["ArrowUp"]) {
+			panUp();
+		} else if (keys["KeyS"] || keys["ArrowDown"]) {
+			panDown();
+		}
+	}
+	
+
 	if (!done) {
 		for (var k = 0; k < speed; k++) {
-			z = mandelbrot(z, math.complex(i, j), fn);
+			z = mandelbrot(z);
 			loopCtr++;
 			if (done) break;
 
@@ -156,7 +177,7 @@ function gameLoop() {
 				}
 
 			}
-			if (i >= loopLimit && j >= loopLimit) {
+			if (i >= bounds && j >= bounds) {
 				done = true;
 			}
 		}
@@ -168,15 +189,16 @@ function gameLoop() {
 	frameCount++;
 }
 
-function mandelbrot(z, c, fn) {
+function mandelbrot(z) {
+	var c = math.complex(i, j);
 	var scope = {
 		z: z,
 		c: c
 	};
 	var zn = math.complex(fn.eval(scope));
-	var p = math.complex(i, j);
-	var clr = Number("0x" + colorsys.hsv_to_hex(100 * p.abs(), 100, 100).substring(1));
+	//var clr = Number("0x" + colorsys.hsv_to_hex(100 * p.abs(), 100, 100).substring(1));
 	//var clr = Number("0x"+colorsys.hsv_to_hex(100*p.abs(),0,100).substring(1));
+	var clr = Number("0x" + colorsys.hsv_to_hex(colorFactor*360 * math.cos(c.abs() / bounds), 100, 100).substring(1));
 	//var alpha = (1+loopCtr)/(1+loopLimit);
 	var alpha = 0.8;
 	// if (loopCtr >= loopLimit - 2) {
@@ -198,15 +220,17 @@ function collatz(z) {
 	return z;
 }
 
+var multiplier = 1.4;
+
 function increase(x) {
-	var n = x * 1.6;
+	var n = x *multiplier;
 	if (n - x < 1) {
 		n = x + 1;
 	}
 	return n;
 }
 function decrease(x) {
-	var n = x / 1.6;
+	var n = x / multiplier;
 	if (x - n < 1) {
 		n = x - 1;
 	}
@@ -247,19 +271,19 @@ function decreaseLoopLimit() {
 }
 
 function increaseBounds() {
-	bounds = increase(bounds);
+	bounds *= multiplier;
 }
 
 function decreaseBounds() {
-	bounds = decrease(bounds);
+	bounds /= multiplier;
 }
 
 function increaseDelta() {
-	delta *= 1.6;
+	delta *= multiplier;
 }
 
 function decreaseDelta() {
-	delta /= 1.6;
+	delta /= multiplier;
 }
 
 function zoomIn() {
@@ -295,3 +319,68 @@ function relaunch() {
 
 relaunch();
 gameLoop();
+
+function deserializeUrl() {
+	var _fn = getParameterByName("fn");
+	var _loopLimit = getParameterByName("loopLimit");
+	var _bounds = getParameterByName("bounds");
+	var _delta = getParameterByName("delta");
+	var _zoom = getParameterByName("zoom");
+	var _speed = getParameterByName("speed");
+	var _re = getParameterByName("re");
+	var _im = getParameterByName("im");
+
+	if (_fn === null) return;
+	if (_loopLimit === null) return;
+	if (_bounds === null) return;
+	if (_delta === null) return;
+	if (_zoom === null) return;
+	if (_speed === null) return;
+	if (_re === null) return;
+	if (_im === null) return;
+
+	console.log("deserialization succeeded");
+
+	fn = math.compile(_fn);
+	document.getElementById("txtbx_formula").value = _fn;
+	loopLimit = Number(_loopLimit);
+	bounds = Number(_bounds);
+	delta = Number(_delta);
+	argand.zoom = Number(_zoom);
+	speed = Number(_speed);
+	argand.center.re = Number(_re);
+	argand.center.im = Number(_im);
+
+	updateGui();
+}
+
+function getParameterByName(name) {
+	var url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+	var results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function getSerializedUrl() {
+	var obj = { fn: document.getElementById("txtbx_formula").value, loopLimit: loopLimit, bounds: bounds, delta: delta, zoom: argand.zoom, speed: speed, re: argand.center.re, im: argand.center.im };
+	//console.log(obj);
+	var url = window.location.href;
+	var index = url.indexOf("?");
+	if (index != -1) {
+		url = url.substring(0, index);
+	}
+	var serialized = url + "?" + serialize(obj);
+	return serialized;
+}
+
+function serialize(obj) {
+	var str = [];
+	for (var p in obj)
+		if (obj.hasOwnProperty(p)) {
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+		}
+	return str.join("&");
+}
