@@ -27,8 +27,22 @@ h1 {
 	font-size: 32px;
 	text-decoration: none;
 }
-.heading:hover{
-	font-weight: bold;
+.importantLinks{
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 24px;
+	text-decoration: none;
+}
+.importantLinks:hover{
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 24px;
+	text-decoration: none;
+	border-bottom: 1px solid cornflowerblue;
 }
 
 h3 {
@@ -43,14 +57,15 @@ h3 {
 
 body {
 	background-color: #2E3237;
-	margin: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 main {
-	margin-left: 30px;
-	margin-right: 30px;
-	margin-top: 50px;
-	margin-bottom: 70px;
+	margin-left: 60px;
+	margin-right: 60px;
+	margin-top: 60px;
+	margin-bottom: 90px;
 }
 
 footer {
@@ -63,7 +78,9 @@ footer {
 	bottom: 0px;
 	height: 40px;
 	position: absolute;
-	
+	border-top: #6C6C6C;
+	border-top-style: solid;
+	border-top-width: 2px;
 }
 
 .copyright {
@@ -84,6 +101,15 @@ p {
 	font-style: normal;
 	font-weight: 100;
 	font-size: 20px;
+}
+
+ul {
+	color: aliceblue;
+	font-family: "advent-pro", abel;
+	font-style: normal;
+	font-weight: 100;
+	font-size: 20px;
+	list-style-type: circle;
 }
 
 .margin {
@@ -136,7 +162,7 @@ p {
 }
 
 .video {
-	margin: auto;
+	margin: 50px;
 	display: block;
 	width: 1320px;
 	height: 742px;
@@ -231,4 +257,13 @@ div {
 
 .smallLink:hover {
 	border-bottom: 1px solid cornflowerblue;
+}
+
+.subtitle {
+	font-size:14px;
+}
+
+.verticalSpacing{
+	margin-top: 20px;
+	margin-bottom:20px;
 }
