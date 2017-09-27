@@ -158,7 +158,12 @@ ul {
 	max-height: 742px;
 	border-style: groove;
 	border-color: aliceblue;
+	margin-top:15px;
 	margin-bottom: 50px;
+}
+.imageSubtitle{
+	font-size:14px;
+	margin-top:-40px;
 }
 
 .video {
@@ -257,10 +262,6 @@ div {
 
 .smallLink:hover {
 	border-bottom: 1px solid cornflowerblue;
-}
-
-.subtitle {
-	font-size:14px;
 }
 
 .verticalSpacing{
