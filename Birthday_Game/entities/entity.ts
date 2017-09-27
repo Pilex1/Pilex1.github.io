@@ -83,10 +83,12 @@ abstract class Entity {
 		this.vel[1] = math.max(this.vel[1], -this.maxNaturalVel[1]);
 	}
 	strafeLeft(): void {
+		if (this.vel[0] < -this.maxNaturalVel[0]) return;
 		this.vel[0] -= this.acceleration[0];
 		this.vel[0] = math.max(this.vel[0], -this.maxNaturalVel[0]);
 	}
 	strafeRight(): void {
+		if (this.vel[0] > this.maxNaturalVel[0]) return;
 		this.vel[0] += this.acceleration[0];
 		this.vel[0] = math.min(this.vel[0], this.maxNaturalVel[0]);
 	}
