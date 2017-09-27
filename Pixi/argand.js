@@ -11,7 +11,7 @@ class Argand {
 		this.center = math.complex(0, 0);	
 		this.zoom = 100;
 		this.frameCount = 0;
-		this.gridSize = 2;
+		this.gridSize = 1;
 		
 		this.storePoints = true;
 		this.points = [];
@@ -21,7 +21,7 @@ class Argand {
 	}
 	
 	renderCoordinate(z) {
-		graphics.beginFill(z.color, 0.8);
+		graphics.beginFill(z.color, z.alpha);
 		graphics.lineStyle(0);
 		var relx = z.point.re - this.center.re;
 		var rely = z.point.im - this.center.im;
@@ -123,9 +123,5 @@ class Argand {
 		this.center.im -= this.pan/this.zoom;
 		this.refresh = true;
 	}
-	
-}
-
-class HoverArgand {
 	
 }

@@ -116,8 +116,7 @@ p {
 }
 
 .spacing {
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .canvas {
@@ -203,4 +202,13 @@ div {
 	border-bottom: 1px;
 	margin: 1px 4px 1px 4px;
 	padding: 1px 4px 1px 4px;
+}
+
+.verticalDiv {
+	display: inline-block;
+	vertical-align: middle;
+	width: auto;
+	margin-top: 0px;
+	margin-left: 20px;
+	margin-right:20px;
 }

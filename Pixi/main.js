@@ -71,7 +71,7 @@ document.getElementById("canvas").addEventListener("mousemove", function(e) {
 				c: p
 			};
 			z = math.complex(fn.eval(scope));
-			var clr = Number("0x"+colorsys.rgb_to_hex(255*z.abs(), 255*(p.re+1)/2, 255*(p.im+1)/2).substring(1));
+			var clr = Number("0x"+colorsys.hsv_to_hex(50*p.abs(),100,100).substring(1));
 			argand.addCoordinate({point: z, color: clr});
 		}	
 	}
@@ -80,7 +80,7 @@ document.getElementById("canvas").addEventListener("mousemove", function(e) {
 
 // actual program code
 
-var loopLimit = 200;
+var loopLimit = 1;
 var bounds = 1;
 
 var i = 0;
@@ -117,7 +117,7 @@ function gameLoop() {
 		z = mandelbrot(z, math.complex(i, j), fn);
 		loopCtr++;
 
-		if (loopCtr === loopLimit) {
+		if (loopCtr >= math.floor(loopLimit)) {
 			loopCtr = 0;
 			z = math.complex(0, 0);
 
@@ -160,8 +160,17 @@ function mandelbrot(z, c, fn) {
 		c: c
 	};
 	var zn = math.complex(fn.eval(scope));
-	var clr = Number("0x"+colorsys.rgb_to_hex(255*zn.abs(), 255*(i+1)/2, 255*(j+1)/2).substring(1));
-	argand.addCoordinate({point: zn, color: clr});
+	var p = math.complex(i, j);
+	//var clr = Number("0x"+colorsys.hsv_to_hex(100*p.abs(),100,100).substring(1));
+	var clr = Number("0x"+colorsys.hsv_to_hex(100*p.abs(),0,100).substring(1));
+	//var alpha = (1+loopCtr)/(1+loopLimit);
+	var alpha = 0;
+	if (loopCtr >= loopLimit - 2) {
+		alpha = 1;
+	} else {
+		alpha = 0;
+	}
+	argand.addCoordinate({point: zn, color: clr, alpha: alpha});
 	return zn;
 }
 
@@ -175,12 +184,22 @@ function collatz(z) {
 	return z;
 }
 
-function increaseSpeed() {
-	speed *= 1.2;
+function increase(x) {
+	var n = x * 1.6;
+	if (n-x<1) {
+		n=x+1;
+	}
+	return n;
 }
-
-function decreaseSpeed() {
-	speed /= 1.2;
+function decrease(x) {
+	var n = x / 1.6;
+	if (x-n<1) {
+		n=x-1;
+	}
+	if (n<1) {
+		n=1;
+	}
+	return n;
 }
 
 function reset() {
@@ -191,28 +210,36 @@ function reset() {
 	loopCtr = 0;
 }
 
+function increaseSpeed() {
+	speed = increase(speed);
+}
+
+function decreaseSpeed() {
+	speed = decrease(speed);
+}
+
 function increaseLoopLimit() {
-	loopLimit += 100;
+	loopLimit = increase(loopLimit);
 }
 
 function decreaseLoopLimit() {
-	loopLimit = math.max(loopLimit-100, 100);
+	loopLimit = decrease(loopLimit);
 }
 
 function increaseBounds() {
-	bounds *= 1.2;
+	bounds = increase(bounds);
 }
 
 function decreaseBounds() {
-	bounds /= 1.2;
+	bounds = decrease(bounds);
 }
 
 function increaseDelta() {
-	delta *= 1.2;
+	delta *= 1.6;
 }	
 
 function decreaseDelta() {
-	delta /= 1.2;
+	delta /= 1.6;
 }
 
 function zoomIn() {
