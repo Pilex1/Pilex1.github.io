@@ -204,10 +204,18 @@ div {
 	padding: 1px 4px 1px 4px;
 }
 
-.verticalDiv {
+.canvasDiv {
 	display: inline-block;
 	vertical-align: middle;
-	width: auto;
+	margin-top: 0px;
+	margin-left: 20px;
+	margin-right:20px;
+}
+
+.controlsDiv {
+	display: inline-block;
+	max-width: 400px;
+	vertical-align: top;
 	margin-top: 0px;
 	margin-left: 20px;
 	margin-right:20px;

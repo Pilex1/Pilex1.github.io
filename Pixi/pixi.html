@@ -1,24 +1,31 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Plex Website</title>
     <link rel="stylesheet" href="../styles.css">
-    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <script>
-		var __adobewebfontsappname__="dreamweaver"
-	</script>
+        var __adobewebfontsappname__ = "dreamweaver"
+    </script>
     <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript">
-	</script>
+
+    </script>
     <script src="pixi.js">
-</script>
+
+    </script>
     <script src="math.min.js">
-</script>
+
+    </script>
     <script src="https://netbeast.github.io/colorsys/browser.js">
-</script>
+
+    </script>
     <script src="argand.js" type="text/javascript">
-</script>
+
+    </script>
 </head>
+
 <body>
     <header class="site-header">
         <h1>Pixi</h1>
@@ -49,17 +56,18 @@
                     <a href="/2D Game/2d_game.html" class="header_heading">2D Game</a>
                 </li>
                 <li>
-                    <a href="/Pixi/pixi.html" class="header_current_heading">Pixi</a>
+                    <a href="/Pixi/pixi.html" class="header_current_heading">Complex Numbers</a>
+                </li>
+                <li>
+                    <a href="/Birthday_Game/birthday.html" class="header_heading">Birthday Game</a>
                 </li>
             </ul>
         </nav>
     </header>
     <br>
-    <main style="width: 100%; margin: 0 auto 0 auto">
-        <div id="divCanvas" class="margin" style="display: inline-block">
-            <!--Main drawing canvas-->
-        </div>
-        <div class="margin" style="display: inline-block; width: 400px;">
+    <main style="text-align: center;">
+        <div id="divCanvas" class="canvasDiv"> </div>
+        <div class="controlsDiv">
             <div>
                 <input type="text" class="button spacing" id="txtbx_formula" value="z^2+c">
                 <input type="submit" class="button spacing" id="btn_incrloop" value="Increase loop limit" onClick="increaseLoopLimit();">
@@ -68,29 +76,35 @@
                 <input type="submit" class="button spacing" id="btn_decrbounds" value="Decrease bounds" onClick="decreaseBounds();">
                 <input type="submit" class="button spacing" id="btn_incrdelta" value="Increase delta" onClick="increaseDelta();">
                 <input type="submit" class="button spacing" id="btn_decrdelta" value="Decrease delta" onClick="decreaseDelta();">
-                <br>
-                <input type="submit" class="button spacing" value="Reset" onClick="relaunch();">
+                <input type="submit" class="button spacing" value="Clear" onClick="clearScreen();">
+                <input type="submit" class="button spacing" id="btn_render" value="Render" onClick="relaunch();">
             </div>
-            <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick = "zoomIn();">
-            <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick = "zoomOut();">
-            <div style="margin: 0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="▲" onClick="panUp();">
-                <input type="submit" class="button spacing" style="width: 40px" value="▼" onClick="panDown();">
+            <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick="zoomIn();">
+            <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick="zoomOut();">
+
+            <div style="margin:0px">
+                <input type="submit" class="button spacing" style="width: 40px" value="↑" onClick="panUp(); ">
             </div>
-            <div style="margin: 0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="◀" onClick="panLeft();">
-                <input type="submit" class="button spacing" style="width: 40px" value="▶" onClick="panRight();">
+            <div style="margin:0px">
+                <input type="submit" class="button spacing" style="width: 40px" value="←" onClick="panLeft(); ">
+                <input type="submit" class="button spacing" style="width: 40px" value="→" onClick="panRight(); ">
             </div>
-            <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick="increaseSpeed();">
-            <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick="decreaseSpeed();">
+            <div style="margin:0px">
+                <input type="submit" class="button spacing" style="width: 40px" value="↓" onClick="panDown(); ">
+            </div>
+
+            <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick="increaseSpeed(); ">
+            <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick="decreaseSpeed(); ">
         </div>
     </main>
-    <script src="main.js" type="text/javascript">
-</script>
+    <script src="main.js " type="text/javascript ">
+
+    </script>
     <footer>
-        <p class="copyright">
+        <p class="copyright ">
             Copyright Alex Tan &copy; 2017
         </p>
     </footer>
 </body>
+
 </html>

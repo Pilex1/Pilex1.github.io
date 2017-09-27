@@ -1,13 +1,17 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Plex Website</title>
     <link rel="stylesheet" href="../styles.css">
-   <link rel="icon" type="image/png" href="/favicon.png"/>
-    <script>var __adobewebfontsappname__="dreamweaver"</script>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script>
+        var __adobewebfontsappname__ = "dreamweaver"
+    </script>
     <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript"></script>
 </head>
+
 <body>
     <header class="site-header">
         <h1>Mandelbrot</h1>
@@ -36,46 +40,48 @@
                     <a href="/2D Game/2d_game.html" class="header_heading">2D Game</a>
                 </li>
                 <li>
-                <a href="/Pixi/pixi.html" class="header_heading">Pixi</a>
-            </li>
+                    <a href="/Pixi/pixi.html" class="header_heading">Complex Numbers</a>
+                </li>
+                <li>
+                    <a href="/Birthday_Game/birthday.html" class="header_heading">Birthday Game</a>
+                </li>
             </ul>
         </nav>
     </header>
     <br>
     <main>
-    <p>On the left hand side is the Mandelbrot Set and on the right is the Julia Set - they are both fractals!<br>
-        Each point represents a complex number (with the frame representing an Argand diagram) - and this number is passed into a simple iterative complex-valued function.<br>
-        The colours in the fractal represent the output of the function, with bands of the same colour indicating the same output value.<br>
-        The remarkable thing is that although this function is incredibly simple, it produces an incredibly detailed shape (in fact, infinitely detailed!) - go ahead and explore yourself!</p>
-    <br>
-    <p>Move your mouse to select fractal<br>
-        WASD - pan frame<br>
-        IK - zoom in/out<br>
-        JL rotate<br>
-        ZXC + optional SHIFT - change colours<br>
-        123456789 - change modes<br>
-        R - reset<br>
-        YH - increase/decrease level of detail (may cause loss in performance if increased too high)</p>
-    <br>
-    <body onload = "onLoad();">
-    <canvas id="cv" width="1000" height="500"> Your browser or your graphics card does not seem to like my program! </canvas>
-    <p id = "fpsText"></p>
-    <h3>Mandelbrot Info:</h3>
-    <p id = "mandText"></p>
-    <h3>Julia Info:</h3>
-    <p id = "juliaText"></p>
-    <br>
-    <script src = "gl-matrix.js"></script> 
-    <script src = "mandVertex.js"></script> 
-    <script src = "mandFragment.js"></script> 
-    <script src = "juliaVertex.js"></script> 
-    <script src = "juliaFragment.js"></script> 
-    <script src = "app.js"></script> 
-    <script src = "renderer.js"></script>
+        <p>On the left hand side is the Mandelbrot Set and on the right is the Julia Set - they are both fractals!<br> Each
+            point represents a complex number (with the frame representing an Argand diagram) - and this number is passed
+            into a simple iterative complex-valued function.<br> The colours in the fractal represent the output of the function,
+            with bands of the same colour indicating the same output value.<br> The remarkable thing is that although this
+            function is incredibly simple, it produces an incredibly detailed shape (in fact, infinitely detailed!) - go
+            ahead and explore yourself!</p>
+        <br>
+        <p>Move your mouse to select fractal<br> WASD - pan frame<br> IK - zoom in/out<br> JL rotate<br> ZXC + optional SHIFT
+            - change colours<br> 123456789 - change modes<br> R - reset<br> YH - increase/decrease level of detail (may cause
+            loss in performance if increased too high)</p>
+        <br>
+
+        <body onload="onLoad();">
+            <canvas id="cv" width="1000" height="500"> Your browser or your graphics card does not seem to like my program! </canvas>
+            <p id="fpsText"></p>
+            <h3>Mandelbrot Info:</h3>
+            <p id="mandText"></p>
+            <h3>Julia Info:</h3>
+            <p id="juliaText"></p>
+            <br>
+            <script src="gl-matrix.js"></script>
+            <script src="mandVertex.js"></script>
+            <script src="mandFragment.js"></script>
+            <script src="juliaVertex.js"></script>
+            <script src="juliaFragment.js"></script>
+            <script src="app.js"></script>
+            <script src="renderer.js"></script>
+        </body>
+    </main>
+    <footer>
+        <p class="copyright">Copyright Alex Tan &copy; 2017</p>
+    </footer>
 </body>
-</main>
-<footer>
-    <p class="copyright">Copyright Alex Tan &copy; 2017</p>
-</footer>
-</body>
+
 </html>
