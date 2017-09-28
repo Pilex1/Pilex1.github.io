@@ -81,17 +81,17 @@ document.getElementById("canvas").addEventListener("mousemove", function (e) {
 
 // actual program code
 
-var loopLimit = 60;
-var bounds = 0.8;
+var loopLimit = 200;
+var bounds = 0.6;
 
 var i = 0;
 var j = 0;
 var loopCtr = 0;
 var z = math.complex(0, 0);
-var speed = 50;
-var delta = 0.1;
+var speed = 150;
+var delta = 0.05;
 var fn = null;
-var colorFactor = 0.8;
+var colorFactor = 0.7;
 
 var done = false;
 
@@ -140,7 +140,7 @@ function gameLoop() {
 			panDown();
 		}
 	}
-	
+
 
 	if (!done) {
 		for (var k = 0; k < speed; k++) {
@@ -198,7 +198,7 @@ function mandelbrot(z) {
 	var zn = math.complex(fn.eval(scope));
 	//var clr = Number("0x" + colorsys.hsv_to_hex(100 * p.abs(), 100, 100).substring(1));
 	//var clr = Number("0x"+colorsys.hsv_to_hex(100*p.abs(),0,100).substring(1));
-	var clr = Number("0x" + colorsys.hsv_to_hex(colorFactor*360 * math.cos(c.abs() / bounds), 100, 100).substring(1));
+	var clr = Number("0x" + colorsys.hsv_to_hex(colorFactor * 360 * math.cos(c.abs() / bounds), 100, 100).substring(1));
 	//var alpha = (1+loopCtr)/(1+loopLimit);
 	var alpha = 0.8;
 	// if (loopCtr >= loopLimit - 2) {
@@ -220,10 +220,10 @@ function collatz(z) {
 	return z;
 }
 
-var multiplier = 1.4;
+var multiplier = 1.2;
 
 function increase(x) {
-	var n = x *multiplier;
+	var n = x * multiplier;
 	if (n - x < 1) {
 		n = x + 1;
 	}
