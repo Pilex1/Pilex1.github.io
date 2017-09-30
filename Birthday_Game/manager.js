@@ -92,6 +92,11 @@ class Manager {
             this.chunks[i].addPlatform(p);
         }
     }
+    removePlatform(p) {
+        for (var i = 0; i < this.chunks.length; i++) {
+            this.chunks[i].removePlatform(p);
+        }
+    }
     get chunkCurId() {
         return math.floor(this.player.hitbox.centerX / Chunk.Width) + 1;
     }

@@ -1,0 +1,22 @@
+.sectionDiv{
+    margin-top:0px;
+    margin-bottom:20px;
+}
+
+.sectionDiv>*{
+    margin-bottom: 0px;
+}
+
+.sectionDiv>p {
+    margin-top:0px;
+}
+
+.sectionDiv>.inputNumber{
+    width: auto;
+}
+
+.sectionDiv>.numberChanger{
+    width:30px;
+    margin-left: 0px;
+    margin-right:0px;
+}

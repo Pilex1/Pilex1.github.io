@@ -1,9 +1,8 @@
 class Npc extends Entity {
     constructor(pos, name, color) {
-        super(new Rectangle(pos, [20, 40]));
+        super(new Rectangle(pos, [20, 40]), color);
         this.conversations = [];
         this.conversationId = -1;
-        this.color = color;
         this.name = name;
         this.conversationText = new PIXI.Text("");
         this.nameText = new PIXI.Text(this.name);
@@ -23,7 +22,7 @@ class Npc extends Entity {
         }
     }
     onRender(camera) {
-        graphics.beginFill(this.color);
+        graphics.beginFill(this.color.value, this.color.alpha);
         graphics.lineStyle(0);
         graphics.drawRect(this.hitbox.x1 - camera[0], this.hitbox.y1 - camera[1], this.hitbox.width, this.hitbox.height);
         if (this.conversationId === -1) {
@@ -71,7 +70,6 @@ class Npc extends Entity {
             this.nameText.anchor.y = 1;
             this.nameText.x = x;
             this.nameText.y = y;
-            console.log(this.nameText);
         }
         else {
             // npc name

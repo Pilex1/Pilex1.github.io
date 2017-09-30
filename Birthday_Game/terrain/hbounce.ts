@@ -9,7 +9,7 @@ class HBounce extends Platform {
 
     constructor(pos: number[]) {
         super(pos);
-        this.fillColor = 0x16b84f;
+        this.fillColor = new Color(0x16b84f);
     }
 
     onCollisionLeft(e: Entity) {

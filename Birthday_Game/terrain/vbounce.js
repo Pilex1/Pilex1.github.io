@@ -4,7 +4,7 @@ class VBounce extends Platform {
         this.hBounceStrength = 1.05;
         this.vBounceStrength = -1.5;
         this.maxVel = -20;
-        this.fillColor = 0x6e38ff;
+        this.fillColor = new Color(0x6e38ff);
     }
     static get Id() {
         return "V";

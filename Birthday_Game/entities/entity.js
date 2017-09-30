@@ -8,16 +8,16 @@ class Entity {
     static get AirResistance() {
         return 0.85;
     }
-    constructor(hitbox) {
+    constructor(hitbox, color) {
         this.hitbox = hitbox;
         this.useGravity = true;
         this.maxNaturalVel = [15, 15];
         this.vel = [0, 0];
         this.acceleration = [1.25, 15];
-        this.color = 0;
+        this.color = color;
     }
     getDistanceTo(that) {
-        return math.distance(this.hitbox.center, that.hitbox.center);
+        return Number(math.distance(this.hitbox.center, that.hitbox.center));
     }
     get velX() {
         return this.vel[0];
@@ -67,10 +67,14 @@ class Entity {
         this.vel[1] = math.max(this.vel[1], -this.maxNaturalVel[1]);
     }
     strafeLeft() {
+        if (this.vel[0] < -this.maxNaturalVel[0])
+            return;
         this.vel[0] -= this.acceleration[0];
         this.vel[0] = math.max(this.vel[0], -this.maxNaturalVel[0]);
     }
     strafeRight() {
+        if (this.vel[0] > this.maxNaturalVel[0])
+            return;
         this.vel[0] += this.acceleration[0];
         this.vel[0] = math.min(this.vel[0], this.maxNaturalVel[0]);
     }

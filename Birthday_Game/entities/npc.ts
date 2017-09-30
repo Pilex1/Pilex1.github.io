@@ -7,9 +7,8 @@ class Npc extends Entity {
 	private conversationText: PIXI.Text;
 	private nameText: PIXI.Text;
 
-	constructor(pos: number[], name: string, color: number) {
-		super(new Rectangle(pos, [20, 40]));
-		this.color = color;
+	constructor(pos: number[], name: string, color: Color) {
+		super(new Rectangle(pos, [20, 40]), color);
 		this.name = name;
 		this.conversationText = new PIXI.Text("");
 		this.nameText = new PIXI.Text(this.name);
@@ -33,7 +32,7 @@ class Npc extends Entity {
 	}
 
 	onRender(camera): void {
-		graphics.beginFill(this.color);
+		graphics.beginFill(this.color.value, this.color.alpha);
 		graphics.lineStyle(0);
 		graphics.drawRect(this.hitbox.x1 - camera[0], this.hitbox.y1 - camera[1], this.hitbox.width, this.hitbox.height);
 
@@ -82,8 +81,6 @@ class Npc extends Entity {
 			this.nameText.anchor.y = 1;
 			this.nameText.x = x;
 			this.nameText.y = y;
-			console.log(this.nameText);
-
 		} else {
 			// npc name
 			this.nameText.style.fontSize = 24;

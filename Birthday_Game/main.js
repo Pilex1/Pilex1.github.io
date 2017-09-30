@@ -1,4 +1,6 @@
 var keys = {};
+var mouseButtons = {};
+var mouseX, mouseY;
 var edit = false;
 var stage;
 var renderer;
@@ -26,6 +28,23 @@ function initPixi() {
     });
     main.addEventListener("keypress", function (e) {
         manager.getPlayer().onKeyType(e);
+    });
+    main.addEventListener("click", function (e) {
+        manager.getPlayer().onMouseClick(e);
+    });
+    main.addEventListener("mousedown", function (e) {
+        mouseButtons[e.button] = true;
+    });
+    main.addEventListener("mouseup", function (e) {
+        mouseButtons[e.button] = false;
+    });
+    main.addEventListener("mousemove", function (e) {
+        mouseX = e.pageX - renderer.view.offsetLeft;
+        mouseY = e.pageY - renderer.view.offsetTop;
+    });
+    renderer.view.addEventListener("wheel", function (e) {
+        e.preventDefault();
+        manager.getPlayer().onMouseScroll(e);
     });
 }
 initPixi();

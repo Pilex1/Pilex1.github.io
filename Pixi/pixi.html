@@ -5,18 +5,18 @@
     <meta charset="utf-8">
     <title>Plex Website</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="css/pixi_styles.css">
     <link rel="icon" type="image/png" href="/favicon.png" />
 
     <script>
         var __adobewebfontsappname__ = "dreamweaver"
     </script>
-    <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript"></script>
+    <script src="src/advent-pro.js" type="text/javascript"></script>
+    <script src="src/pixi.min.js" type="text/javascript"></script>
+    <script src="src/math.min.js" type="text/javascript"></script>
+    <script src="src/colorsys.js" type="text/javascript"></script>
 
-    <script src="https://pixijs.download/release/pixi.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.16.3/math.min.js" type="text/javascript"></script>
-    <script src="https://netbeast.github.io/colorsys/browser.js" type="text/javascript"></script>
-
-    <script src="argand.js" type="text/javascript"></script>
+    <script src="src/argand.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -56,43 +56,89 @@
     </header>
     <br>
     <main style="text-align: center;">
+        <h3 class="heading"><a href="https://www.reddit.com/r/math/comments/72wrjf/beautiful_fractal_related_to_the_mandelbrot_set/" class="inlineLink" target="_blank">Related Reddit post</a></h3>
         <div id="divCanvas" class="canvasDiv"> </div>
         <div class="controlsDiv">
-            <div>
-                <input type="text" class="button spacing" id="txtbx_formula" value="z^2+c">
-                <input type="submit" class="button spacing" id="btn_incrloop" value="Increase loop limit" onClick="increaseLoopLimit();">
-                <input type="submit" class="button spacing" id="btn_decrloop" value="Decrease loop limit" onClick="decreaseLoopLimit();">
-                <input type="submit" class="button spacing" id="btn_incrbounds" value="Increase bounds" onClick="increaseBounds();">
-                <input type="submit" class="button spacing" id="btn_decrbounds" value="Decrease bounds" onClick="decreaseBounds();">
-                <input type="submit" class="button spacing" id="btn_incrdelta" value="Increase delta" onClick="increaseDelta();">
-                <input type="submit" class="button spacing" id="btn_decrdelta" value="Decrease delta" onClick="decreaseDelta();">
-                <input type="submit" class="button spacing" value="Clear" onClick="clearScreen();">
-                <input type="submit" class="button spacing" id="btn_render" value="Render" onClick="relaunch();">
-            </div>
-            <input type="submit" class="button spacing" id="btn_zoomin" value="Zoom in" onclick="zoomIn();">
-            <input type="submit" class="button spacing" id="btn_zoomout" value="Zoom out" onclick="zoomOut();">
 
-            <div style="margin:0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="↑" onClick="panUp(); ">
-            </div>
-            <div style="margin:0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="←" onClick="panLeft(); ">
-                <input type="submit" class="button spacing" style="width: 40px" value="→" onClick="panRight(); ">
-            </div>
-            <div style="margin:0px">
-                <input type="submit" class="button spacing" style="width: 40px" value="↓" onClick="panDown(); ">
+            <div class="sectionDiv">
+                <p>Function: </p>
+                <input type="text" class="button" id="txtbx_formula" value="z^2+c">
             </div>
 
-            <input type="submit" class="button spacing" id="btn_incrspeed" value="Increase speed" onclick="increaseSpeed(); ">
-            <input type="submit" class="button spacing" id="btn_decrspeed" value="Decrease speed" onclick="decreaseSpeed(); ">
+            <div class="sectionDiv">
+                <p>Loop limit: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="decreaseLoopLimit();">
+                <input type="text" class="button inputNumber" id="txtbx_loopLimit" value="200">
+                <input type="submit" class="button numberChanger" value="+" onclick="increaseLoopLimit();">
+            </div>
+
+            <div class="sectionDiv">
+                <p>Bound: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="decreaseBound();">
+                <input type="text" class="button inputNumber" id="txtbx_bound" value="0.6">
+                <input type="submit" class="button numberChanger" value="+" onclick="increaseBound();">
+            </div>
+
+            <div class="sectionDiv">
+                <p>Delta: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="decreaseDelta();">
+                <input type="text" class="button inputNumber" id="txtbx_delta" value="0.05">
+                <input type="submit" class="button numberChanger" value="+" onclick="increaseDelta();">
+            </div>
+
+            <div class="sectionDiv">
+                <p>Speed: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="decreaseSpeed();">
+                <input type="text" class="button inputNumber" id="txtbx_speed" value="150">
+                <input type="submit" class="button numberChanger" value="+" onclick="increaseSpeed();">
+            </div>
+
+            <div class="sectionDiv">
+                <p>Zoom: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="zoomOut();">
+                <input type="text" class="button inputNumber" id="txtbx_zoom" value="350">
+                <input type="submit" class="button numberChanger" value="+" onclick="zoomIn();">
+            </div>
+
+            <div class="sectionDiv">
+                <div style="margin:0px">
+                    <input type="submit" class="button" style="width: 40px" value="↑" onClick="panUp(); ">
+                </div>
+                <div style="margin:0px">
+                    <input type="submit" class="button" style="width: 40px" value="←" onClick="panLeft(); ">
+                    <input type="submit" class="button" style="width: 40px" value="→" onClick="panRight(); ">
+                </div>
+                <div style="margin:0px">
+                    <input type="submit" class="button" style="width: 40px" value="↓" onClick="panDown(); ">
+                </div>
+            </div>
+
+            <div class="sectionDiv">
+                <input type="submit" class="button" value="Clear" onClick="clearScreen();">
+                <input type="submit" class="button" id="btn_render" value="Render" onClick="render();">
+            </div>
+
+            <div class="sectionDiv">
+                <p>Color factor: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="decreaseColor();">
+                <input type="text" class="button inputNumber" id="txtbx_color" value="0.7">
+                <input type="submit" class="button numberChanger" value="+" onclick="increaseColor();">
+            </div>
+
+            <div class="sectionDiv">
+                <p>Alpha: </p>
+                <input type="submit" class="button numberChanger" value="-" onclick="decreaseAlpha();">
+                <input type="text" class="button inputNumber" id="txtbx_alpha" value="0.5">
+                <input type="submit" class="button numberChanger" value="+" onclick="increaseAlpha();">
+            </div>
+
         </div>
-
         <div>
             <p>Export link: <a href="" id="exportedLink" class="smallLink" target="_blank"></a></p>
         </div>
 
 
-        <script src="main.js" type="text/javascript "></script>
+        <script src="src/main.js" type="text/javascript "></script>
     </main>
 
     <footer>

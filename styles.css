@@ -11,7 +11,7 @@ html {
 }
 
 h1 {
-	color: cornflowerblue;
+	color: #55a7ca;
 	font-family: "advent-pro";
 	font-style: normal;
 	font-weight: bold;
@@ -20,29 +20,12 @@ h1 {
 	margin-bottom: 0px;
 }
 .heading {
-	color: cornflowerblue;
+	color: #55a7ca;
 	font-family: "advent-pro";
 	font-style: normal;
 	font-weight: 100;
 	font-size: 32px;
 	text-decoration: none;
-}
-.importantLinks{
-	color: cornflowerblue;
-	font-family: "advent-pro";
-	font-style: normal;
-	font-weight: 100;
-	font-size: 24px;
-	text-decoration: none;
-}
-.importantLinks:hover{
-	color: cornflowerblue;
-	font-family: "advent-pro";
-	font-style: normal;
-	font-weight: 100;
-	font-size: 24px;
-	text-decoration: none;
-	border-bottom: 1px solid cornflowerblue;
 }
 
 h3 {
@@ -59,13 +42,6 @@ body {
 	background-color: #2E3237;
 	margin-left: 0px;
 	margin-right: 0px;
-}
-
-main {
-	margin-left: 60px;
-	margin-right: 60px;
-	margin-top: 60px;
-	margin-bottom: 90px;
 }
 
 footer {
@@ -179,6 +155,13 @@ div {
 	margin-bottom: 30px;
 }
 
+main {
+	margin-left: 60px;
+	margin-right: 60px;
+	margin-top: 60px;
+	margin-bottom: 90px;
+}
+
 .main-nav ul {
 	list-style: none;
 	padding: 2px;
@@ -267,4 +250,33 @@ div {
 .verticalSpacing{
 	margin-top: 20px;
 	margin-bottom:20px;
+}
+
+.inlineLink {
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	text-decoration: none;
+}
+.inlineLink:hover{
+	border-bottom: 1px solid cornflowerblue;
+}
+
+.importantLinks{
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 24px;
+	text-decoration: none;
+}
+.importantLinks:hover{
+	color: cornflowerblue;
+	font-family: "advent-pro";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 24px;
+	text-decoration: none;
+	border-bottom: 1px solid cornflowerblue;
 }

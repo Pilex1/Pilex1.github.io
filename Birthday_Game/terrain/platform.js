@@ -1,7 +1,7 @@
 class Platform {
     constructor(pos) {
         this.strokeColor = null;
-        this.fillColor = 0x264270;
+        this.fillColor = new Color(0x264270);
         this.strokeWidth = 1;
         this.friction = 0.85;
         this.solid = true;
@@ -57,12 +57,12 @@ class Platform {
     }
     onRender(camera) {
         if (this.strokeColor === null) {
-            graphics.lineStyle(this.strokeWidth, this.fillColor);
+            graphics.lineStyle(this.strokeWidth, this.fillColor.value, this.fillColor.alpha);
         }
         else {
-            graphics.lineStyle(this.strokeWidth, this.strokeColor);
+            graphics.lineStyle(this.strokeWidth, this.strokeColor.value, this.strokeColor.alpha);
         }
-        graphics.beginFill(this.fillColor);
+        graphics.beginFill(this.fillColor.value, this.fillColor.alpha);
         graphics.drawRect(this.hitbox.x1 - camera[0], this.hitbox.y1 - camera[1], this.hitbox.width, this.hitbox.height);
     }
     static loadString(s) {

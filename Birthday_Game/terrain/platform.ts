@@ -4,8 +4,8 @@ class Platform {
 		return "P";
 	}
 
-	protected strokeColor: number = null;
-	protected fillColor: number = 0x264270;
+	protected strokeColor: Color = null;
+	protected fillColor: Color = new Color(0x264270);
 	protected strokeWidth: number = 1;
 
 	protected hitbox: Rectangle;
@@ -70,11 +70,11 @@ class Platform {
 
 	onRender(camera: number[]): void {
 		if (this.strokeColor === null) {
-			graphics.lineStyle(this.strokeWidth, this.fillColor);
+			graphics.lineStyle(this.strokeWidth, this.fillColor.value, this.fillColor.alpha);
 		} else {
-			graphics.lineStyle(this.strokeWidth, this.strokeColor);
+			graphics.lineStyle(this.strokeWidth, this.strokeColor.value, this.strokeColor.alpha);
 		}
-		graphics.beginFill(this.fillColor);
+		graphics.beginFill(this.fillColor.value, this.fillColor.alpha);
 		graphics.drawRect(this.hitbox.x1 - camera[0], this.hitbox.y1 - camera[1], this.hitbox.width, this.hitbox.height);
 	}
 

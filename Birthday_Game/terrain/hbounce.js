@@ -3,7 +3,7 @@ class HBounce extends Platform {
         super(pos);
         this.hBounceStrength = 70;
         this.vBounceStrength = -8;
-        this.fillColor = 0x16b84f;
+        this.fillColor = new Color(0x16b84f);
     }
     static get Id() {
         return "H";

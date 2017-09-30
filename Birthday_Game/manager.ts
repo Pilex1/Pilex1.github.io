@@ -31,8 +31,8 @@ class Manager {
 	getAllNpcs(): Set<Npc> {
 		var npcs = new Set<Npc>();
 		for (var i = 0; i < this.chunks.length; i++) {
-			for (var e of this.chunks[i].getEntities()){
-				if (e instanceof Npc){
+			for (var e of this.chunks[i].getEntities()) {
+				if (e instanceof Npc) {
 					npcs.add(e);
 				}
 			}
@@ -95,13 +95,18 @@ class Manager {
 		return checkpoints;
 	}
 
-	addPlatform(p): void {
+	addPlatform(p: Platform): void {
 		var left = p.leftBoundary;
 		var right = p.rightBoundary;
 		var idLeft = math.floor(left / Chunk.Width);
 		var idRight = math.floor(right / Chunk.Width);
 		for (var i = idLeft; i <= idRight; i++) {
 			this.chunks[i].addPlatform(p);
+		}
+	}
+	removePlatform(p: Platform): void {
+		for (var i = 0; i < this.chunks.length; i++) {
+			this.chunks[i].removePlatform(p);
 		}
 	}
 

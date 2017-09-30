@@ -1,10 +1,3 @@
-/*global PIXI*/
-/*global Argand*/
-/*global math*/
-/*global colorsys*/
-
-"use strict";
-
 var keys = {};
 
 var stage;
@@ -13,12 +6,7 @@ var renderer;
 var frameCount = 0;
 
 function initPixi() {
-	var type = "WebGL";
-	if (!PIXI.utils.isWebGLSupported()) {
-		type = "canvas";
-	}
-	PIXI.utils.sayHello(type);
-	renderer = PIXI.autoDetectRenderer(1280, 720);
+	renderer = PIXI.autoDetectRenderer({ width: 1280, height: 720 });
 	var main = document.getElementById("divCanvas");
 	renderer.view.style.width = "auto";
 	renderer.view.style.height = "auto";
@@ -32,9 +20,6 @@ function initPixi() {
 	// inserts into the first position
 	main.insertBefore(renderer.view, main.firstChild);
 	stage = new PIXI.Container();
-
-	// deserialize data in url
-	var url = window.location.href;
 }
 initPixi();
 
@@ -42,6 +27,17 @@ var graphics = new PIXI.Graphics();
 stage.addChild(graphics);
 
 // events
+document.querySelectorAll(".sectionDiv>[type=text]").forEach(element => {
+	element.addEventListener("keypress", event => {
+		if (event.keyCode === 13) {
+			updateGui();
+			if (element.id!=="txtbx_speed"){
+				render();
+			}
+		}
+	});
+})
+
 document.getElementById("canvas").addEventListener("keydown", function (e) {
 	keys[e.code] = true;
 });
@@ -62,8 +58,7 @@ document.getElementById("canvas").addEventListener("wheel", function (e) {
 });
 
 document.getElementById("canvas").addEventListener("mousemove", function (e) {
-	return;
-	if (e.buttons % 2 === 1) {
+	/* if (e.buttons % 2 === 1) {
 		var p = argand.calculateMouseCoordinate(e);
 		var z = math.complex(0, 0);
 		for (var i = 0; i < 100; i++) {
@@ -75,49 +70,46 @@ document.getElementById("canvas").addEventListener("mousemove", function (e) {
 			var clr = Number("0x" + colorsys.hsv_to_hex(50 * p.abs(), 100, 100).substring(1));
 			argand.addCoordinate({ point: z, color: clr });
 		}
-	}
-
+	} */
 });
 
 // actual program code
 
-var loopLimit = 200;
-var bounds = 0.6;
+var loopLimit;
+var bound;
 
-var i = 0;
-var j = 0;
+var i;
+var j;
 var loopCtr = 0;
 var z = math.complex(0, 0);
-var speed = 150;
-var delta = 0.05;
+var speed;
+var delta;
 var fn = null;
-var colorFactor = 0.7;
+var color;
+var alpha;
+
+var colorCache;
 
 var done = false;
+var storePointsInMemory = false;
 
 var argand = new Argand();
 
 deserializeUrl();
+updateGui();
+render();
+gameLoop();
 
 function updateGui() {
 
-	document.getElementById("btn_incrloop").value = "Increase loop limit [" + Math.round(loopLimit) + "]";
-	document.getElementById("btn_decrloop").value = "Decrease loop limit [" + Math.round(loopLimit) + "]";
-	document.getElementById("btn_incrbounds").value = "Increase bounds [" + bounds.toFixed(4) + "]";
-	document.getElementById("btn_decrbounds").value = "Decrease bounds [" + bounds.toFixed(4) + "]";
-	document.getElementById("btn_incrdelta").value = "Increase delta [" + delta.toFixed(4) + "]";
-	document.getElementById("btn_decrdelta").value = "Decrease delta [" + delta.toFixed(4) + "]";
-
-	document.getElementById("btn_zoomin").value = "Zoom in [" + Math.round(argand.zoom) + "]";
-	document.getElementById("btn_zoomout").value = "Zoom out [" + Math.round(argand.zoom) + "]";
-	document.getElementById("btn_incrspeed").value = "Increase speed [" + Math.round(speed) + "]";
-	document.getElementById("btn_decrspeed").value = "Decrease speed [" + Math.round(speed) + "]";
-
-	document.getElementById("txtbx_formula").addEventListener("keypress", function (e) {
-		if (e.keyCode == 13) {
-			document.getElementById("btn_render").onclick();
-		}
-	});
+	fn = math.compile(document.getElementById("txtbx_formula").value);
+	loopLimit = Number(document.getElementById("txtbx_loopLimit").value);
+	bound = Number(document.getElementById("txtbx_bound").value);
+	delta = Number(document.getElementById("txtbx_delta").value);
+	speed = Number(document.getElementById("txtbx_speed").value);
+	argand.zoom = Number(document.getElementById("txtbx_zoom").value);
+	color = Number(document.getElementById("txtbx_color").value);
+	alpha = Number(document.getElementById("txtbx_alpha").value);
 
 	var url = getSerializedUrl();
 	document.getElementById("exportedLink").text = url;
@@ -126,8 +118,6 @@ function updateGui() {
 
 function gameLoop() {
 	requestAnimationFrame(gameLoop);
-
-	updateGui();
 
 	if (document.activeElement === document.getElementById("canvas")) {
 		if (keys["KeyA"] || keys["ArrowLeft"]) {
@@ -146,39 +136,22 @@ function gameLoop() {
 		for (var k = 0; k < speed; k++) {
 			z = mandelbrot(z);
 			loopCtr++;
-			if (done) break;
 
 			if (loopCtr >= math.floor(loopLimit)) {
 				loopCtr = 0;
-				z = math.complex(0, 0);
-
-				/*if (i < bounds) {
-					i *= -1;
-					if (i === 0) {
-						i += delta;
-					} else {
-						i += math.sign(i)*delta;
-					}
-				} else if (j < bounds) {
-					j *= -1;
-					if (j === 0) {
-						j += delta;
-					} else {
-						j += math.sign(j)*delta;
-					}
-					i = 0;
-				}*/
-
-				if (i < bounds) {
+				z.re = 0;
+				z.im = 0;
+				if (i < bound) {
 					i += delta;
-				} else if (j < bounds) {
+				} else if (j < bound) {
 					j += delta;
-					i = -bounds;
+					i = -bound;
 				}
-
+				colorCache = Number("0x" + colorsys.hsv_to_hex(color * 360 * math.cos(math.complex(i, j).abs() / bound), 100, 100).substring(1));
 			}
-			if (i >= bounds && j >= bounds) {
+			if (i >= bound && j >= bound) {
 				done = true;
+				break;
 			}
 		}
 	}
@@ -190,23 +163,13 @@ function gameLoop() {
 }
 
 function mandelbrot(z) {
-	var c = math.complex(i, j);
 	var scope = {
 		z: z,
-		c: c
+		c: math.complex(i, j)
 	};
 	var zn = math.complex(fn.eval(scope));
-	//var clr = Number("0x" + colorsys.hsv_to_hex(100 * p.abs(), 100, 100).substring(1));
-	//var clr = Number("0x"+colorsys.hsv_to_hex(100*p.abs(),0,100).substring(1));
-	var clr = Number("0x" + colorsys.hsv_to_hex(colorFactor * 360 * math.cos(c.abs() / bounds), 100, 100).substring(1));
-	//var alpha = (1+loopCtr)/(1+loopLimit);
-	var alpha = 0.8;
-	// if (loopCtr >= loopLimit - 2) {
-	// 	alpha = 1;
-	// } else {
-	// 	alpha = 0;
-	// }
-	argand.addCoordinate({ point: zn, color: clr, alpha: alpha });
+
+	argand.addCoordinate({ point: zn, color: colorCache, alpha: alpha });
 	return zn;
 }
 
@@ -245,113 +208,158 @@ function clearScreen() {
 	done = true;
 }
 
-function reset() {
-	/*i = 0;
-	j = 0;*/
-	i = -bounds;
-	j = -bounds;
-	loopCtr = 0;
-	done = false;
-}
-
 function increaseSpeed() {
 	speed = increase(speed);
+	document.getElementById("txtbx_speed").value = speed;
+	updateGui();
 }
 
 function decreaseSpeed() {
 	speed = decrease(speed);
+	document.getElementById("txtbx_speed").value = speed;
+	updateGui();
 }
 
 function increaseLoopLimit() {
 	loopLimit = increase(loopLimit);
+	document.getElementById("txtbx_loopLimit").value = loopLimit;
+	render();
+	updateGui();
 }
 
 function decreaseLoopLimit() {
 	loopLimit = decrease(loopLimit);
+	document.getElementById("txtbx_loopLimit").value = loopLimit;
+	render();
+	updateGui();
 }
 
-function increaseBounds() {
-	bounds *= multiplier;
+function increaseBound() {
+	bound *= multiplier;
+	document.getElementById("txtbx_bound").value = bound;
+	render();
+	updateGui();
 }
 
-function decreaseBounds() {
-	bounds /= multiplier;
+function decreaseBound() {
+	bound /= multiplier;
+	document.getElementById("txtbx_bound").value = bound;
+	render();
+	updateGui();
 }
 
 function increaseDelta() {
 	delta *= multiplier;
+	document.getElementById("txtbx_delta").value = delta;
+	render();
+	updateGui();
 }
 
 function decreaseDelta() {
 	delta /= multiplier;
+	document.getElementById("txtbx_delta").value = delta;
+	render();
+	updateGui();
+}
+
+function increaseColor() {
+	color *= multiplier;
+	document.getElementById("txtbx_color").value = color;
+	render();
+	updateGui();
+}
+
+function decreaseColor() {
+	color /= multiplier;
+	document.getElementById("txtbx_color").value = color;
+	render();
+	updateGui();
+}
+
+function increaseAlpha() {
+	alpha *= multiplier;
+	alpha = math.min(alpha, 1);
+	document.getElementById("txtbx_alpha").value = alpha;
+	render();
+	updateGui();
+}
+
+function decreaseAlpha() {
+	alpha /= multiplier;
+	document.getElementById("txtbx_alpha").value = alpha;
+	render();
+	updateGui();
 }
 
 function zoomIn() {
 	argand.zoomIn();
+	document.getElementById("txtbx_zoom").value = argand.zoom;
+	render();
+	updateGui();
 }
 
 function zoomOut() {
 	argand.zoomOut();
+	document.getElementById("txtbx_zoom").value = argand.zoom;
+	render();
+	updateGui();
 }
 
 function panLeft() {
 	argand.panLeft();
+	render();
 }
 
 function panRight() {
 	argand.panRight();
+	render();
+	updateGui();
 }
 
 function panUp() {
 	argand.panUp();
+	render();
 }
 
 function panDown() {
 	argand.panDown();
+	render();
 }
 
-function relaunch() {
-	var text = document.getElementById("txtbx_formula").value;
-	fn = math.compile(text);
+function reset() {
+	i = -bound;
+	j = -bound;
+	loopCtr = 0;
+	done = false;
+}
+
+function render() {
 	argand.clear();
 	reset();
 }
 
-relaunch();
-gameLoop();
-
 function deserializeUrl() {
 	var _fn = getParameterByName("fn");
 	var _loopLimit = getParameterByName("loopLimit");
-	var _bounds = getParameterByName("bounds");
+	var _bound = getParameterByName("bound");
 	var _delta = getParameterByName("delta");
 	var _zoom = getParameterByName("zoom");
 	var _speed = getParameterByName("speed");
 	var _re = getParameterByName("re");
 	var _im = getParameterByName("im");
+	var _color = getParameterByName("color");
+	var _alpha = getParameterByName("alpha");
 
-	if (_fn === null) return;
-	if (_loopLimit === null) return;
-	if (_bounds === null) return;
-	if (_delta === null) return;
-	if (_zoom === null) return;
-	if (_speed === null) return;
-	if (_re === null) return;
-	if (_im === null) return;
-
-	console.log("deserialization succeeded");
-
-	fn = math.compile(_fn);
-	document.getElementById("txtbx_formula").value = _fn;
-	loopLimit = Number(_loopLimit);
-	bounds = Number(_bounds);
-	delta = Number(_delta);
-	argand.zoom = Number(_zoom);
-	speed = Number(_speed);
-	argand.center.re = Number(_re);
-	argand.center.im = Number(_im);
-
-	updateGui();
+	if (_fn !== null) document.getElementById("txtbx_formula").value = _fn;
+	if (_loopLimit !== null) document.getElementById("txtbx_loopLimit").value = _loopLimit;
+	if (_bound !== null) document.getElementById("txtbx_bound").value = _bound;
+	if (_delta !== null) document.getElementById("txtbx_delta").value = _delta;
+	if (_zoom !== null) document.getElementById("txtbx_zoom").value = _zoom;
+	if (_speed !== null) document.getElementById("txtbx_speed").value = _speed;
+	if (_re !== null) argand.center.re = _re;
+	if (_im !== null) argand.center.im = _im;
+	if (_color !== null) document.getElementById("txtbx_color").value = _color;
+	if (_alpha !== null) document.getElementById("txtbx_alpha").value = _alpha;
 }
 
 function getParameterByName(name) {
@@ -365,8 +373,7 @@ function getParameterByName(name) {
 }
 
 function getSerializedUrl() {
-	var obj = { fn: document.getElementById("txtbx_formula").value, loopLimit: loopLimit, bounds: bounds, delta: delta, zoom: argand.zoom, speed: speed, re: argand.center.re, im: argand.center.im };
-	//console.log(obj);
+	var obj = { fn: document.getElementById("txtbx_formula").value, loopLimit: loopLimit, bound: bound, delta: delta, zoom: argand.zoom, speed: speed, re: argand.center.re, im: argand.center.im };
 	var url = window.location.href;
 	var index = url.indexOf("?");
 	if (index != -1) {

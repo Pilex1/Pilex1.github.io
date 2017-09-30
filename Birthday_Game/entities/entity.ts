@@ -15,19 +15,19 @@ abstract class Entity {
 	protected maxNaturalVel: number[];
 	protected vel: number[];
 	protected acceleration: number[];
-	protected color: number;
+	protected color: Color;
 
-	constructor(hitbox: Rectangle) {
+	constructor(hitbox: Rectangle, color: Color) {
 		this.hitbox = hitbox;
 		this.useGravity = true;
 		this.maxNaturalVel = [15, 15];
 		this.vel = [0, 0];
 		this.acceleration = [1.25, 15];
-		this.color = 0;
+		this.color = color;
 	}
 
 	getDistanceTo(that): number {
-		return math.distance(this.hitbox.center, that.hitbox.center);
+		return Number(math.distance(this.hitbox.center, that.hitbox.center));
 	}
 	get velX(): number {
 		return this.vel[0];
@@ -231,8 +231,8 @@ abstract class Entity {
 				y += Entity.Epsilon;
 			}
 		}
-		if (!this.useGravity){
-			this.vel[1]=0;
+		if (!this.useGravity) {
+			this.vel[1] = 0;
 		}
 	}
 

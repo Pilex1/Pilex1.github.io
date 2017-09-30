@@ -1,4 +1,6 @@
 var keys = {};
+var mouseButtons = {};
+var mouseX: number, mouseY: number;
 var edit: boolean = false;
 
 var stage: PIXI.Container;
@@ -23,19 +25,36 @@ function initPixi(): void {
 
 	manager = new Manager();
 
-	main.addEventListener("keydown", function (e: KeyboardEvent) {
+	main.addEventListener("keydown", function (e: KeyboardEvent): void {
 		keys[e.code] = true;
 	});
-	main.addEventListener("keyup", function (e: KeyboardEvent) {
+	main.addEventListener("keyup", function (e: KeyboardEvent): void {
 		keys[e.code] = false;
 	});
-	main.addEventListener("keypress", function (e: KeyboardEvent) {
+	main.addEventListener("keypress", function (e: KeyboardEvent): void {
 		manager.getPlayer().onKeyType(e);
 	});
+	main.addEventListener("click", function (e: MouseEvent): void {
+		manager.getPlayer().onMouseClick(e);
+	});
+	main.addEventListener("mousedown", function (e: MouseEvent): void {
+		mouseButtons[e.button] = true;
+	});
+	main.addEventListener("mouseup", function (e: MouseEvent): void {
+		mouseButtons[e.button] = false;
+	});
+	main.addEventListener("mousemove", function (e: MouseEvent): void {
+		mouseX = e.pageX - renderer.view.offsetLeft;
+		mouseY = e.pageY - renderer.view.offsetTop;
+	});
+	renderer.view.addEventListener("wheel", function (e: WheelEvent) {
+		e.preventDefault();
+		manager.getPlayer().onMouseScroll(e);
+	})
 }
 initPixi();
 
-function updateGui():void{
+function updateGui(): void {
 	var btn = <HTMLInputElement>document.getElementById("btn_toggleEdit");
 	if (edit) {
 		btn.value = "Disable Edit Mode";

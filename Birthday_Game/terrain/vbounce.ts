@@ -10,18 +10,18 @@ class VBounce extends Platform {
 
     constructor(pos: number[]) {
         super(pos);
-        this.fillColor = 0x6e38ff;
+        this.fillColor = new Color(0x6e38ff);
     }
 
     onCollisionUp(e: Entity) {
         if (e.velY >= 0) return;
-        e.velX *= this.hBounceStrength;    
+        e.velX *= this.hBounceStrength;
         e.velY *= this.vBounceStrength;
     }
 
     onCollisionDown(e: Entity) {
         if (e.velY <= 0) return;
-        e.velX *= this.hBounceStrength;    
+        e.velX *= this.hBounceStrength;
         e.velY *= this.vBounceStrength;
     }
 

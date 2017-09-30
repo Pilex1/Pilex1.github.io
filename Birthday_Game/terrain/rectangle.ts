@@ -1,5 +1,3 @@
-declare var math: any;
-
 class Rectangle {
 
 	private pos: number[];
@@ -11,8 +9,8 @@ class Rectangle {
 	}
 
 	regularise(): Rectangle {
-		var pos = math.clone(this.pos);
-		var size = math.clone(this.size);
+		var pos = this.getPos();
+		var size = this.getSize();
 		if (size[0] < 0) {
 			pos[0] += size[0];
 			size[0] *= -1;
@@ -22,6 +20,9 @@ class Rectangle {
 			size[1] *= -1;
 		}
 		return new Rectangle(pos, size);
+	}
+	inside(p: number[]): boolean {
+		return p[0] >= this.x1 && p[0] <= this.x2 && p[1] >= this.y1 && p[1] <= this.y2;
 	}
 
 	incrX(x: number) {
