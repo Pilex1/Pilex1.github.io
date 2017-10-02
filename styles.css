@@ -19,14 +19,6 @@ h1 {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
-.heading {
-	color: #55a7ca;
-	font-family: "advent-pro";
-	font-style: normal;
-	font-weight: 100;
-	font-size: 32px;
-	text-decoration: none;
-}
 
 h3 {
 	color: #FFFFFF;
@@ -34,8 +26,10 @@ h3 {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 24px;
+	text-decoration: none;
 	text-decoration: underline;
-	margin-top: 0px;
+	margin-top: 40px;
+	margin-bottom: 10px;
 }
 
 body {
@@ -127,19 +121,6 @@ ul {
 .canvas {
 	border-color: aliceblue;
 	border-style: groove;
-}
-
-.image {
-	max-width: 1320px;
-	max-height: 742px;
-	border-style: groove;
-	border-color: aliceblue;
-	margin-top:15px;
-	margin-bottom: 50px;
-}
-.imageSubtitle{
-	font-size:14px;
-	margin-top:-40px;
 }
 
 .video {
@@ -270,13 +251,26 @@ main {
 	font-weight: 100;
 	font-size: 24px;
 	text-decoration: none;
+	margin-bottom:5px;
 }
 .importantLinks:hover{
-	color: cornflowerblue;
-	font-family: "advent-pro";
-	font-style: normal;
-	font-weight: 100;
-	font-size: 24px;
-	text-decoration: none;
 	border-bottom: 1px solid cornflowerblue;
+}
+
+h4 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.image {
+	max-width: 1320px;
+	max-height: 742px;
+	border-style: groove;
+	border-color: aliceblue;
+}
+.imageSubtitle{
+	font-size:14px;
+}
+.imageDiv{
+	margin-bottom: 60px;
 }

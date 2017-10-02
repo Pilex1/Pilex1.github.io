@@ -223,86 +223,86 @@ function decreaseSpeed() {
 function increaseLoopLimit() {
 	loopLimit = increase(loopLimit);
 	document.getElementById("txtbx_loopLimit").value = loopLimit;
-	render();
 	updateGui();
+	render();
 }
 
 function decreaseLoopLimit() {
 	loopLimit = decrease(loopLimit);
 	document.getElementById("txtbx_loopLimit").value = loopLimit;
-	render();
 	updateGui();
+	render();
 }
 
 function increaseBound() {
 	bound *= multiplier;
 	document.getElementById("txtbx_bound").value = bound;
-	render();
 	updateGui();
+	render();
 }
 
 function decreaseBound() {
 	bound /= multiplier;
 	document.getElementById("txtbx_bound").value = bound;
-	render();
 	updateGui();
+	render();
 }
 
 function increaseDelta() {
 	delta *= multiplier;
 	document.getElementById("txtbx_delta").value = delta;
-	render();
 	updateGui();
+	render();
 }
 
 function decreaseDelta() {
 	delta /= multiplier;
 	document.getElementById("txtbx_delta").value = delta;
-	render();
 	updateGui();
+	render();
 }
 
 function increaseColor() {
 	color *= multiplier;
 	document.getElementById("txtbx_color").value = color;
-	render();
 	updateGui();
+	render();
 }
 
 function decreaseColor() {
 	color /= multiplier;
 	document.getElementById("txtbx_color").value = color;
-	render();
 	updateGui();
+	render();
 }
 
 function increaseAlpha() {
 	alpha *= multiplier;
 	alpha = math.min(alpha, 1);
 	document.getElementById("txtbx_alpha").value = alpha;
-	render();
 	updateGui();
+	render();
 }
 
 function decreaseAlpha() {
 	alpha /= multiplier;
 	document.getElementById("txtbx_alpha").value = alpha;
-	render();
 	updateGui();
+	render();
 }
 
 function zoomIn() {
 	argand.zoomIn();
 	document.getElementById("txtbx_zoom").value = argand.zoom;
-	render();
 	updateGui();
+	render();
 }
 
 function zoomOut() {
 	argand.zoomOut();
 	document.getElementById("txtbx_zoom").value = argand.zoom;
-	render();
 	updateGui();
+	render();
 }
 
 function panLeft() {
