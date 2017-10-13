@@ -263,8 +263,8 @@ h4 {
 }
 
 .image {
-	max-width: 1320px;
-	max-height: 742px;
+	max-width: 100%;
+	max-height: 100%;
 	border-style: groove;
 	border-color: aliceblue;
 	width: auto;
