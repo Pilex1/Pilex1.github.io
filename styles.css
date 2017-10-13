@@ -267,6 +267,8 @@ h4 {
 	max-height: 742px;
 	border-style: groove;
 	border-color: aliceblue;
+	width: auto;
+	height: auto;
 }
 .imageSubtitle{
 	font-size:14px;
