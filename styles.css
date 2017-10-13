@@ -169,6 +169,7 @@ main {
 	border-bottom: 1px;
 	margin: 1px 4px 1px 4px;
 	padding: 1px 4px 1px 4px;
+	white-space: nowrap;
 }
 .header_heading:hover {
 	color: cornflowerblue;
@@ -200,6 +201,7 @@ main {
 	border-bottom: 1px;
 	margin: 1px 4px 1px 4px;
 	padding: 1px 4px 1px 4px;
+   	white-space: nowrap;
 }
 
 .canvasDiv {
