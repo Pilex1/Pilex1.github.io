@@ -37,9 +37,9 @@ class Player extends Npc {
         stage.addChild(this.debugText);
         this.editingBlockText = new PIXI.Text("", { fontSize: 24, fontFamily: "Tw Cen MT", fill: "0xffffff" });
         this.editingBlockText.anchor.x = 0.5;
-        this.editingBlockText.anchor.y = 0;
+        this.editingBlockText.anchor.y = 1;
         this.editingBlockText.position.x = renderer.view.width / 2;
-        this.editingBlockText.position.y = 0;
+        this.editingBlockText.position.y = renderer.view.height;
         stage.addChild(this.editingBlockText);
         this.deathText = new PIXI.Text("", { fontSize: 24, fontFamily: "Tw Cen MT", fill: "0xffffff" });
         this.deathText.anchor.x = 1;

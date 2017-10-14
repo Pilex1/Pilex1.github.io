@@ -4,65 +4,61 @@
 <head>
     <meta charset="utf-8">
     <title>Plex Website</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <script>
-        var __adobewebfontsappname__ = "dreamweaver"
-    </script>
-    <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript">
 
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107202591-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments) };
+        gtag('js', new Date());
+        gtag('config', '');
     </script>
+    <!-- End Google Analytics -->
+
+    <!-- Loading stylesheet and icon -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- End loading stylesheet and icon -->
+
+    <!-- Loading fonts -->
+    <script>
+        var __adobewebfontsappname__ = "dreamweaver";
+    </script>
+    <script src="/libs/advent-pro.js" type="text/javascript"></script>
+    <!-- End loading fonts -->
+
+    <!-- Loading libraries and other files -->
+    <script src="/libs/jquery.min.js" type="text/javascript"></script>
+    <!-- End loading libraries and other files -->
+
+    <!-- Loading header and footer -->
+    <script src="/helper.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("header").load("/header.html", () => setActive("Xing", "A E S T H E T I C"));
+            $("footer").load("/footer.html");
+        });
+    </script>
+    <!-- End loading header and footer -->
 </head>
 
 <body>
-    <header class="site-header">
-        <h1>Rich Xing</h1>
-        <p>
-            Oh my... how rich
-        </p>
-        <nav class="main-nav">
-            <ul>
-                <li>
-                    <a href="/index.html" class="header_heading">Home</a>
-                </li>
-                <li>
-                    <a href="/Xing/xing.html" class="header_current_heading">Rich Xing</a>
-                </li>
-                <li>
-                    <a href="/Mandelbrot/mandelbrot.html" class="header_heading">Mandelbrot</a>
-                </li>
-                <li>
-                    <a href="/Wireworld/wireworld.html" class="header_heading">Wireworld</a>
-                </li>
-                <li>
-                    <a href="/Ezra/ezra.html" class="header_heading">Ezrean Dominion</a>
-                </li>
-                <li>
-                    <a href="/2D Game/2d_game.html" class="header_heading">2D Game</a>
-                </li>
-                <li>
-                    <a href="/Pixi/pixi.html" class="header_heading">Complex Numbers</a>
-                </li>
-                <li>
-                    <a href="/Birthday_Game/birthday.html" class="header_heading">Birthday Game</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <br>
+    <header></header>
     <main>
         <div align="center">
             <div class="imageDiv">
                 <img src="Haizhu.png" class="image" width="494">
                 <p>
-                    Beginnings always seem so difficult. Chances are you don't know what you're doing, and it's not like you can refer to what you've done before to guide you. But begin we must, just as everyone else. It was one warm Tuesday in July.
+                    Beginnings always seem so difficult. Chances are you don't know what you're doing, and it's not like you can refer to what
+                    you've done before to guide you. But begin we must, just as everyone else. It was one warm Tuesday in
+                    July.
                 </p>
             </div>
 
             <div class="imageDiv">
-                <img src="Balcony.png" class="image" style="width:400px">
+                <img src="Balcony.png" class="image" width="400">
                 <p>
-                    The winds always feel so much nicer at early evening, when it finally starts to cool down. 
+                    The winds always feel so much nicer at early evening, when it finally starts to cool down.
                 </p>
             </div>
 
@@ -122,12 +118,12 @@
                 <h3>Southern Sky - Melbourne</h3>
                 <img src="Southern Sky- Melbourne.png" class="image">
             </div>
-            
+
             <div class="imageDiv">
                 <h3>Warringah</h3>
                 <img src="warringah.png" class="image">
             </div>
-            
+
             <div class="imageDiv">
                 <img src="Takeoff.png" class="image">
             </div>
@@ -138,11 +134,7 @@
 
         </div>
     </main>
-    <footer>
-        <p class="copyright">
-            Copyright Alex Tan &copy; 2017
-        </p>
-    </footer>
+    <footer></footer>
 </body>
 
 </html>

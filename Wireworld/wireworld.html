@@ -4,13 +4,33 @@
 <head>
     <meta charset="utf-8">
     <title>Plex Website</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107202591-1"></script>
     <script>
-        var __adobewebfontsappname__ = "dreamweaver"
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments) };
+        gtag('js', new Date());
+        gtag('config', '');
     </script>
-    <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript"></script>
-    <script src="gl-matrix.js"></script>
+    <!-- End Google Analytics -->
+
+    <!-- Loading stylesheet and icon -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- End loading stylesheet and icon -->
+
+    <!-- Loading fonts -->
+    <script>
+        var __adobewebfontsappname__ = "dreamweaver";
+    </script>
+    <script src="/libs/advent-pro.js" type="text/javascript"></script>
+    <!-- End loading fonts -->
+
+    <!-- Loading libraries and other files -->
+    <script src="/libs/jquery.min.js" type="text/javascript"></script>
+    <script src="/libs/gl-matrix.js"></script>
+    
     <script src="app.js"></script>
     <script src="terrain.js"></script>
     <script src="model.js"></script>
@@ -20,6 +40,17 @@
     <script src="gametime.js"></script>
     <script src="util.js"></script>
     <script src="logictest.js"></script>
+    <!-- End loading libraries and other files -->
+
+    <!-- Loading header and footer -->
+    <script src="/helper.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("header").load("/header.html", () => setActive("Wireworld", "Turing complete cellular automata!"));
+            $("footer").load("/footer.html");
+        });
+    </script>
+    <!-- End loading header and footer -->
 </head>
 
 <body onload="App.init();">
@@ -68,7 +99,8 @@
             <h3>Core tiles:</h3>
             <p>Blue Electrons will transform into Red Electrons.<br> Red Electrons will transform into Conductors.<br> Conductors
                 that have exactly one or two orthogonally or diagonally adjacent Blue Electrons will transform into a Blue
-                Electron.<br>
+                Electron.
+                <br>
             </p>
         </div>
         <div>
@@ -82,9 +114,12 @@
             <h3>Challenges:</h3>
             <p> - Construct a diode<br> - Construct a clock<br> - Construct a AND gate<br> - Construct a OR gate<br> - Construct
                 a XOR gate<br> - Construct a NOT gate<br> - Construct a electron bridge<br> - Construct a T Flip-Flop<br>                - Construct a monostable circuit<br> - Construct a RS Nor-Latch<br> - Construct a adder<br> - Construct a
-                subtracter<br> - Construct a multiplier<br> - Construct a divider<br> - Construct a seven segment display<br>                - Construct a binary to decimal converter<br> - Construct a decimal to binary converter<br> - Construct a
-                calculator<br> - Calculate the Fibonacci sequence<br> - Approximate root two<br> - Approximate pi<br> - Approximate
-                e<br> - Render the Mandelbrot Set<br> - Render the Julia Set<br> - Simulate Langton's Ant<br> - Construct
+                subtracter
+                <br> - Construct a multiplier<br> - Construct a divider<br> - Construct a seven segment display<br> - Construct
+                a binary to decimal converter<br> - Construct a decimal to binary converter<br> - Construct a calculator
+                <br> - Calculate the Fibonacci sequence<br> - Approximate root two<br> - Approximate pi<br> - Approximate
+                e
+                <br> - Render the Mandelbrot Set<br> - Render the Julia Set<br> - Simulate Langton's Ant<br> - Construct
                 a computer<br>
             </p>
         </div>

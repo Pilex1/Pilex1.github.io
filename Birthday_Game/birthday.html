@@ -4,52 +4,48 @@
 <head>
     <meta charset="utf-8">
     <title>Plex Website</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <script>
-        var __adobewebfontsappname__ = "dreamweaver"
-    </script>
-    <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript"></script>
-    <script src="https://pixijs.download/release/pixi.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.16.3/math.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <link rel="import" id="terrainFile" href="terrain/terrain.plex">
-</head>
 
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107202591-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments) };
+        gtag('js', new Date());
+        gtag('config', '');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Loading stylesheet and icon -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- End loading stylesheet and icon -->
+
+    <!-- Loading fonts -->
+    <script>
+        var __adobewebfontsappname__ = "dreamweaver";
+    </script>
+    <script src="/libs/advent-pro.js" type="text/javascript"></script>
+    <!-- End loading fonts -->
+
+     <!-- Loading libraries and other files -->
+     <script src="/libs/pixi.min.js" type="text/javascript"></script>
+     <script src="/libs/math.min.js" type="text/javascript"></script>
+     <script src="/libs/jquery.min.js" type="text/javascript"></script>
+     <link rel="import" id="terrainFile" href="terrain/terrain.plex">
+     <!-- End loading libraries and other files -->
+
+    <!-- Loading header and footer -->
+    <script src="/helper.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("header").load("/header.html", () => setActive("Birthday Game", "Only 0.2739726% statistically accurate."));
+            $("footer").load("/footer.html");
+        });
+    </script>
+    <!-- End loading header and footer -->
+</head>
 <body>
-    <header class="site-header">
-        <h1>Happy Birthday!</h1>
-        <p>Only 0.2739726% statistically accurate.</p>
-        <nav class="main-nav">
-            <ul>
-                <li>
-                    <a href="/index.html" class="header_heading">Home</a>
-                </li>
-                <li>
-                    <a href="/Xing/xing.html" class="header_heading">Rich Xing</a>
-                </li>
-                <li>
-                    <a href="/Mandelbrot/mandelbrot.html" class="header_heading">Mandelbrot</a>
-                </li>
-                <li>
-                    <a href="/Wireworld/wireworld.html" class="header_heading">Wireworld</a>
-                </li>
-                <li>
-                    <a href="/Ezra/ezra.html" class="header_heading">Ezrean Dominion</a>
-                </li>
-                <li>
-                    <a href="/2D Game/2d_game.html" class="header_heading">2D Game</a>
-                </li>
-                <li>
-                    <a href="/Pixi/pixi.html" class="header_heading">Complex Numbers</a>
-                </li>
-                <li>
-                    <a href="/Birthday_Game/birthday.html" class="header_current_heading">Birthday Game</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <br>
+    <header></header>
     <main style="text-align: center;">
         <div id="divCanvas" class="canvasDiv"></div>
         <div class="controlsDiv">
@@ -77,9 +73,7 @@
         <script src="manager.js" type="text/javascript"></script>
         <script src="main.js" type="text/javascript"></script>
     </main>
-    <footer>
-        <p class="copyright">Copyright Alex Tan &copy; 2017</p>
-    </footer>
+    <footer></footer>
 </body>
 
 </html>

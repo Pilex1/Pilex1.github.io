@@ -4,62 +4,46 @@
 <head>
     <meta charset="utf-8">
     <title>Plex Website</title>
+
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
-
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107202591-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-
-  gtag('config', 'UA-107202591-1');
-</script> -->
-
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107202591-1"></script>
     <script>
-        var __adobewebfontsappname__ = "dreamweaver"
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments) };
+        gtag('js', new Date());
+        gtag('config', '');
     </script>
-    <script src="https://use.edgefonts.net/advent-pro:n1:default.js" type="text/javascript">
+    <!-- End Google Analytics -->
 
+    <!-- Loading stylesheet and icon -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- End loading stylesheet and icon -->
+
+    <!-- Loading fonts -->
+    <script>
+        var __adobewebfontsappname__ = "dreamweaver";
     </script>
+    <script src="/libs/advent-pro.js" type="text/javascript"></script>
+    <!-- End loading fonts -->
+
+    <!-- Loading libraries and other files -->
+    <script src="/libs/jquery.min.js" type="text/javascript"></script>
+    <!-- End loading libraries and other files -->
+
+    <!-- Loading header and footer -->
+    <script src="/helper.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("header").load("/header.html", () => setActive("Home", "My favourite place to be."));
+            $("footer").load("/footer.html");
+        });
+    </script>
+    <!-- End loading header and footer -->
 </head>
 
 <body>
-    <header class="site-header">
-        <h1>Home</h1>
-        <p>
-            My favourite place to be.
-        </p>
-        <nav class="main-nav">
-            <ul>
-                <li>
-                    <a href="/index.html" class="header_current_heading">Home</a>
-                </li>
-                <li>
-                    <a href="/Xing/xing.html" class="header_heading">Rich Xing</a>
-                </li>
-                <li>
-                    <a href="/Mandelbrot/mandelbrot.html" class="header_heading">Mandelbrot</a>
-                </li>
-                <li>
-                    <a href="/Wireworld/wireworld.html" class="header_heading">Wireworld</a>
-                </li>
-                <li>
-                    <a href="/Ezra/ezra.html" class="header_heading">Ezrean Dominion</a>
-                </li>
-                <li>
-                    <a href="/2D Game/2d_game.html" class="header_heading">2D Game</a>
-                </li>
-                <li>
-                    <a href="/Pixi/pixi.html" class="header_heading">Complex Numbers</a>
-                </li>
-                <li>
-                    <a href="/Birthday_Game/birthday.html" class="header_heading">Birthday Game</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <header></header>
     <main>
         <div style="text-align: center; margin-bottom: 80px;">
             <p>What is this place? Where am I?</p>
@@ -71,7 +55,8 @@
             <div>
                 <h3 class="heading">About Me</h3>
                 <p>
-                    Alex holds a particular fascination towards computers and mathematics, from rendering the Mandelbrot Set, to exploring cellular automata.
+                    Alex holds a particular fascination towards computers and mathematics, from rendering the Mandelbrot Set, to exploring cellular
+                    automata.
                 </p>
                 <p>
                     He is proficient in a variety of different languages including:
@@ -99,25 +84,26 @@
             </div>
 
             <div>
-                    <h3 class="heading">Achievements:</h3>
-                    <ul>
-                        <li>Alumnus of the 2017 <a href="http://ncss.edu.au" class="inlineLink">National Computer Science School</a>,
-                            held at the University of Sydney</li>
-                        <li>Alumnus of the 2017 <a href="https://www.engineering.unsw.edu.au/computer-science-engineering/courses-programs/school-programs/high-school-computing-hs1511" class="inlineLink">HS1917 Computing Course</a>,
-                            held at the University of New South Wales, achieving a High Distinction</li>
-                    </ul>
+                <h3 class="heading">Achievements:</h3>
+                <ul>
+                    <li>Alumnus of the 2017 <a href="http://ncss.edu.au" class="inlineLink">National Computer Science School</a>,
+                        held at the University of Sydney</li>
+                    <li>Alumnus of the 2017 <a href="https://www.engineering.unsw.edu.au/computer-science-engineering/courses-programs/school-programs/high-school-computing-hs1511"
+                            class="inlineLink">HS1917 Computing Course</a>, held at the University of New South Wales, achieving
+                        a High Distinction</li>
+                </ul>
             </div>
-            
+
             <div>
-                    <h3 class="heading">Links:</h3>
-                    <ul>
-                        <li><a href="https://github.com/Pilex1" class="importantLinks">GitHub Profile</a></li>
-                        <li><a href="https://www.youtube.com/channel/UCroZnM6MzqyREXszaksefBw?view_as=subscriber" class="importantLinks">Youtube</a></li>
-                        <li><a href="mailto:torc.madra@hotmail.com" class="importantLinks">Email</a></li>
-                        <li><a href="https://www.reddit.com/user/Pilex3/" class="importantLinks">Reddit</a></li>
-                    </ul>
+                <h3 class="heading">Links:</h3>
+                <ul>
+                    <li><a href="https://github.com/Pilex1" class="importantLinks">GitHub Profile</a></li>
+                    <li><a href="https://www.youtube.com/channel/UCroZnM6MzqyREXszaksefBw?view_as=subscriber" class="importantLinks">Youtube</a></li>
+                    <li><a href="mailto:torc.madra@hotmail.com" class="importantLinks">Email</a></li>
+                    <li><a href="https://www.reddit.com/user/Pilex3/" class="importantLinks">Reddit</a></li>
+                </ul>
             </div>
-           
+
 
             <div class="verticalSpacing">
                 <p>He is also a big fan of his friend's artworks:</p>
@@ -130,11 +116,7 @@
             </p>
         </div>
     </main>
-    <footer>
-        <p class="copyright">
-            Copyright Alex Tan &copy; 2017
-        </p>
-    </footer>
+    <footer></footer>
 </body>
 
 </html>
