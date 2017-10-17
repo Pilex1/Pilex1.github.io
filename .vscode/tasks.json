@@ -8,19 +8,24 @@
             "tsconfig": "Pixi\\Visualizer\\tsconfig.json",
             "problemMatcher": [
                 "$tsc"
-            ],
-            "group": {
-                "kind": "build",
-            }
+            ]
         },
         {
             "type": "typescript",
             "tsconfig": "Birthday_Game\\tsconfig.json",
             "problemMatcher": [
                 "$tsc"
+            ]
+        },
+        {
+            "type": "typescript",
+            "tsconfig": "Snap_Game\\tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
             ],
             "group": {
                 "kind": "build",
+                "isDefault": true
             }
         }
     ]

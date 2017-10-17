@@ -7,7 +7,7 @@ var stage: PIXI.Container;
 var renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
 var graphics: PIXI.Graphics;
 
-function initCanvas(): void {
+function init(): void {
 	renderer = PIXI.autoDetectRenderer(1200, 675);
 	var main = $("#canvas1")[0];
 	renderer.view.style.paddingLeft = "0px";
