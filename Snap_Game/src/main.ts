@@ -4,6 +4,8 @@ var game: Game;
 
 var loadCount: number = 0;
 
+// works on localhost, doesn't work on GitHub :(
+// no directory indexing
 function loadImages(dir: string, arr: HTMLImageElement[]): void {
     var fileextension = ".JPG";
     $.ajax({
@@ -13,19 +15,23 @@ function loadImages(dir: string, arr: HTMLImageElement[]): void {
             //List all .JPG file names in the page
             $(data).find("a").attr("href", function (i, val) {
                 if (val.match(".+JPG")) {
-                    var img = new Image();
-                    $(img).attr({ src: dir + val });
-                    $(img).on("load", () => {
-                        arr.push(img);
-                        loadCount++;
-                        // $("main").append($(img));
-                        if (loadCount === 56) {
-                            // when all the images have finished loading we start the game
-                            startGame();
-                        }
-                    });
+                    loadImg(dir + val, arr);
                 }
             });
+        }
+    });
+}
+
+function loadImg(file: string, arr: HTMLImageElement[]): void {
+    var img = new Image();
+    $(img).attr({ src: file });
+    $(img).on("load", () => {
+        arr.push(img);
+        loadCount++;
+        // $("main").append($(img));
+        if (loadCount === 56) {
+            // when all the images have finished loading we start the game
+            startGame();
         }
     });
 }
@@ -85,6 +91,14 @@ function startGame() {
 }
 
 function init(): void {
-    loadImages("src/cards/", cards);
-    loadImages("src/special/", special);
+    for (var i = 2; i <= 14; i++) {
+        loadImg("src/cards/Club" + i + ".JPG", cards);
+        loadImg("src/cards/Diamond" + i + ".JPG", cards);
+        loadImg("src/cards/Heart" + i + ".JPG", cards);
+        loadImg("src/cards/Spade" + i + ".JPG", cards);
+    }
+    loadImg("src/special/BackOfCard.JPG", special);
+    loadImg("src/special/MasterCardPile.JPG", special);
+    loadImg("src/special/Player1Snap.JPG", special);
+    loadImg("src/special/Player2Snap.JPG", special);
 }
