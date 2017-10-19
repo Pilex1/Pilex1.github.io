@@ -48,7 +48,7 @@ function startGame() {
         $("#div1 .cardInfo").text("Player 2 - " + game.getCardCount(1) + " cards.");
         $("#divPile .cardInfo").text("Dealt pile - " + game.getPileCount() + " cards.");
 
-        $("#div0 .turn").text(game.playerTurn === 0 ? "YOUR TURN" : "");
+        $("#div0 .turn").text(game.playerTurn === 0 ? "YOUR TURN." : "");
         $("#div1 .turn").text(game.playerTurn === 1 ? "YOUR TURN." : "");
 
         var winner = game.getWinner();
