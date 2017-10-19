@@ -7,7 +7,9 @@ var renderer;
 var graphics;
 var manager;
 function init() {
-    renderer = PIXI.autoDetectRenderer(1200, 675);
+    var width = $(window).width() - 700;
+    var height = width * 9 / 16;
+    renderer = PIXI.autoDetectRenderer(width, height);
     var main = document.getElementById("divCanvas");
     renderer.view.style.paddingLeft = "0px";
     renderer.view.style.paddingRight = "0px";
