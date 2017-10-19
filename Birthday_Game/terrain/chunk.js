@@ -7,6 +7,9 @@ class Chunk {
         this.entities = new Set();
         this.id = id;
     }
+    removeAllPlatforms() {
+        this.platforms.clear();
+    }
     resetBlocks() {
         for (var p of this.platforms) {
             p.reset();

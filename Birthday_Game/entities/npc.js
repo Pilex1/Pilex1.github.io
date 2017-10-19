@@ -21,6 +21,10 @@ class Npc extends Entity {
             this.conversationId = -1;
         }
     }
+    onPlayerTeleport() {
+        this.nameText.x = this.hitbox.centerX - manager.getPlayer().hitbox.centerX;
+        this.nameText.y = this.hitbox.y1 - manager.getPlayer().hitbox.centerY - 10;
+    }
     onRender(camera) {
         graphics.beginFill(this.color.value, this.color.alpha);
         graphics.lineStyle(0);

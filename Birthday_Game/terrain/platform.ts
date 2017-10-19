@@ -16,6 +16,14 @@ class Platform {
 		this.hitbox = new Rectangle(pos, [50, 50]);
 	}
 
+	toString(): string {
+		return this.saveString(Platform.Id);
+	}
+
+	protected saveString(id: string): string {
+		return id + " " + this.hitbox.x1 + " " + this.hitbox.y1;
+	}
+
 	reset(): void { }
 
 	getFriction(): number {

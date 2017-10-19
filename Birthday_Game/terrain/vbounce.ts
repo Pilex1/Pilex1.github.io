@@ -13,6 +13,10 @@ class VBounce extends Platform {
         this.fillColor = new Color(0x6e38ff);
     }
 
+    toString(): string {
+		return this.saveString(VBounce.Id);
+	}
+
     onCollisionUp(e: Entity) {
         if (e.velY >= 0) return;
         e.velX *= this.hBounceStrength;

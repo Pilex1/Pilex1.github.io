@@ -9,6 +9,9 @@ class VBounce extends Platform {
     static get Id() {
         return "V";
     }
+    toString() {
+        return this.saveString(VBounce.Id);
+    }
     onCollisionUp(e) {
         if (e.velY >= 0)
             return;

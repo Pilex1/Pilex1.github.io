@@ -19,6 +19,17 @@ class Manager {
 
 		var file = (<HTMLLinkElement>document.getElementById("terrainFile")).import;
 		var content = file.querySelector("body").innerHTML;
+		this.loadWorld(content);
+	}
+
+	removeWorld(): void {
+		for (var i = 0; i < this.chunks.length; i++) {
+			this.chunks[i].removeAllPlatforms();
+		}
+	}
+
+	loadWorld(content: string): void {
+		this.removeWorld();
 		var lines = content.split("\n");
 		for (let i = 0; i < lines.length; i++) {
 			var p = Platform.loadString(lines[i]);
@@ -26,6 +37,25 @@ class Manager {
 				this.addPlatform(p);
 			}
 		}
+	}
+
+	saveWorld(): string {
+		var s = "";
+		var platforms = this.getAllPlatforms();
+		for (var p of platforms) {
+			s += p.toString() + "\n";
+		}
+		return s;
+	}
+
+	getAllEntities(): Set<Entity> {
+		var entities = new Set<Entity>();
+		for (var i = 0; i < this.chunks.length; i++) {
+			for (var e of this.chunks[i].getEntities()) {
+				entities.add(e);
+			}
+		}
+		return entities;
 	}
 
 	getAllNpcs(): Set<Npc> {
@@ -77,6 +107,42 @@ class Manager {
 
 	getPlayer(): Player {
 		return this.player;
+	}
+
+	getPreviousCheckpoint(e: Entity): Checkpoint {
+		var next: Checkpoint = null;
+		var ex = e.hitbox.x1;
+		for (var c of this.getAllCheckpoints()) {
+			var x = c.getHitbox().x1;
+			if (x >= ex) continue;
+			if (next == null) {
+				next = c;
+			} else {
+				var cx = next.getHitbox().x1;
+				if (x > cx) {
+					next = c;
+				}
+			}
+		}
+		return next;
+	}
+
+	getNextCheckpoint(e: Entity): Checkpoint {
+		var next: Checkpoint = null;
+		var ex = e.hitbox.x1;
+		for (var c of this.getAllCheckpoints()) {
+			var x = c.getHitbox().x1;
+			if (x <= ex) continue;
+			if (next == null) {
+				next = c;
+			} else {
+				var cx = next.getHitbox().x1;
+				if (x < cx) {
+					next = c;
+				}
+			}
+		}
+		return next;
 	}
 
 	getActiveCheckpoint(): Checkpoint {

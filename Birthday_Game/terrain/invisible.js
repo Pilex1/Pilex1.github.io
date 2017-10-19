@@ -7,6 +7,9 @@ class Invisible extends Platform {
     static get Id() {
         return "I";
     }
+    toString() {
+        return this.saveString(Invisible.Id);
+    }
     onCollisionUp(e) {
         this.activated = true;
         this.solid = true;

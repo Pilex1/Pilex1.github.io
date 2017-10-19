@@ -14,6 +14,10 @@ class Chunk {
 		this.id = id;
 	}
 
+	removeAllPlatforms():void{
+		this.platforms.clear();
+	}
+
 	resetBlocks():void{
 		for (var p of this.platforms){
 			p.reset();

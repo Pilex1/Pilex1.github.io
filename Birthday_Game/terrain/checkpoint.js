@@ -24,6 +24,9 @@ class Checkpoint extends Platform {
     static get Offset() {
         return 20;
     }
+    toString() {
+        return this.saveString(Checkpoint.Id);
+    }
     isChecked() {
         return this.checked;
     }

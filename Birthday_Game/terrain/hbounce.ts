@@ -12,6 +12,10 @@ class HBounce extends Platform {
         this.fillColor = new Color(0x16b84f);
     }
 
+    toString(): string {
+		return this.saveString(HBounce.Id);
+	}
+
     onCollisionLeft(e: Entity) {
         if (e.velX >= 0) return;
         e.velX = this.hBounceStrength;

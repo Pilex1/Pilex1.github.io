@@ -8,7 +8,7 @@ var renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
 var graphics: PIXI.Graphics;
 var manager: Manager;
 
-function initPixi(): void {
+function init(): void {
 	renderer = PIXI.autoDetectRenderer(1200, 675);
 	var main = document.getElementById("divCanvas");
 	renderer.view.style.paddingLeft = "0px";
@@ -50,9 +50,8 @@ function initPixi(): void {
 	renderer.view.addEventListener("wheel", function (e: WheelEvent) {
 		e.preventDefault();
 		manager.getPlayer().onMouseScroll(e);
-	})
+	});
 }
-initPixi();
 
 function updateGui(): void {
 	var btn = <HTMLInputElement>document.getElementById("btn_toggleEdit");
@@ -76,4 +75,5 @@ function loop(): void {
 	renderer.render(stage);
 }
 
+init();
 loop();

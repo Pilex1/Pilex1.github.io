@@ -29,6 +29,10 @@ class Checkpoint extends Platform {
         this.solid = false;
     }
 
+    toString(): string {
+		return this.saveString(Checkpoint.Id);
+	}
+
     isChecked(): boolean {
         return this.checked;
     }

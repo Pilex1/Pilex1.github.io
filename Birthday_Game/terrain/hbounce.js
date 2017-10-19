@@ -8,6 +8,9 @@ class HBounce extends Platform {
     static get Id() {
         return "H";
     }
+    toString() {
+        return this.saveString(HBounce.Id);
+    }
     onCollisionLeft(e) {
         if (e.velX >= 0)
             return;

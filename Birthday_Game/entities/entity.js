@@ -32,6 +32,7 @@ class Entity {
         this.vel[1] = y;
     }
     onUpdate() { }
+    onPlayerTeleport() { }
     calculateFriction() {
         var platforms = this.getPlatformsStandingOn();
         if (platforms.keys.length == 0) {

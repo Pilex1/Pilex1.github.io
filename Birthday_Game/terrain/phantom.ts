@@ -10,6 +10,10 @@ class Phantom extends Platform {
             super(pos);
             this.solid = false;
         }
+
+        toString(): string {
+            return this.saveString(Phantom.Id);
+        }
     
         onCollisionUp(e: Entity) {
             this.activated = true;

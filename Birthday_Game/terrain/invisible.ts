@@ -11,6 +11,10 @@ class Invisible extends Platform {
         this.solid = false;
     }
 
+    toString(): string {
+		return this.saveString(Invisible.Id);
+	}
+
     onCollisionUp(e: Entity) {
         this.activated = true;
         this.solid = true;

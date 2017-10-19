@@ -10,6 +10,12 @@ class Platform {
     static get Id() {
         return "P";
     }
+    toString() {
+        return this.saveString(Platform.Id);
+    }
+    saveString(id) {
+        return id + " " + this.hitbox.x1 + " " + this.hitbox.y1;
+    }
     reset() { }
     getFriction() {
         return this.friction;

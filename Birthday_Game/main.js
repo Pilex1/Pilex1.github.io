@@ -6,7 +6,7 @@ var stage;
 var renderer;
 var graphics;
 var manager;
-function initPixi() {
+function init() {
     renderer = PIXI.autoDetectRenderer(1200, 675);
     var main = document.getElementById("divCanvas");
     renderer.view.style.paddingLeft = "0px";
@@ -47,7 +47,6 @@ function initPixi() {
         manager.getPlayer().onMouseScroll(e);
     });
 }
-initPixi();
 function updateGui() {
     var btn = document.getElementById("btn_toggleEdit");
     if (edit) {
@@ -65,4 +64,5 @@ function loop() {
     updateGui();
     renderer.render(stage);
 }
+init();
 loop();

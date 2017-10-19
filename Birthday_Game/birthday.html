@@ -27,12 +27,12 @@
     <script src="/libs/advent-pro.js" type="text/javascript"></script>
     <!-- End loading fonts -->
 
-     <!-- Loading libraries and other files -->
-     <script src="/libs/pixi.min.js" type="text/javascript"></script>
-     <script src="/libs/math.min.js" type="text/javascript"></script>
-     <script src="/libs/jquery.min.js" type="text/javascript"></script>
-     <link rel="import" id="terrainFile" href="terrain/terrain.plex">
-     <!-- End loading libraries and other files -->
+    <!-- Loading libraries and other files -->
+    <script src="/libs/pixi.min.js" type="text/javascript"></script>
+    <script src="/libs/math.min.js" type="text/javascript"></script>
+    <script src="/libs/jquery.min.js" type="text/javascript"></script>
+    <link rel="import" id="terrainFile" href="terrain/terrain.plex">
+    <!-- End loading libraries and other files -->
 
     <!-- Loading header and footer -->
     <script src="/helper.js" type="text/javascript"></script>
@@ -44,16 +44,43 @@
     </script>
     <!-- End loading header and footer -->
 </head>
+
 <body>
     <header></header>
     <main style="text-align: center;">
         <div id="divCanvas" class="canvasDiv"></div>
         <div class="controlsDiv">
             <input type="submit" class="button spacing" id="btn_toggleEdit" value="" onClick="edit = !edit;">
-            <br>
-            <p>WIP</p>
-            <input type="file" class="button spacing" value="Import terrain from file" onclick="">
-            <input type="file" class="button spacing" value="Export terrain to file" onclick="">
+            <br><br><br>
+            <label class="button spacing">
+                Import terrain from file
+                <input type="file" style="display:none" id="importFile" accept=".plex">
+                <script>
+                    $("#importFile").on("change", ()=>{
+                        var file = $("#importFile")[0].files[0];
+                        var filereader = new FileReader();
+                        filereader.readAsText(file);
+                        filereader.addEventListener("load", ()=>{
+                            var result = filereader.result;
+                            manager.loadWorld(result);
+                        });
+                    });
+                </script>
+            </label>
+            <label class="button spacing" id="download">
+                Export terrain to file
+                <iframe id="download_iframe" style="display: none"></iframe>
+                <script>
+                    $("#download").on("click", () => {
+                        var text = manager.saveWorld();
+                        var blob = new Blob([text], { type: "application/octet-binary" });
+                        var a = document.createElement("a");
+                        a.download = 'terrain.plex';
+                        a.href = URL.createObjectURL(blob);
+                        a.click(); // This will download immediately
+                    });
+                </script>
+            </label>
         </div>
 
         <script src="util/color.js" type="text/javascript"></script>

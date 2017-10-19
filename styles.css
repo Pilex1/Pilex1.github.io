@@ -99,6 +99,7 @@ ul {
 	border-color: #3A4046;
 	width: 300px;
 	box-sizing: border-box;
+	display: inline-block;
 }
 .button:hover{
 	color: aliceblue;

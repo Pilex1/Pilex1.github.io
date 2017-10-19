@@ -2,6 +2,14 @@ enum Action {
 	Playing, EditPos, EditSize, Removing
 }
 
+enum TutorialPlay {
+	Move, Talk, Done
+}
+
+enum TutorialEdit {
+	Edit, PickBlock, EditBlock, Remove, RemoveBlock, Teleport
+}
+
 class Player extends Npc {
 
 	private deaths: number = 0;
@@ -16,12 +24,8 @@ class Player extends Npc {
 	private guide: GuidePlatform = new GuidePlatform();
 	private guideRemoval: GuideRemovalPlatform = new GuideRemovalPlatform();
 
-	private tutorialMove: boolean = false;
-	private tutorialTalk: boolean = false;
-
-	private tutorialEdit: boolean = false;
-	private tutorialRemove: boolean = false;
-	private tutorialTeleport: boolean = false;
+	private tutorialPlay: TutorialPlay = TutorialPlay.Move;
+	private tutorialEdit: TutorialEdit = TutorialEdit.Edit;
 
 	private tutorialText: PIXI.Text;
 	private deathText: PIXI.Text;
@@ -32,11 +36,13 @@ class Player extends Npc {
 		super([150, Manager.Floor], "", new Color(0xFFFFFF));
 		this.defaultSpawn = this.hitbox.getPos();
 
-		this.tutorialText = new PIXI.Text("", { fontSize: 24, fontFamily: "Tw Cen MT", fill: "0xffffff" });
+		this.tutorialText = new PIXI.Text("", { fontSize: 32, fontFamily: "Tw Cen MT", fill: "0xffffff" });
 		this.tutorialText.anchor.x = 0.5;
 		this.tutorialText.anchor.y = 0;
 		this.tutorialText.position.x = renderer.view.width / 2;
-		this.tutorialText.position.y = 0;
+		this.tutorialText.position.y = 20;
+		this.tutorialText.style.wordWrap = true;
+		this.tutorialText.style.wordWrapWidth = renderer.view.width - 700;
 		stage.addChild(this.tutorialText);
 
 		this.debugText = new PIXI.Text("", { fontSize: 24, fontFamily: "Tw Cen MT", fill: "0xffffff" });
@@ -46,7 +52,7 @@ class Player extends Npc {
 		this.debugText.position.y = 0;
 		stage.addChild(this.debugText);
 
-		this.editingBlockText = new PIXI.Text("", { fontSize: 24, fontFamily: "Tw Cen MT", fill: "0xffffff" });
+		this.editingBlockText = new PIXI.Text("", { fontSize: 32, fontFamily: "Tw Cen MT", fill: "0xffffff" });
 		this.editingBlockText.anchor.x = 0.5;
 		this.editingBlockText.anchor.y = 1;
 		this.editingBlockText.position.x = renderer.view.width / 2;
@@ -59,6 +65,16 @@ class Player extends Npc {
 		this.deathText.position.x = renderer.view.width;
 		this.deathText.position.y = renderer.view.height;
 		stage.addChild(this.deathText);
+	}
+
+	private teleportToCheckpoint(checkpoint: Checkpoint) {
+		this.velX = 0;
+		this.velY = 0;
+		this.hitbox.x1 = checkpoint.getHitbox().x1;
+		this.hitbox.y2 = checkpoint.getHitbox().y2;
+		for (var e of manager.getAllEntities()) {
+			e.onPlayerTeleport();
+		}
 	}
 
 	private isEditing(): boolean {
@@ -125,6 +141,10 @@ class Player extends Npc {
 				var x = pos[0];
 				manager.addPlatform(new Checkpoint([x, y]));
 				this.setAction(Action.EditPos);
+
+				if (this.tutorialEdit === TutorialEdit.EditBlock) {
+					this.tutorialEdit++;
+				}
 			}
 		} else if (this.action === Action.EditSize) {
 			var rect = this.guide.getHitbox().regularise();
@@ -144,6 +164,10 @@ class Player extends Npc {
 					} else if (this.blocks[this.editingBlockId] === Phantom.name) {
 						manager.addPlatform(new Phantom(pos));
 					}
+
+					if (this.tutorialEdit === TutorialEdit.EditBlock) {
+						this.tutorialEdit++;
+					}
 				}
 			}
 			this.setAction(Action.EditPos);
@@ -155,30 +179,77 @@ class Player extends Npc {
 			if (npc !== null) {
 				if (npc.getDistanceTo(this) <= this.npcRange) {
 					npc.talk();
-					this.tutorialTalk = true;
+					if (this.tutorialPlay === TutorialPlay.Talk) {
+						this.tutorialPlay += 1;
+					}
 				}
 			}
 		}
 		if (edit) {
 			if (e.code === "KeyE") {
 				this.setAction(Action.EditPos);
+				if (this.tutorialEdit === TutorialEdit.Edit) {
+					this.tutorialEdit += 1;
+				}
 			}
+
+			if (e.code === "KeyJ") {
+				this.previousBlock();
+				if (this.tutorialEdit === TutorialEdit.PickBlock) {
+					this.tutorialEdit += 1;
+				}
+			}
+			if (e.code === "KeyL") {
+				this.nextBlock();
+				if (this.tutorialEdit === TutorialEdit.PickBlock) {
+					this.tutorialEdit += 1;
+				}
+			}
+
 			if (e.code === "KeyR") {
 				this.setAction(Action.Removing);
+				if (this.tutorialEdit === TutorialEdit.Remove) {
+					this.tutorialEdit += 1;
+				}
+			}
+
+			if (e.code === "KeyU") {
+				var c = manager.getPreviousCheckpoint(this);
+				if (c !== null) {
+					this.teleportToCheckpoint(c);
+					if (this.tutorialEdit === TutorialEdit.Teleport) {
+						this.tutorialEdit += 1;
+					}
+				}
+			}
+			if (e.code === "KeyO") {
+				var c = manager.getNextCheckpoint(this);
+				if (c !== null) {
+					this.teleportToCheckpoint(c);
+					if (this.tutorialEdit === TutorialEdit.Teleport) {
+						this.tutorialEdit += 1;
+					}
+				}
 			}
 		}
 	}
 	onMouseScroll(e: WheelEvent): void {
 		if (e.deltaY < 0) {
-			this.editingBlockId--;
-			if (this.editingBlockId < 0) {
-				this.editingBlockId = this.blocks.length - 1;
-			}
+			this.previousBlock();
 		} else if (e.deltaY > 0) {
-			this.editingBlockId++;
-			if (this.editingBlockId >= this.blocks.length - 1) {
-				this.editingBlockId = 0;
-			}
+			this.nextBlock();
+		}
+	}
+	nextBlock() {
+		this.editingBlockId++;
+		if (this.editingBlockId >= this.blocks.length - 1) {
+			this.editingBlockId = 0;
+		}
+	}
+	previousBlock() {
+		this.editingBlockId--;
+		if (this.editingBlockId < 0) {
+			this.editingBlockId = this.blocks.length - 1;
 		}
 	}
 
@@ -188,7 +259,9 @@ class Player extends Npc {
 		}
 		this.useGravity = edit ? !this.flying : true;
 		if (keys["KeyW"]) {
-			this.tutorialMove = true;
+			if (this.tutorialPlay === TutorialPlay.Move) {
+				this.tutorialPlay += 1;
+			}
 			if (this.useGravity) {
 				this.jump();
 			} else {
@@ -196,14 +269,18 @@ class Player extends Npc {
 			}
 		}
 		if (keys["KeyS"]) {
-			this.tutorialMove = true;
+			if (this.tutorialPlay === TutorialPlay.Move) {
+				this.tutorialPlay += 1;
+			}
 			if (this.useGravity) {
 			} else {
 				this.flyDown();
 			}
 		}
 		if (keys["KeyA"]) {
-			this.tutorialMove = true;
+			if (this.tutorialPlay === TutorialPlay.Move) {
+				this.tutorialPlay += 1;
+			}
 			if (this.useGravity) {
 				this.strafeLeft();
 			} else {
@@ -211,7 +288,9 @@ class Player extends Npc {
 			}
 		}
 		if (keys["KeyD"]) {
-			this.tutorialMove = true;
+			if (this.tutorialPlay === TutorialPlay.Move) {
+				this.tutorialPlay += 1;
+			}
 			if (this.useGravity) {
 				this.strafeRight();
 			} else {
@@ -323,12 +402,41 @@ class Player extends Npc {
 				this.guideRemoval.getHitbox().setSize(p.getHitbox().getSize());
 				if (mouseButtons[0]) {
 					manager.removePlatform(p);
+					if (this.tutorialEdit === TutorialEdit.RemoveBlock) {
+						this.tutorialEdit++;
+					}
 				}
 			} else {
 				this.guideRemoval.getHitbox().setSize([0, 0]);
 			}
 		} else {
 			this.guideRemoval.getHitbox().setSize([0, 0]);
+		}
+	}
+
+	private renderTutorial(): void {
+		if (this.tutorialPlay === TutorialPlay.Move) {
+			this.tutorialText.text = "Press W, A, S, D to move around.";
+		} else if (this.tutorialPlay === TutorialPlay.Talk) {
+			this.tutorialText.text = "Press Enter near an NPC to talk.";
+		} else if (edit) {
+			if (this.tutorialEdit === TutorialEdit.Edit) {
+				this.tutorialText.text = "Press E to enter edit mode.";
+			} else if (this.tutorialEdit === TutorialEdit.PickBlock) {
+				this.tutorialText.text = "Press J or L, or use the mouse wheel, select a block.";
+			} else if (this.tutorialEdit === TutorialEdit.EditBlock) {
+				this.tutorialText.text = "Left click once to select the starting corner, and left click a second time to set the ending corner. This will place down the blocks.";
+			} else if (this.tutorialEdit === TutorialEdit.Remove) {
+				this.tutorialText.text = "Press R to enter remove mode.";
+			} else if (this.tutorialEdit === TutorialEdit.RemoveBlock) {
+				this.tutorialText.text = "Left click whilst hovering over a block to remove it.";
+			} else if (this.tutorialEdit === TutorialEdit.Teleport) {
+				this.tutorialText.text = "Press U or O to teleport to the closest checkpoint to the left or to the right respectively.";
+			} else {
+				this.tutorialText.text = "";
+			}
+		} else {
+			this.tutorialText.text = "";
 		}
 	}
 
@@ -340,6 +448,7 @@ class Player extends Npc {
 		this.handleEditing();
 		this.handleRemoving();
 		this.renderDebug();
+		this.renderTutorial();
 	}
 
 	onRender(camera: number[]): void {

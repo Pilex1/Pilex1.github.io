@@ -45,6 +45,8 @@ abstract class Entity {
 	onUpdate(): void { }
 	abstract onRender(camera): void;
 
+	onPlayerTeleport(): void { }
+
 	calculateFriction(): number {
 		var platforms = this.getPlatformsStandingOn();
 		if (platforms.keys.length == 0) {

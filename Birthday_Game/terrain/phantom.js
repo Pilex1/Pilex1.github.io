@@ -7,6 +7,9 @@ class Phantom extends Platform {
     static get Id() {
         return "PH";
     }
+    toString() {
+        return this.saveString(Phantom.Id);
+    }
     onCollisionUp(e) {
         this.activated = true;
     }
