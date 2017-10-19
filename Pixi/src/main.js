@@ -6,7 +6,10 @@ var renderer;
 var frameCount = 0;
 
 function initPixi() {
-	renderer = PIXI.autoDetectRenderer({ width: 1280, height: 720 });
+	var width = $(window).width() - 600;
+	var height = width * 9 / 16;
+	console.log(width);
+	renderer = PIXI.autoDetectRenderer(width, height);
 	var main = document.getElementById("divCanvas");
 	renderer.view.style.width = "auto";
 	renderer.view.style.height = "auto";
@@ -31,7 +34,7 @@ document.querySelectorAll(".sectionDiv>[type=text]").forEach(element => {
 	element.addEventListener("keypress", event => {
 		if (event.keyCode === 13) {
 			updateGui();
-			if (element.id!=="txtbx_speed"){
+			if (element.id !== "txtbx_speed") {
 				render();
 			}
 		}
