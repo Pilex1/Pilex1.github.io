@@ -17,6 +17,7 @@
 
     <!-- Loading stylesheet and icon -->
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="ezra_styles.css">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <!-- End loading stylesheet and icon -->
 
@@ -45,21 +46,53 @@
 <body>
     <header></header>
     <main>
+
+        <!-- it's good practice to put div around sections of related content like so: -->
+
         <div align="center">
             <p class="margin textWrap" style="width: 300px; display: inline-block; vertical-align: top; margin-top: 0px;">May the light of King Ezra illuminate our path and blind our enemies.</p>
             <img src="logo.png" class="image margin" style="width:300px">
+        </div>
+
+        <div align="center">
             <h3 class="heading">Dominion City</h3>
             <img src="render277.png" style="width:600px">
             <p>Population: ????</p>
             <p>Established: 22 March, 2015</p>
             <p>Area: ????</p>
-            <p>Dominion City is the capital and largest city in the Ezrean Dominion. Established in 2015 on the south coast of Lake 
-            Central, the city now occupies much of the southern and eastern coast of Lake Central and extends far south and east across 
-            several land and river systems.</p>
+            <p>Dominion City is the capital and largest city in the Ezrean Dominion. Established in 2015 on the south coast
+                of Lake Central, the city now occupies much of the southern and eastern coast of Lake Central and extends
+                far south and east across several land and river systems.</p>
+        </div>
+
+        <div align="center">
             <h3 class="heading">Districts of Dominion City</h3>
-            <p class="margin textWrap" style="width: 300px; display: inline-block; vertical-align: top; margin-top: 0px;">Harbour<br>
+
+            <!-- ul is an unordered list
+            li is a list element - put them inside ul's -->
+
+            <ul>
+                <li>Harbour</li>
+                <li>South Island</li>
+                <li>Old Town</li>
+                <li>Los Corvino</li>
+                <li>Los Corvino West</li>
+                <li>Capital</li>
+                <li>Heechu</li>
+                <li>Leechul</li>
+                <li>Lexington Heights</li>
+                <li>New Town</li>
+                <li>Hallton</li>
+                <li>Edel Plain</li>
+                <li>Former Airport</li>
+                <li>Winterford</li>
+                <li>Loop Zoop</li>
+            </ul>
+
+            <!-- old code -->
+            <!-- <p class="margin textWrap" style="width: 300px; display: inline-block; vertical-align: top; margin-top: 0px;">Harbour<br>
                 South Island<br>Old Town<br>Los Corvino<br>Los Corvino West<br>Capital<br>Heechu<br>Leechul<br>Lexington Heights<br>
-                Central<br>New Town<br>Hallton<br>Edel Plain<br>Former Airport<br>Winterford<br>Loop Zoop</p>
+                Central<br>New Town<br>Hallton<br>Edel Plain<br>Former Airport<br>Winterford<br>Loop Zoop</p> -->
             <img src="render253.png" class="image margin" style="width:400px">
         </div>
     </main>
