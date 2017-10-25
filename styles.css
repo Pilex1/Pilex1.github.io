@@ -281,7 +281,7 @@ h4 {
 
 .textWrap {
     display: inline-block;
-    width: 400px;
+    max-width: 400px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 0px;
