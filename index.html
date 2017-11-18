@@ -33,7 +33,7 @@
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
             "HTML-CSS": {
-                webFont: "Neo-Euler"
+                webFont: "TeX"
             }
         });
     </script>
@@ -113,9 +113,11 @@
                 <h3 class="heading">Cool maths identities</h3>
                 <p>Alex gets really excited about these things, but he's also too lazy to make a new page for them, so he thought
                     it would be fitting to put them here.</p>
-                <p style="padding:20px 0px">
-                    \begin{align}
 
+                <p style="padding:20px 0px">
+
+                    $$
+                    \begin{align}
                     1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}-\frac{1}{6}+...&=\ln{2}\\[15pt]
 
                     1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}+\frac{1}{9}-\frac{1}{11}+...&=\frac{\pi}{4}\\[15pt]
@@ -123,28 +125,71 @@
                     1-\frac{1}{4}+\frac{1}{7}-\frac{1}{10}+\frac{1}{13}-\frac{1}{16}+...&=\frac{1}{3}\left(\ln{2}+\frac{\pi}{\sqrt{3}}\right)\\[15pt]
 
                     1-\frac{1}{5}+\frac{1}{9}-\frac{1}{13}+\frac{1}{17}-\frac{1}{21}+...&=\frac{\pi+2\ln\left(1+\sqrt{2}\right)}{4\sqrt{2}}\\[15pt]
-
                     \\[15pt]
-
-                    \lim_{n\to\infty}\int_{0}^{1}\frac{1}{1+x^n}dx=1\\[15pt]
-
-                    \lim_{n\to-\infty}\int_{0}^{1}\frac{1}{1+x^n}dx=0\\[15pt]
-
-                    \\[15pt]
-
+                    \end{align}  
+                    $$
+                  
+                    $$
+                    \begin{align}
                     \frac{1}{1\cdot2}+\frac{1}{3\cdot4}+\frac{1}{5\cdot6}+\frac{1}{7\cdot8}+\frac{1}{9\cdot10}+\frac{1}{11\cdot12}+...&=\ln{2}\\[15pt]
-
+                    
                     \frac{1}{1\cdot2}+\frac{1}{2\cdot4}+\frac{1}{3\cdot8}+\frac{1}{4\cdot16}+\frac{1}{5\cdot32}+\frac{1}{6\cdot64}+...&=\ln{2}\\[15pt]
 
-                    \frac{1}{1\cdot\sqrt{2}}+\frac{1}{2\cdot2}+\frac{1}{3\cdot2\sqrt{2}}+\frac{1}{4\cdot4}+\frac{1}{5\cdot4\sqrt{2}}+\frac{1}{6\cdot8}+...&=-\ln\left(1-\frac{1}{\sqrt{2}}\right)\\[15pt]
+                    \frac{1}{1\cdot\sqrt{2}}+\frac{1}{2\cdot2}+\frac{1}{3\cdot2\sqrt{2}}+\frac{1}{4\cdot4}+\frac{1}{5\cdot4\sqrt{2}}+\frac{1}{6\cdot8}+...&=\ln\left(2+\sqrt{2}\right)\\[15pt]
+                    \end{align}
+                    $$
 
+                    $$
+                    \begin{align}
                     \frac{1}{1\cdot2}-\frac{1}{2\cdot4}+\frac{1}{3\cdot8}-\frac{1}{4\cdot16}+\frac{1}{5\cdot32}-\frac{1}{6\cdot64}+...&=\ln{3}-\ln{2}\\[15pt]
 
                     \frac{1}{1}+\frac{1}{3\cdot4}+\frac{1}{5\cdot16}+\frac{1}{7\cdot64}+\frac{1}{9\cdot256}+\frac{1}{11\cdot1024}+...&=\ln{3}\\[15pt]
-
-                    
-
+                    \\[15pt]
                     \end{align}  
+                    $$
+
+                    $$
+                    \begin{align}
+                    \lim_{n\to\infty}\int_{0}^{1}\frac{1}{1+x^n}dx&=1\\[15pt]
+
+                    \lim_{n\to-\infty}\int_{0}^{1}\frac{1}{1+x^n}dx&=0\\[15pt]
+                    \\[15pt]
+                    \end{align}  
+                    $$
+
+                    $$
+                    \begin{align}
+                    \cos\left(\frac{1}{2n}\pi\right)+\cos\left(\frac{3}{2n}\pi\right)+\cos\left(\frac{5}{2n}\pi\right)+\cos\left(\frac{7}{2n}\pi\right)+...+\cos\left(\frac{2n-1}{2n}\pi\right)&=0\\[15pt]
+
+                    \cos\left(\frac{1}{2n+1}\pi\right)+\cos\left(\frac{3}{2n+1}\pi\right)+\cos\left(\frac{5}{2n+1}\pi\right)+\cos\left(\frac{7}{2n+1}\pi\right)+...+\cos\left(\frac{2n-1}{2n+1}\pi\right)&=\frac{1}{2}\\[15pt]
+
+                    \cos\left(\frac{2}{2n+1}\pi\right)+\cos\left(\frac{4}{2n+1}\pi\right)+\cos\left(\frac{6}{2n+1}\pi\right)+\cos\left(\frac{8}{2n+1}\pi\right)+...+\cos\left(\frac{2n}{2n+1}\pi\right)&=-\frac{1}{2}\\[15pt]
+
+                    \cos\left(\frac{1}{2n+1}\pi\right)\cos\left(\frac{3}{2n+1}\pi\right)\cos\left(\frac{5}{2n+1}\pi\right)\cos\left(\frac{7}{2n+1}\pi\right)...\cos\left(\frac{2n-1}{2n+1}\pi\right)&=\frac{1}{2^n}\\[15pt]
+
+                    \cos\left(\frac{1}{2^n+1}\pi\right)\cos\left(\frac{2}{2^n+1}\pi\right)\cos\left(\frac{4}{2^n+1}\pi\right)\cos\left(\frac{8}{2^n+1}\pi\right)...\cos\left(\frac{2^{n-1}}{2^n+1}\pi\right)&=\frac{1}{2^n}\\[15pt]
+                    \\[15pt]
+                    \end{align}  
+                    
+                    $$
+
+                    $$
+                    \begin{align}
+
+                    &\text{Borwein Integral}\\[15pt]
+
+                    &\int_{0}^{\infty}\frac{\sin(x)}{x}dx=\frac{\pi}{2}\\[15pt]
+                    &\int_{0}^{\infty}\frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}dx=\frac{\pi}{2}\\[15pt]
+                    &\int_{0}^{\infty}\frac{\sin(x)}{x}\frac{\sin(x/5)}{x/5}\frac{\sin(x/7)}{x/7}dx=\frac{\pi}{2}\\[15pt]
+                    &\vdots\\[15pt]
+                    &\int_{0}^{\infty}\frac{\sin(x)}{x}\frac{\sin(x/5)}{x/5}\frac{\sin(x/7)}{x/7}...\frac{\sin(x/13)}{x/13}dx=\frac{\pi}{2}\\[15pt]
+                    &\int_{0}^{\infty}\frac{\sin(x)}{x}\frac{\sin(x/5)}{x/5}\frac{\sin(x/7)}{x/7}...\frac{\sin(x/13)}{x/13}\frac{\sin(x/15)}{x/15}dx\approx\frac{\pi}{2}-2.31\times10^{-11}\\[15pt]
+                    
+                    \\[15pt]
+                    \end{align}
+                    
+                    $$
+                   
                 </p>
             </div>
 
