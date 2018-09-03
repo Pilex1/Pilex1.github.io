@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Advent+Pro:300');
+
+* {
+    font-family: 'Advent Pro', sans-serif;
+    color: aliceblue;
+}
+
+body {
+    background-color: #1f2020;
+}
+
+main {
+    margin: 40px;
+}
+
+h1 {
+    font-size: 48px;
+    color: #8ec1df;
+    margin: 5px;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 28px;
+    text-decoration: underline;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+p {
+    font-size: 20px;
+    margin: 30px auto;
+}
+
+img {
+    border: 1px solid aliceblue;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: #2d61af;
+}
+
+h3 a {
+    color: aliceblue;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.text-heading {
+    max-width: 850px;
+    margin: 60px auto 20px auto;
+}
+.text {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.small-margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+}
+
+.image-caption {
+    font-size: 16px;
+    margin-top: -40px;
+}
