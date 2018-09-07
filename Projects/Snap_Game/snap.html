@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Plex Website</title>
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107202591-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments) };
+        gtag('js', new Date());
+        gtag('config', '');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Loading stylesheet and icon -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="snap_styles.css">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- End loading stylesheet and icon -->
+
+    <!-- Loading fonts -->
+    <script>
+        var __adobewebfontsappname__ = "dreamweaver";
+    </script>
+    <script src="/libs/advent-pro.js" type="text/javascript"></script>
+    <!-- End loading fonts -->
+
+    <!-- Loading libraries and other files -->
+    <script src="/libs/jquery.min.js" type="text/javascript"></script>
+    <script src="/libs/pixi.min.js"></script>
+
+    <script src="src/game.js"></script>
+    <script src="src/main.js"></script>
+    <!-- End loading libraries and other files -->
+
+    <!-- Loading header and footer -->
+    <script src="/helper.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("header").load("/header.html", () => setActive("Snap Game", "Is your name Ryan?"));
+            $("footer").load("/footer.html");
+
+            init();
+        });
+    </script>
+    <!-- End loading header and footer -->
+</head>
+
+<body>
+    <header></header>
+    <main style="text-align: center" tabindex="0">
+        <p>
+            INSTRUCTIONS: Each player takes turns placing cards down onto the pile. If two cards of the same number are placed, a player
+            can call "Snap", in which case the other player must pick up the cards. If a player incorrectly calls "Snap",
+            then they must pick up the cards. A player wins by emptying all their cards.
+        </p>
+        <hr>
+        <div style="margin-top:50px">
+            <div id="div0">
+                <p class="turn"></p>
+                <p class="cardInfo">
+                    Player 1 - 26 cards
+                </p>
+                <img src="src/special/BackOfCard.JPG">
+                <p>Deal Card - "A"</p>
+                <p>Call Snap - "D"</p>
+            </div>
+            <div id="divPile">
+                <p></p>
+                <p class="cardInfo">
+                    Dealt pile - 0 cards
+                </p>
+                <img src="src/special/MasterCardPile.JPG">
+                <p><br></p>
+                <p><br></p>
+            </div>
+            <div id="div1">
+                <p class="turn"></p>
+                <p class="cardInfo">
+                    Player 2 - 26 cards
+                </p>
+                <img src="src/special/BackOfCard.JPG">
+                <p>Deal Card - "L"</p>
+                <p>Call Snap - "J"</p>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
