@@ -25,7 +25,17 @@
             ],
             "group": {
                 "kind": "build"
-                //"isDefault": true
+            }
+        },
+        {
+            "type": "typescript",
+            "tsconfig": "Cellular_Automata/tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         }
     ]

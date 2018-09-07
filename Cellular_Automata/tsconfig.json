@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "system",
+        "outFile": "main.js",
+        //"strict": true,
+        "noImplicitAny": true,
+        "sourceMap": true
+    }
+}
