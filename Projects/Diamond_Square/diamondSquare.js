@@ -136,7 +136,7 @@ function render(offset) {
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
             x = vals[i][j];
-            x = Math.max(0, Math.min(1,x))
+            x = Math.max(0, Math.min(1, x))
             hex = colorsys.hsv2Rgb(x * 360 + offset, 360, 360);
             graphics.beginFill(convert(hex.r, hex.g, hex.b));
             graphics.drawRect(i * gridWidth, j * gridHeight, gridWidth, gridHeight);
@@ -151,7 +151,7 @@ function loop() {
     requestAnimationFrame(loop);
     graphics.clear();
 
-    render(frames /2);
+    render(frames / 8);
 
     renderer.render(stage);
     frames++;
