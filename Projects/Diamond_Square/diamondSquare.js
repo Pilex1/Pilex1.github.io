@@ -8,6 +8,7 @@ canv = $("#mainCanvasArea");
 width = canv.width();
 height = width;
 renderer = PIXI.autoDetectRenderer(width, width);
+renderer.clearBeforeRender = false
 canv.get(0).insertBefore(renderer.view, canv.get(0).firstChild);
 stage = new PIXI.Container();
 graphics = new PIXI.Graphics();
@@ -115,10 +116,16 @@ function iterate() {
 
 }
 
+function iterateFull() {
+    while (radius >= 1) {
+        iterate();
+    }
+}
+
 reset();
 
 // Main loop
-function render() {
+function render(offset) {
 
     convert = function (r, g, b) {
         return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
@@ -128,25 +135,24 @@ function render() {
     gridHeight = height / size;
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
-            x = vals[i][j] * 255;
-            //x = Math.max(0, Math.min(255,x))
-            hex = convert(x, x, x);
-            graphics.beginFill(hex);
+            x = vals[i][j];
+            x = Math.max(0, Math.min(1,x))
+            hex = colorsys.hsv2Rgb(x * 360 + offset, 360, 360);
+            graphics.beginFill(convert(hex.r, hex.g, hex.b));
             graphics.drawRect(i * gridWidth, j * gridHeight, gridWidth, gridHeight);
         }
     }
 }
 
+iterateFull();
+
 frames = 0;
 function loop() {
     requestAnimationFrame(loop);
-
-    if (frames % 1 == 0) {
-        iterate();
-    }
-
     graphics.clear();
-    render();
+
+    render(frames /2);
+
     renderer.render(stage);
     frames++;
 }

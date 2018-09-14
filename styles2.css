@@ -97,5 +97,8 @@ a:hover {
 }
 
 #mainCanvasArea {
+    margin-left: auto;
+    margin-right:auto;
    padding: 0px 40px;
+   max-width: 800px;
 }
