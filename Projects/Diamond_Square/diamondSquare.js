@@ -1,12 +1,37 @@
-k = 0;
+function rand(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+// PIXI code
+
+canv = $("#mainCanvasArea");
+width = canv.width();
+height = width;
+renderer = PIXI.autoDetectRenderer(width, width);
+canv.get(0).insertBefore(renderer.view, canv.get(0).firstChild);
+stage = new PIXI.Container();
+graphics = new PIXI.Graphics();
+stage.addChild(graphics);
+
+// Diamond Square algorithm
+
+adj = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+diag = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
+
+k = 7;
+h = 0.5;
+
 size = 0;
 vals = [];
-centers = []
+
+radius = 0;
+centers = [];
 state = "none";
 
-adj = []
-
 function reset() {
+    size = (1 << k) + 1;
+    radius = (1 << (k - 1));
+
     vals = [size]
     for (i = 0; i < size; i++) {
         vals[i] = [size];
@@ -14,38 +39,115 @@ function reset() {
             vals[i][j] = 0;
         }
     }
-    vals[0][0] = Math.random() * 0.5 + 0.5;
-    vals[size - 1][0] = Math.random() * 0.5 + 0.5;
-    vals[0][size - 1] = Math.random() * 0.5 + 0.5;
-    vals[size - 1][size - 1] = Math.random() * 0.5 + 0.5;
+    vals[0][0] = rand(0.25, 0.75);
+    vals[size - 1][0] = rand(0.25, 0.75);
+    vals[0][size - 1] = rand(0.25, 0.75);
+    vals[size - 1][size - 1] = rand(0.25, 0.75);
 
-    centers.push({
-        x: (size - 1) / 2,
-        y: (size - 1) / 2
-    });
-
-    console.log(vals)
-    console.log(centers)
-}
-
-function setK(_k) {
-    k = _k;
-    size = (1 << k) + 1;
+    centers.push([(size - 1) / 2, (size - 1) / 2]);
 }
 
 function iterate() {
-    newCenters = []
+    if (radius < 1) {
+        return;
+    }
+
     if (state == "none" || state == "square") {
-        // diamond
-
-        for (center in centers) {
+        // diamond step
+        for (i = 0; i < centers.length; i++) {
+            center = centers[i];
             sum = 0;
-
+            for (j = 0; j < diag.length; j++) {
+                x = diag[j];
+                coord = [center[0] + radius * x[0], center[1] + radius * x[1]];
+                sum += vals[coord[0]][coord[1]];
+            }
+            vals[center[0]][center[1]] = sum / 4 + rand(-0.5 * h, 0.5 * h);
         }
+
+        state = "diamond";
     } else if (state == "diamond") {
-        // square
+        // square step
+
+        squareCenters = [];
+        for (i = 0; i < centers.length; i++) {
+            center = centers[i];
+            for (j = 0; j < adj.length; j++) {
+                x = adj[j];
+                coord = [center[0] + radius * x[0], center[1] + radius * x[1]];
+                squareCenters.push(coord);
+            }
+        }
+
+        for (i = 0; i < squareCenters.length; i++) {
+            center = squareCenters[i];
+            sum = 0;
+            count = 0;
+            for (j = 0; j < adj.length; j++) {
+                x = adj[j];
+                coord = [center[0] + radius * x[0], center[1] + radius * x[1]];
+                if (coord[0] >= 0 && coord[0] < size && coord[1] >= 0 && coord[1] < size) {
+                    sum += vals[coord[0]][coord[1]];
+                    count += 1;
+                }
+            }
+            vals[center[0]][center[1]] = sum / count + rand(-0.5 * h, 0.5 * h);
+        }
+
+        // calculate new centers in the diamond step
+        newCenters = [];
+
+        radius /= 2;
+        h /= 2;
+
+        for (i = 0; i < centers.length; i++) {
+            center = centers[i];
+            for (j = 0; j < diag.length; j++) {
+                x = diag[j];
+                coord = [center[0] + radius * x[0], center[1] + radius * x[1]];
+                newCenters.push(coord);
+            }
+        }
+
+        centers = newCenters;
+        state = "square";
+    }
+
+}
+
+reset();
+
+// Main loop
+function render() {
+
+    convert = function (r, g, b) {
+        return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+    }
+
+    gridWidth = width / size;
+    gridHeight = height / size;
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size; j++) {
+            x = vals[i][j] * 255;
+            //x = Math.max(0, Math.min(255,x))
+            hex = convert(x, x, x);
+            graphics.beginFill(hex);
+            graphics.drawRect(i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+        }
     }
 }
 
-setK(5);
-reset();
+frames = 0;
+function loop() {
+    requestAnimationFrame(loop);
+
+    if (frames % 1 == 0) {
+        iterate();
+    }
+
+    graphics.clear();
+    render();
+    renderer.render(stage);
+    frames++;
+}
+loop();
