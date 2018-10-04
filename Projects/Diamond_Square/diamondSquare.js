@@ -4,7 +4,7 @@ function rand(min, max) {
 
 // PIXI code
 
-canv = $("#mainCanvasArea");
+canv = $("#canv1");
 width = canv.width();
 height = width;
 renderer = PIXI.autoDetectRenderer(width, width);
@@ -137,7 +137,7 @@ function render(offset) {
         for (j = 0; j < size; j++) {
             x = vals[i][j];
             x = Math.max(0, Math.min(1, x))
-            hex = colorsys.hsv2Rgb(x * 360 + offset, 360, 360);
+            hex = colorsys.hsv2Rgb(x*360+offset, 360, 360);
             graphics.beginFill(convert(hex.r, hex.g, hex.b));
             graphics.drawRect(i * gridWidth, j * gridHeight, gridWidth, gridHeight);
         }
@@ -151,7 +151,7 @@ function loop() {
     requestAnimationFrame(loop);
     graphics.clear();
 
-    render(frames / 8);
+    render(frames/4);
 
     renderer.render(stage);
     frames++;
