@@ -9,6 +9,8 @@ var deltaTime = 0;
 var fps = 0;
 
 var onLoad = function() {
+
+	var canv = document.getElementById("cv");
    
    document.onkeypress = function(event) {
       console.log("a");
@@ -27,8 +29,9 @@ var onLoad = function() {
 		alt = event.altKey;
 	}
 	document.onmousemove = function(event) {
-		mx = event.x;
-		my = event.y;
+		mx = event.pageX - canv.offsetLeft;
+		my = event.pageY - canv.offsetTop;
+		console.log(mx, my);
 	}
 
 	initRenderer();
