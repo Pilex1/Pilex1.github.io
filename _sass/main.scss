@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Advent+Pro:300');
+
+$background-color: #1f2020;
+
+* {
+    font-family: 'Advent Pro', sans-serif;
+    background-color: $background-color;
+    color: aliceblue;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+body {
+    background-color: $background-color;
+    color: aliceblue;
+}
+
+main {
+    margin: 40px auto;
+}
+
+a {
+    text-decoration: none;
+    color: #4b82d4;
+}
+
+h1 {
+    font-size: 56px;
+    margin: 5px;
+    font-weight: normal;
+    font-family: 'Advent Pro', sans-serif;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 60px auto 30px auto;
+    border-bottom: 2px solid aliceblue;
+    font-family: 'Advent Pro', sans-serif;
+}
+
+h3 {
+    font-size: 32px;
+    font-weight: normal;
+    margin: 30px auto;
+    color: #c9d2dc;
+    font-family: 'Advent Pro', sans-serif;
+}
+
+// .card {
+//     background-color: aliceblue;
+//     color: $background-color; 
+// }
+
+.card h4 {
+    color: aliceblue;
+    border-bottom: 1px solid $background-color; 
+    font-size: 28px;
+}
+
+.card a {
+    font-size: 20px;
+}
+
+p {
+    font-size: 20px;
+    margin: 30px auto;
+    padding: 0px auto;
+}
+
+img {
+    border: 1px solid aliceblue;
+    max-width: 75%;
+    max-height: 100%;
+    display: block;
+    margin: 50px 0px 10px 0px;
+}
+
+ul {
+    list-style-type: circle;
+    font-size: 20px;
+    margin: 0px auto;
+    max-width: 800px;
+}
+
+li {
+    margin: 10px 0px;
+}
+
+hr {
+    color: aliceblue;
+    border-top: 1px solid aliceblue;
+}

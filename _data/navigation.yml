@@ -1,0 +1,43 @@
+- title: Home
+  subtitle: Home sweet home!
+  link: /index
+- title: Computer Graphics
+  subtitle: Matrix madness
+  link: /computer-graphics/index
+  pages:
+    - title: Introduction to Projective Geometry
+      link: /computer-graphics/projective-geometry
+    - title: 3D Perspective Projection
+      link: /computer-graphics/3d-projection
+    - title: Inverse projection
+      link: /computer-graphics/inverse-projection
+    - title: Colour
+      link: /computer-graphics/colour
+    - title: Terraria Game
+      link: /computer-graphics/2d-game
+    - title: Platformer Game
+      link: /computer-graphics/platformer
+- title: Mathematical Visualizations
+  subtitle: Fractals, cellular automata, and more!
+  link: /visualizations/index
+  pages:
+    - title: Visualizing complex-valued functions
+      link: /visualizations/complex-functions
+    - title: Game of Life
+      link: /visualizations/game-of-life
+    - title: Langton's Ant
+      link: /visualizations/langtons-ant
+    - title: Wave Equation
+      link: /visualizations/wave-equation
+- title: Machine Learning
+  subtitle: And human learning too
+  link: /machine-learning/index
+  pages:
+    - title: Understanding the Jacobian
+      link: /machine-learning/jacobian
+    - title: Chain rule for vector valued functions
+      link: /machine-learning/chain-rule
+    - title: Linear regression
+      link: /machine-learning/linear-regression
+    - title: Neural networks
+      link: /machine-learning/neural-networks

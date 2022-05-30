@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+
+
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+      </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
+</head>
+
+<body>
+  <!-- special case to handle the index page -->
+
+
+
+    
+    
+
+    
+    
+
+    
+    
+        <h1 class="text-center">Mathematical Visualizations</h1>
+        <p class="text-center">Fractals, cellular automata, and more!</p>
+        
+    
+
+    
+    
+
+
+
+
+<nav class="justify-content-center">
+    
+        <a href="/index">
+            Home
+        </a>
+    
+        <a href="/computer-graphics/index">
+            Computer Graphics
+        </a>
+    
+        <a href="/visualizations/index">
+            Mathematical Visualizations
+        </a>
+    
+        <a href="/machine-learning/index">
+            Machine Learning
+        </a>
+    
+</nav>
+  <div class="container">
+    <div class="row my-2">
+      <div class="col col-lg-6 mx-auto">
+        
+        
+        
+    
+        
+        
+    
+        
+        
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Quick links</h4>
+                    
+                        
+                            <a class="font-weight-bold">Visualizing complex-valued functions</a>
+                            
+                            
+                    
+                        
+                                <a class="d-block" href="/visualizations/game-of-life">Game of Life</a>
+                        
+                    
+                        
+                                <a class="d-block" href="/visualizations/langtons-ant">Langton's Ant</a>
+                        
+                    
+                        
+                                <a class="d-block" href="/visualizations/wave-equation">Wave Equation</a>
+                        
+                    
+                </div>
+            </div>
+        
+    
+        
+        
+    
+      </div>
+    </div>
+    <div class="row">
+        <div class="col col-12">
+            <h1>Visualizing complex-valued functions</h1>
+        </div>
+    </div>
+</div>
+
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <p>The ideas on this page are inspired by <a href="https://youtu.be/BSHv9Elk1MU">this Youtube video</a>.</p>
+
+<p>Here, we explore a method of visualizing of complex valued functions i.e. functions of the form $f:\mathbb C\to\mathbb C$.
+Specifically, we are interested in complex valued polynomials (though the same techniques could be applied to any arbitrary function).</p>
+
+<p>Given a polynomial of the form</p>
+
+\[f(z)=a_0+a_1z+\cdots+a_dz^d\]
+
+<p>we evaluate $f$ over the complex unit circle, that is, we compute $f(z)$ for every $z\in\mathbb C$ such that $|z|=1$. The values $f(z)$ are plotted on the complex plane and coloured based on $\arg(z)$; specifically, we map the range $[0,2\pi]$ in $\arg(z)$ to the “H” (hue) component of the HSL colour space.</p>
+
+<p><img src="/assets/img/colour-wheel.png" class="d-block mx-auto my-2 border border-info " /></p>
+<div class="d-block text-center"><p><a href="https://www.newsshooter.com/2018/07/30/fiilex-matrix-ii-rgbw-hands-review/hue-color-wheel-by-degree/">Image source</a></p>
+</div>
+
+<p>As an example, the below program visualizes the polynomial</p>
+
+\[f(z)=z^3+iz\]
+
+<div class="row">
+    <div class="col col-8">
+        <canvas class="d-block w-100" id="main-canvas"></canvas>
+    </div>
+    <div class="col col-4">
+        <h3>Input Shape</h3>
+        <div>
+    
+    
+
+    <label>Regular $n$-gon, $n=$</label><label id="_label-ngon"></label>
+    <input type="range" class="custom-range" id="_range-ngon" />
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("ngon", "3", "8", "1", "inf", false, true);
+    </script>
+</div>
+        <div>
+    
+    
+
+    <label>Radius $r=$</label><label id="_label-radius"></label>
+    <input type="range" class="custom-range" id="_range-radius" />
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("radius", "0.1", "4", "0.01", "1", false, false);
+    </script>
+</div>
+
+        <h3>Polynomial</h3>
+
+        <div>
+    
+    
+
+    <label>Polynomial degree: $d=$</label><label id="_label-poly-degree"></label>
+    <input type="range" class="custom-range" id="_range-poly-degree" />
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("poly-degree", "2", "5", "1", "3", false, false);
+    </script>
+</div>
+        <div id="div-dynamic-ui"></div>
+    </div>
+</div>
+
+<script src="./complex-functions-app.js" type="module"></script>
+
+<p><button class="btn btn-info" data-bs-target="#_collapse-program-controls" data-bs-toggle="collapse">Program Controls</button></p>
+<div class="collapse" id="_collapse-program-controls">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Program Controls</h4>
+            
+<ul>
+  <li>Use the scrollwheel to zoom in and out of the diagram (TODO: panning is not yet supported)</li>
+  <li>In the “Polynomial” section, you can modify the coefficients of the polynomial $a_i$ and the degree $d$</li>
+  <li>In the “Input Shape” section, you can adjust the radius of the circle that the function is evaluated over, and also evaluate the function over regular $n$-gons instead of circles</li>
+  <li>Note that for reference, the input values to the function (i.e. the complex unit circle by default) have also been plotted using darker colours</li>
+</ul>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="a-neat-example">A Neat Example</h2>
+
+<p>A neat example is to trace out</p>
+
+\[f(z)=-(z-1)^2=-z^2+2z-1\]
+
+<p>over the unit circle.</p>
+
+<p><img src="/assets/img/complex-circle-cardioid.png" class="d-block mx-auto my-2 border border-info w-50" /></p>
+<div class="d-block text-center">
+</div>
+
+<p>This produces a unit <a href="https://www.wikiwand.com/en/Cardioid">cardioid</a> (i.e. a cardioid with $a=1$).</p>
+
+<p><button class="btn btn-info" data-bs-target="#_collapse-cardioid-proof" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-cardioid-proof">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+<p>Since the inputs lie on the unit circle, write $z=\cos t+i\sin t$. Then</p>
+
+\[\begin{align*}
+f(z)&amp;=f(\cos t+i\sin t)\\
+&amp;=-(\cos t+i\sin t-1)^2\\
+&amp;=-(\cos t-1)^2+\sin^2t-2(\cos t-1)i\sin t\\
+&amp;=(-\cos^2t+2\cos t-1+\sin^2t)+(2\sin t-2\cos t\sin t)i\\
+&amp;=(1-2\cos^2t+2\cos t-1)+(2\sin t-2\cos t\sin t)i\\
+&amp;=2\cos t(1-\cos t)+2\sin t(1-\cos t)i
+\end{align*}\]
+
+<p>and $(2\cos t(1-\cos t),2\sin t(1-\cos t))$ are exactly the parametric equations of a unit cardioid.</p>
+
+<p>TODO: Add a geometric argument.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="fundamental-theorem-of-algebra">Fundamental Theorem of Algebra</h2>
+
+<p>Recall the fundamental theorem of algebra.</p>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title text-center">Fundamental Theorem of Algebra</h4>
+        
+<p>Let $f$ be a polynomial of degree $d$ i.e.</p>
+
+\[f(z)=a_0+a_1z+\cdots+a_dx^d\]
+
+<p>with $a_i\in\mathbb C$ for $0\leq i\leq d$ and $a_d\neq 0$.</p>
+
+<p>Then $f$ has $d$ (complex) roots, counting multiplicity.</p>
+
+    </div>
+</div>
+
+<p>We can use the above visualization to argue why this should be true. The following argument is adapted from the <a href="https://youtu.be/BSHv9Elk1MU">YouTube video</a> mentioned at the start.</p>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title text-center">Proof of the Fundamental Theorem of Algebra</h4>
+        
+<p>Let $f(z)=a_0+a_1z+\cdots a_dx^d$ be a polynomial of degree $d$. Suppose we evaluate $f$ over a large enough circle in the complex plane. Then the behaviour of $f$ is dominated by the leading term, that is $f(z)\sim a_dz^d$, hence the output shape is approximately a circle which is much larger than the input circle. By making the input circle $z$ arbitrarily large, the output circle $a_dx^d$ grows arbitrarily large as well. Conversely, if we evaluate $f$ over a small enough circle then $f$ can be approximated by $f(z)\sim a_0+a_1z$ which is a small circle around $a_0$. Again by making the input circle $z$ arbitrary small, the output circle $a_0+a_1z$ grows arbitrary small as well, tending to just the single point $a_0$ in the limit.</p>
+
+<p>Now, if $a_0=0$ then by shrinking $|z|\to 0$ we see that $f(z)\to 0$ hence $f$ has a root at $z=0$. Otherwise if $a_0\neq 0$, then somewhere between the two extremes above, there must be some intermediate circle that we evaluate $f$ over such that $f(z)=0$ for some $z$ lying on that intermediate circle.</p>
+
+<p>This shows that a polynomial of degree $d$ has at least one root say $\alpha$. We can divide $f(z)$ by $z-\alpha$ to produce a new polynomial $\hat f(z)=\frac{f(z)}{z-\alpha}$ of degree $d-1$ and repeat this process until we are left with a degree 1 polynomial which clearly has one root. Hence the original polynomial $f$ of degree $d$ must have $d$ roots counting multiplicity.</p>
+
+    </div>
+</div>
+
+<h3 id="computing-roots">Computing Roots</h3>
+
+<p>We can use the argument in the proof to approximately compute the roots of any polynomial. As an example, consider the polynomial</p>
+
+\[f(z)=z^3+iz+1.\]
+
+<p>Shown below is its behaviour when applied over the unit circle.</p>
+
+<p><img src="/assets/img/complex_example_unit.png" class="d-block mx-auto my-2 border border-info w-50" /></p>
+<div class="d-block text-center"><p>$f(z)$ evaluated over the unit circle.</p>
+</div>
+
+<p>We now investigate what happens when we evaluate $f$ over a small circle and a large circle. In the two images below we use $r=0.1$ and $r=0.4$ respectively.</p>
+
+<div class="row">
+    <div class="col col-lg-6 col-12 mx-auto">
+        <img src="/assets/img/complex_example_small.png" class="d-block mx-auto my-2 border border-primary w-100" />
+        <p class="d-block text-center">$f(z)$ evaluated over a circle with radius $r=0.1$.</p>
+    </div>	
+    <div class="col col-lg-6 col-12 mx-auto">
+        <img src="/assets/img/complex_example_large.png" class="d-block mx-auto my-2 border border-primary w-100" />
+        <p class="d-block text-center">$f(z)$ evaluated over a circle with radius $r=4$.</p>
+    </div>	
+</div>
+
+<p>Consistent with our argument earlier, we see that when evaluating $f(z)$ over a circle with a large radius, the output is an even bigger approximate-circle, and when evaluating $f(z)$ over a circle with a small radius, the output is a small approximate-circle centered around $a_0=1$.</p>
+
+<p>Now let’s try finding an intermediate input circle so that our polynomial $f(z)$ has a root (i.e. crosses the origin). If we start from $r=0.1$ and slowly increase the radius $r$, we’ll see that around $r=0.73$ the output crosses the origin. This tells us that one of the roots of $f$ has magnitude appropximately $0.73$. Furthermore, since the part of the output that crosses the origin is yellow in colour, we know (from <a href="#colour wheel">this diagram</a>) that the argument must be approximately $\frac{\pi}{3}$. Hence one of the roots is $z\approx 0.73e^{\frac{\pi}{3}i}\approx 0.73e^{1.05i}$.</p>
+
+<p><img src="/assets/img/complex_example_root_1.png" class="d-block mx-auto my-2 border border-info w-50" /></p>
+<div class="d-block text-center"><p>$f(z)$ evaluated over a circle with radius $r=0.73$.</p>
+</div>
+
+<p>What’s more, we can even compute the two other roots (which are guaranteed to exist by the fundamental theorem). If we continue to increase $r$ we see that at around $r=1.06$ the output curve intersects with the origin once again. This time the colour is somewhere between light blue and green, corresponding to an argument of approximately $\frac{5}{6}\pi$. Hence a second root is $z\approx 1.06e^{\frac 56\pi i}\approx 1.06e^{2.62i}$.</p>
+
+<p><img src="/assets/img/complex_example_root_2.png" class="d-block mx-auto my-2 border border-info w-50" /></p>
+<div class="d-block text-center"><p>$f(z)$ evaluated over a circle with radius $r=1.06$.</p>
+</div>
+
+<p>Finally, increasing $r$ again gives a third root at around $r=1.3$ which is pink in colour, corresponding to an argument of approximately $\frac 53\pi$. Hence a third root is $z\approx 1.3e^{\frac 53\pi i}=1.3e^{-\frac 13\pi i}\approx 1.3e^{-1.05i}$.</p>
+
+<p><img src="/assets/img/complex_example_root_3.png" class="d-block mx-auto my-2 border border-info w-50" /></p>
+<div class="d-block text-center"><p>$f(z)$ evaluated over a circle with radius $r=1.3$.</p>
+</div>
+
+<p>If you increase $r$ further, notice that the output curve will never cross the origin again, confirming that indeed there are only three roots to this cubic polynomial.</p>
+
+<p>To conclude, we’ve discovered that the three roots to the polynomial $f(z)=z^3+iz+1$ are approximately</p>
+
+<ul>
+  <li>$z\approx 0.73e^{1.05i}$</li>
+  <li>$z\approx 1.06e^{2.62 i}$</li>
+  <li>$z\approx 1.3e^{-1.05 i}$.</li>
+</ul>
+
+<p>How do our crude approximations compare with the actual roots? Mathematica tells me the roots are</p>
+
+<ul>
+  <li>$z\approx 0.7259e^{1.2563i}$</li>
+  <li>$z\approx 1.0624e^{2.8105i}$</li>
+  <li>$z\approx 1.2967e^{-0.9252i}$.</li>
+</ul>
+
+<p>Our magnitude approximations were pretty spot on; our approximations for the argument were not so great, but that’s to be expected as we estimated that by eyeballing the colours of the output curve.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://math.stackexchange.com/questions/41940/is-there-an-equation-to-describe-regular-polygons">https://math.stackexchange.com/questions/41940/is-there-an-equation-to-describe-regular-polygons</a></li>
+  <li><a href="https://www.wikiwand.com/en/Cardioid">https://www.wikiwand.com/en/Cardioid</a></li>
+  <li><a href="https://youtu.be/BSHv9Elk1MU">https://youtu.be/BSHv9Elk1MU</a></li>
+</ul>
+
+      </div>
+    </div>
+  </div>
+  <footer>
+    <hr>
+    <p class="centered"
+      style="margin: 15px; margin-left: auto; margin-right: auto; font-size: 14px; text-align: center">
+      Copyright Alex Tan &copy; 2022
+    </p>
+  </footer>
+</body>
+
+</html>

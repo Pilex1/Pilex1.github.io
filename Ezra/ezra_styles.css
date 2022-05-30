@@ -1,8 +1,0 @@
-li {
-    /* used for centering the bullet point */
-    /* list-style-position: inside; */
-
-
-    /* used to remove the bullet points that would normally be there at each list element */
-    list-style: none;
-}

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row my-2">
+      <div class="col col-lg-6 mx-auto">
+        {% for item in site.data.navigation %}
+        {% assign link_split = item.link | split: '/' %}
+        {% if link_split[1] == page.collection %}
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Quick links</h4>
+                    {% for subpage in item.pages %}
+                        {% if page.url contains subpage.link %}
+                            <a class="font-weight-bold">{{ subpage.title }}</a>
+                            {% assign title = subpage.title %}
+                            {% else %}
+                                <a class="d-block" href="{{ subpage.link }}">{{ subpage.title }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col col-12">
+            <h1>{{ title }}</h1>
+        </div>
+    </div>
+</div>
+
+

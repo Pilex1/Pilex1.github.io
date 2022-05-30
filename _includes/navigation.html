@@ -1,0 +1,29 @@
+<!-- special case to handle the index page -->
+{% assign flag = false %}
+
+{% for item in site.data.navigation %}
+    {% assign link_split = item.link | split: '/' %}
+    {% if page.collection == link_split[1] %}
+        <h1 class="text-center">{{ item.title }}</h1>
+        <p class="text-center">{{ item.subtitle }}</p>
+        {% assign flag = true %}
+    {% endif %}
+{% endfor %}
+
+{% if flag == false %}
+    {% for item in site.data.navigation %}
+        {% assign link_split = item.link | split: '/' %}
+        {% if 'index' == link_split[1] %}
+            <h1 class="text-center">{{ item.title }}</h1>
+            <p class="text-center">{{ item.subtitle }}</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<nav class="justify-content-center">
+    {% for item in site.data.navigation %}
+        <a href="{{ item.link }}">
+            {{ item.title }}
+        </a>
+    {% endfor %}
+</nav>

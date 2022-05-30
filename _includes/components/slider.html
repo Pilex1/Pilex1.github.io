@@ -1,0 +1,11 @@
+<div>
+    {% assign maxinf = include.maxinf | default: false %}
+    {% assign mininf = include.mininf | default: false %}
+
+    <label>{{ include.label }}</label><label id="_label-{{ include.id }}"></label>
+    <input type="range" class="custom-range" id="_range-{{ include.id }}">
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("{{ include.id }}", "{{ include.min }}", "{{ include.max }}", "{{ include.step }}", "{{ include.value }}", {{ mininf }}, {{ maxinf }});
+    </script>
+</div>
