@@ -1,0 +1,50 @@
+{% assign srcs = include.srcs | split: "," %}
+{% assign len = srcs | size %}
+{% assign len_minus_one = len | minus: 1 %}
+{% assign range = (0..len_minus_one) %}
+
+{% assign indicators = include.indicators | default: false %}
+
+<div id="_carousel-{{ include.id }}" class="carousel slide" data-ride="carousel">
+    {% if indicators %}
+    <ol class="carousel-indicators">
+
+        {% for i in range %}
+
+        {% if i == 0 %}
+        <li data-target="#_carousel-{{ include.id }}" data-slide-to="{{ i }}" class="active"></li> 
+        {% else %}
+        <li data-target="#_carousel-{{ include.id }}" data-slide-to="{{ i }}"></li> 
+        {% endif %}
+        {% endfor %}
+
+    </ol>
+    {% endif %}
+
+
+    <div class="carousel-inner border border-info">
+
+        {% for i in range %}
+
+        {% if i == 0 %}
+        <div class="carousel-item active">
+        {% else %}
+        <div class="carousel-item">
+        {% endif %}
+
+        <img class="d-block w-100" src="/assets/img/{{ srcs[i] }}">
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <a class="carousel-control-prev" href="#_carousel-{{ include.id }}" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#_carousel-{{ include.id }}" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>

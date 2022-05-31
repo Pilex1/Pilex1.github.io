@@ -7,6 +7,8 @@
   pages:
     - title: Introduction to Projective Geometry
       link: /computer-graphics/projective-geometry
+    - title: Clip Space and Normalized Device Coordinates
+      link: /computer-graphics/vertex-shader-coordinates
     - title: 3D Perspective Projection
       link: /computer-graphics/3d-projection
     - title: Inverse projection
