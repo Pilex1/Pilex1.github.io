@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
      <link rel="stylesheet" href="/assets/css/styles.css">
 
@@ -14,11 +14,9 @@
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
   <script>
     MathJax = {
@@ -114,7 +112,7 @@
                         
                     
                         
-                            <a class="font-weight-bold">Terraria Game</a>
+                            <a class="fw-bold text-light">Terraria Game</a>
                             
                             
                     
@@ -149,7 +147,7 @@
       <div class="col col-12">
         <p>This is a 2D game I developed during high school over the course of approximately one year as I was learning about OpenGL and programming in C#. It’s heavily inspired by <a href="https://terraria.org/">Terraria</a> and <a href="https://www.minecraft.net/">Minecraft</a>.</p>
 
-<div id="_carousel-screenshots" class="carousel slide" data-ride="carousel">
+<div id="_carousel-screenshots" class="carousel slide" data-bs-ride="carousel">
     
 
 
@@ -186,14 +184,14 @@
 
     </div>
 
-    <a class="carousel-control-prev" href="#_carousel-screenshots" role="button" data-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#_carousel-screenshots" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#_carousel-screenshots" role="button" data-slide="next">
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#_carousel-screenshots" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 
 <p>Some of its features include</p>
@@ -214,17 +212,45 @@
 
 <h2 id="videos">Videos</h2>
 
-<div class="embed-responsive embed-responsive-16by9">
+<div class="ratio ratio-16x9 my-2 border border-info">
     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/kaFRr4ffKzY" allowfullscreen=""></iframe>
 </div>
 
-<div class="embed-responsive embed-responsive-16by9">
+<div class="ratio ratio-16x9 my-2 border border-info">
     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/c_43WP24xus" allowfullscreen=""></iframe>
 </div>
 
       </div>
     </div>
+    
+    
+    <div class="row">
+      <div class="col col-12">
+        
+        <div id="disqus_thread" class="my-5"></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+          var disqus_config = function () {
+          this.page.url = "/computer-graphics/2d-game.html";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "2d Game"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://directdaylight.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        
+      
+      </div>
+    </div>
   </div>
+
+
   <footer>
     <hr>
     <p class="centered"

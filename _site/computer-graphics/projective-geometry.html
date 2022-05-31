@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
      <link rel="stylesheet" href="/assets/css/styles.css">
 
@@ -14,11 +14,9 @@
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
   <script>
     MathJax = {
@@ -94,7 +92,7 @@
                     <h4 class="card-title">Quick links</h4>
                     
                         
-                            <a class="font-weight-bold">Introduction to Projective Geometry</a>
+                            <a class="fw-bold text-light">Introduction to Projective Geometry</a>
                             
                             
                     
@@ -267,7 +265,7 @@
 
 <p>In general, $n$ dimensional projective space is defined as you would expect.</p>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-def-nd-projective-space" data-bs-toggle="collapse">n Dimensional Projective Space</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-def-nd-projective-space" data-bs-toggle="collapse">n Dimensional Projective Space</button></p>
 <div class="collapse" id="_collapse-def-nd-projective-space">
     <div class="card">
         <div class="card-body">
@@ -300,7 +298,7 @@ which we then interpret as a point in 3D Euclidean space (or possibly as a point
 
 <p>The proof below will show that this is also valid for points at infinity which also have an ambiguous representation in projective space of the form $(\lambda x,\lambda y,\lambda z,0),\lambda\neq 0$.</p>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-proof" data-bs-toggle="collapse">Proof</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-proof" data-bs-toggle="collapse">Proof</button></p>
 <div class="collapse" id="_collapse-proof">
     <div class="card">
         <div class="card-body">
@@ -329,7 +327,7 @@ A\vec v_2&amp;=A\cdot \lambda_2\mathbb I\cdot \vec u\\
     </div>
 </div>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-proof-notes" data-bs-toggle="collapse">Proof notes</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-proof-notes" data-bs-toggle="collapse">Proof notes</button></p>
 <div class="collapse" id="_collapse-proof-notes">
     <div class="card">
         <div class="card-body">
@@ -357,7 +355,7 @@ A\vec v_2&amp;=A\cdot \lambda_2\mathbb I\cdot \vec u\\
 
 <p>It is not too hard to show that this is exactly what happens!</p>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-translation" data-bs-toggle="collapse">Solution</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-translation" data-bs-toggle="collapse">Solution</button></p>
 <div class="collapse" id="_collapse-translation">
     <div class="card">
         <div class="card-body">
@@ -424,7 +422,7 @@ x\\y\\z\\1\end{bmatrix}\]
 
 <p>where $(x’,y’,z’,w’)$ represents the output.</p>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-projection" data-bs-toggle="collapse">Solution</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-projection" data-bs-toggle="collapse">Solution</button></p>
 <div class="collapse" id="_collapse-projection">
     <div class="card">
         <div class="card-body">
@@ -463,7 +461,7 @@ x\\y\\z\\1\end{bmatrix}\]
 
 <p>We stated without proof above that linear transformations in projective space capture not only linear transformations in Euclidean space, but also some nonlinear transformations such as translations and  projections as we just saw. We still need to show that transformations in projective space include linear transformations. Can you see how?</p>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-linear" data-bs-toggle="collapse">Solution</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-linear" data-bs-toggle="collapse">Solution</button></p>
 <div class="collapse" id="_collapse-linear">
     <div class="card">
         <div class="card-body">
@@ -527,7 +525,35 @@ for $\lambda\neq 0$ applies the identity operation i.e. leaves the inputs unchan
 
       </div>
     </div>
+    
+    
+    <div class="row">
+      <div class="col col-12">
+        
+        <div id="disqus_thread" class="my-5"></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+          var disqus_config = function () {
+          this.page.url = "/computer-graphics/projective-geometry.html";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "Projective Geometry"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://directdaylight.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        
+      
+      </div>
+    </div>
   </div>
+
+
   <footer>
     <hr>
     <p class="centered"

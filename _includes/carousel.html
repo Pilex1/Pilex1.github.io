@@ -5,16 +5,16 @@
 
 {% assign indicators = include.indicators | default: false %}
 
-<div id="_carousel-{{ include.id }}" class="carousel slide" data-ride="carousel">
+<div id="_carousel-{{ include.id }}" class="carousel slide" data-bs-ride="carousel">
     {% if indicators %}
     <ol class="carousel-indicators">
 
         {% for i in range %}
 
         {% if i == 0 %}
-        <li data-target="#_carousel-{{ include.id }}" data-slide-to="{{ i }}" class="active"></li> 
+        <li data-bs-target="#_carousel-{{ include.id }}" data-bs-slide-to="{{ i }}" class="active"></li> 
         {% else %}
-        <li data-target="#_carousel-{{ include.id }}" data-slide-to="{{ i }}"></li> 
+        <li data-bs-target="#_carousel-{{ include.id }}" data-bs-slide-to="{{ i }}"></li> 
         {% endif %}
         {% endfor %}
 
@@ -39,12 +39,12 @@
 
     </div>
 
-    <a class="carousel-control-prev" href="#_carousel-{{ include.id }}" role="button" data-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#_carousel-{{ include.id }}" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#_carousel-{{ include.id }}" role="button" data-slide="next">
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#_carousel-{{ include.id }}" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>

@@ -9,7 +9,7 @@
                     <h4 class="card-title">Quick links</h4>
                     {% for subpage in item.pages %}
                         {% if page.url contains subpage.link %}
-                            <a class="font-weight-bold">{{ subpage.title }}</a>
+                            <a class="fw-bold text-light">{{ subpage.title }}</a>
                             {% assign title = subpage.title %}
                             {% else %}
                                 <a class="d-block" href="{{ subpage.link }}">{{ subpage.title }}</a>

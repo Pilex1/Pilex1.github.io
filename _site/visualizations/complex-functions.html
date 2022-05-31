@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
      <link rel="stylesheet" href="/assets/css/styles.css">
 
@@ -14,11 +14,9 @@
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
   <script>
     MathJax = {
@@ -97,7 +95,7 @@
                     <h4 class="card-title">Quick links</h4>
                     
                         
-                            <a class="font-weight-bold">Visualizing complex-valued functions</a>
+                            <a class="fw-bold text-light">Visualizing complex-valued functions</a>
                             
                             
                     
@@ -165,7 +163,7 @@ Specifically, we are interested in complex valued polynomials (though the same t
     
 
     <label>Regular $n$-gon, $n=$</label><label id="_label-ngon"></label>
-    <input type="range" class="custom-range" id="_range-ngon" />
+    <input type="range" class="form-range" id="_range-ngon" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
         sliderRegister("ngon", "3", "8", "1", "inf", false, true);
@@ -176,7 +174,7 @@ Specifically, we are interested in complex valued polynomials (though the same t
     
 
     <label>Radius $r=$</label><label id="_label-radius"></label>
-    <input type="range" class="custom-range" id="_range-radius" />
+    <input type="range" class="form-range" id="_range-radius" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
         sliderRegister("radius", "0.1", "4", "0.01", "1", false, false);
@@ -190,7 +188,7 @@ Specifically, we are interested in complex valued polynomials (though the same t
     
 
     <label>Polynomial degree: $d=$</label><label id="_label-poly-degree"></label>
-    <input type="range" class="custom-range" id="_range-poly-degree" />
+    <input type="range" class="form-range" id="_range-poly-degree" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
         sliderRegister("poly-degree", "2", "5", "1", "3", false, false);
@@ -202,7 +200,7 @@ Specifically, we are interested in complex valued polynomials (though the same t
 
 <script src="./complex-functions-app.js" type="module"></script>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-program-controls" data-bs-toggle="collapse">Controls</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-program-controls" data-bs-toggle="collapse">Controls</button></p>
 <div class="collapse" id="_collapse-program-controls">
     <div class="card">
         <div class="card-body">
@@ -233,7 +231,7 @@ Specifically, we are interested in complex valued polynomials (though the same t
 
 <p>This produces a unit <a href="https://www.wikiwand.com/en/Cardioid">cardioid</a> (i.e. a cardioid with $a=1$).</p>
 
-<p><button class="btn btn-info" data-bs-target="#_collapse-cardioid-proof" data-bs-toggle="collapse">Proof</button></p>
+<p><button class="btn btn-primary" data-bs-target="#_collapse-cardioid-proof" data-bs-toggle="collapse">Proof</button></p>
 <div class="collapse" id="_collapse-cardioid-proof">
     <div class="card">
         <div class="card-body">
@@ -308,11 +306,11 @@ f(z)&amp;=f(\cos t+i\sin t)\\
 
 <div class="row">
     <div class="col col-lg-6 col-12 mx-auto">
-        <img src="/assets/img/complex_example_small.png" class="d-block mx-auto my-2 border border-primary w-100" />
+        <img src="/assets/img/complex_example_small.png" class="d-block mx-auto my-2 border border-info w-100" />
         <p class="d-block text-center">$f(z)$ evaluated over a circle with radius $r=0.1$.</p>
     </div>	
     <div class="col col-lg-6 col-12 mx-auto">
-        <img src="/assets/img/complex_example_large.png" class="d-block mx-auto my-2 border border-primary w-100" />
+        <img src="/assets/img/complex_example_large.png" class="d-block mx-auto my-2 border border-info w-100" />
         <p class="d-block text-center">$f(z)$ evaluated over a circle with radius $r=4$.</p>
     </div>	
 </div>
@@ -367,7 +365,35 @@ f(z)&amp;=f(\cos t+i\sin t)\\
 
       </div>
     </div>
+    
+    
+    <div class="row">
+      <div class="col col-12">
+        
+        <div id="disqus_thread" class="my-5"></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+          var disqus_config = function () {
+          this.page.url = "/visualizations/complex-functions.html";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "Complex Functions"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://directdaylight.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        
+      
+      </div>
+    </div>
   </div>
+
+
   <footer>
     <hr>
     <p class="centered"
