@@ -28,7 +28,7 @@ $$
 - In the "Input Shape" section, you can adjust the radius of the circle that the function is evaluated over, and also evaluate the function over regular $n$-gons instead of circles
 - Note that for reference, the input values to the function (i.e. the complex unit circle by default) have also been plotted using darker colours
 {% endcapture %}
-{% include collapse.html id="program-controls" label="Program Controls" content=program-controls %}
+{% include collapse.html id="program-controls" title="Controls" content=program-controls %}
 
 ## A Neat Example
 
@@ -62,7 +62,7 @@ and $(2\cos t(1-\cos t),2\sin t(1-\cos t))$ are exactly the parametric equations
 
 TODO: Add a geometric argument.
 {% endcapture %}
-{% include collapse.html id="cardioid-proof" label="Proof" content=cardioid-proof %}
+{% include collapse.html id="cardioid-proof" title="Proof" content=cardioid-proof %}
 
 ## Fundamental Theorem of Algebra
 

@@ -1,8 +1,8 @@
-<button class="btn btn-info" data-bs-target="#_collapse-{{ include.id }}" data-bs-toggle="collapse">{{ include.label }}</button>
+<button class="btn btn-info" data-bs-target="#_collapse-{{ include.id }}" data-bs-toggle="collapse">{{ include.title }}</button>
 <div class="collapse" id="_collapse-{{ include.id }}">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title text-center">{{ include.label }}</h4>
+            <h4 class="card-title text-center">{{ include.title }}</h4>
             {{ include.content | markdownify }}
         </div>
     </div>

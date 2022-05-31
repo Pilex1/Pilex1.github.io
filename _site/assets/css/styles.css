@@ -32,5 +32,3 @@ nav { padding: 1rem 1rem; display: flex; border-top: 1px solid aliceblue; border
 nav > a { background-color: #1f2020; padding: 0rem 1.5rem; color: #14ccb4; display: block; font-size: 22px; }
 
 nav > a:hover { background-color: #2c2d2d; color: #57efdb; }
-
-/*# sourceMappingURL=styles.css.map */
