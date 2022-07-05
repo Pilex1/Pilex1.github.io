@@ -2,17 +2,27 @@ import { ComplexDiagram } from "./complex-diagram.js";
 
 export { ComplexPicker };
 
+let shiftKeyPressed = false;
+document.addEventListener("keydown", e => {
+	shiftKeyPressed = e.shiftKey;
+}, false);
+document.addEventListener("keyup", e => {
+	shiftKeyPressed = e.shiftKey;
+}, false);
+
 // lets the user pick points on the complex diagram
 class ComplexPicker extends ComplexDiagram {
-	constructor(canvasId, onChange) {
-		super(canvasId, 2.5, 2.5);
+	constructor(canvasId, snap="always", range=2.5) {
+		super(canvasId, range, range);
 
+		this.doSnap = snap;
 		this.selectedPos = math.complex(0, 0);
 		this.mouseComplex = math.complex(0, 0);
 		this.mouseDown = false;
 		this.selectedComplex = math.complex(0, 0);
 
-		this.onChange = onChange;
+
+		this.onChangeFunc = [];
 
 		this.canvas.addEventListener("mousemove", e => {
 			let mouseX = e.offsetX;
@@ -34,14 +44,23 @@ class ComplexPicker extends ComplexDiagram {
 			this.mouseComplex = this.windowToComplexCoords(mouseX, mouseY);
 			this.setValue(this.mouseComplex);
 		});
+		
 
 		this.render();
 	}
 
+	onChange(onChangeFunc) {
+		this.onChangeFunc.push(onChangeFunc);
+	}
+
 	setValue(z) {
-		this.selectedComplex = this.snap(z);
+		z = math.complex(z);
+		this.selectedComplex = ((this.doSnap==="always") || (this.doSnap == "onshift" && shiftKeyPressed)) ? this.snap(z) : z;
 		this.render();
-		this.onChange();
+		for (let func of this.onChangeFunc) {
+			func(this.selectedComplex);
+		}
+
 	}
 
 	snap(z) {

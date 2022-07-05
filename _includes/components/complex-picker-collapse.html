@@ -1,0 +1,10 @@
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-{{ include.id }}" data-bs-toggle="collapse">{{ include.title }}=<p class="d-inline-block" id="_label-complex-picker-{{ include.id }}"></p>
+</button>
+<div class="collapse" id="_collapse-complex-picker-{{ include.id }}">
+    <canvas id="_complex-picker-{{ include.id }}"></canvas>
+</div>
+
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("{{ include.id }}", "{{ include.value }}", "{{ include.snap }}", {{ include.range }});
+</script>

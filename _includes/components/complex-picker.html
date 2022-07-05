@@ -1,0 +1,7 @@
+<label>{{ include.title }}=</label>
+<label id="_label-complex-picker-{{ include.id }}"></label>
+<canvas id="_complex-picker-{{ include.id }}"></canvas>
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("{{ include.id }}", "{{ include.value }}");
+</script>

@@ -175,10 +175,12 @@ for (let d = 0; d <= maxDegree; d++) {
 	$("#div-dynamic-ui").append($.parseHTML(wrapper));
 	$(`#div-degree-${d}`).hide();
 
-	complexPickers.set(d, new ComplexPicker(`canvas-select-${d}`, () => {
+	let picker = new ComplexPicker(`canvas-select-${d}`);
+	picker.onChange(() => {
 		updateUi();
 		diagram.render();
-	}));
+	});
+	complexPickers.set(d, picker);
 }
 complexPickers.get(0).setValue(math.complex(0, 0));
 complexPickers.get(1).setValue(math.complex(0, 1));

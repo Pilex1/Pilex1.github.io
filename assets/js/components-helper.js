@@ -1,4 +1,7 @@
+import { ComplexPicker } from "./complex-picker.js";
+
 export { sliderRegister, sliderOnUpdate, sliderGetMax, sliderGetMin, sliderGetStep, sliderGetValue };
+export { complexPickerRegister, complexPickerGet };
 
 let sliderData = new Map();
 
@@ -83,4 +86,19 @@ function sliderGetStep(id) {
 function sliderGetValue(id) {
     let parseFn = sliderData.get(id).parseFn;
     return parseFn($("#_range-" + id).val());
+}
+
+let complexPickers = new Map();
+
+function complexPickerRegister(id, value, snap, range) {
+    let picker = new ComplexPicker("_complex-picker-"+id, snap, range);
+    picker.onChange((selectedValue) => {
+        $("#_label-complex-picker-"+id).text(selectedValue.format(2));
+    });
+    picker.setValue(math.complex(value));
+    complexPickers.set(id, picker);
+}
+
+function complexPickerGet(id) {
+    return complexPickers.get(id);
 }

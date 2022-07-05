@@ -23,6 +23,10 @@
   subtitle: Fractals, cellular automata, and more!
   link: /visualizations/index
   pages:
+    - title: Mandelbrot and Julia Sets
+      link: /visualizations/mandelbrot-julia
+    - title: Discrete Painleve Equations
+      link: /visualizations/discrete-painleve
     - title: Visualizing complex-valued functions
       link: /visualizations/complex-functions
     - title: Game of Life
@@ -35,7 +39,7 @@
   subtitle: And human learning too
   link: /machine-learning/index
   pages:
-    - title: Understanding the Jacobian
+    - title: Jacobian matrix
       link: /machine-learning/jacobian
     - title: Chain rule for vector valued functions
       link: /machine-learning/chain-rule

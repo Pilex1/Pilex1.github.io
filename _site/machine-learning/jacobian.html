@@ -33,6 +33,10 @@
     </script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
+
+    
+    
+
 </head>
 
 <body>
@@ -130,10 +134,135 @@
 
 
 
+  <script id="dsq-count-scr" src="//pilex-github.disqus.com/count.js" async></script>
+
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        
+        <p>Suppose $\boldsymbol f$ is a function that has vectors for both input and output i.e.  $\boldsymbol f:\mathbb R^n\to\mathbb R^m$. We generalise the notion of a derivative of $\boldsymbol f$ by defining the Jacobian matrix (also called “derivative matrix”) of $\boldsymbol f$ which we denote here by $\frac{d\boldsymbol f}{d\boldsymbol x}$. This is a matrix consisting of all the partial derivatives of all the component functions of $\boldsymbol f$. More precisely, if we let $(\frac{d\boldsymbol f}{d\boldsymbol x})_{i,j}$ denote the $i$th row and $j$th column of $\frac{d\boldsymbol f}{d\boldsymbol x}$ then</p>
+
+\[\left(\frac{d\boldsymbol f}{d\boldsymbol x}\right)_{i,j}:=\frac{\partial  f_i}{\partial  x_j}.\]
+
+<p>Explicitly,</p>
+
+\[\frac{d\boldsymbol f}{d\boldsymbol x}=\begin{bmatrix}
+\frac{\partial f_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_1}{\partial x_n}\\
+\vdots&amp;\ddots&amp;\vdots\\
+\frac{\partial f_m}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_m}{\partial x_n}.
+\end{bmatrix}\]
+
+<p>Intuitively, each column $j$ tells you how much space in each of the output coordinates changes locally per change in $x_j$, the $j$th coordinate in the input space. The determinant of the Jacobian matrix then tells you how much area/volume of the output space is scaled by locally after applying the function $\boldsymbol f$.</p>
+
+<p>For example, consider the function</p>
+
+\[\boldsymbol f\left(x,y\right)=\begin{bmatrix}f_1(x,y)\\f_2(x,y)\end{bmatrix}=\begin{bmatrix}x+y\\xy\end{bmatrix}\]
+
+<p>The Jacobian is</p>
+
+\[\begin{bmatrix}
+\frac{\partial f_1}{\partial x}&amp;\frac{\partial f_1}{\partial y}\\
+\frac{\partial f_2}{\partial x}&amp;\frac{\partial f_2}{\partial y}\\
+\end{bmatrix}=\begin{bmatrix}
+1&amp;1\\
+y&amp;x\\
+\end{bmatrix}\]
+
+<p>Let’s pick a point in the input space arbitrarily say $(x,y)=(-1,2)$. Then the Jacobian evaluated at this point is</p>
+
+\[\begin{bmatrix}1&amp;1\\2&amp;-1\end{bmatrix}\]
+
+<p>The first column of this matrix tells us that for an infinitesimal change in $x$ around $(x,y)=(-1,2)$, in the output space $f_1$ changes by a factor of 1 (i.e. it changes by the same amount) and $f_2$ changes by a factor of 2 (it increases twice as much), Similarly, the second column of the matrix tells us that for an infinitesimal change in $y$ around $(x,y)=(-1,2)$, in the output space $f_1$ changes by a factor of 1 and $f_2$ changes by a factor of -1.</p>
+
+<p>The Jacobian matrix as a whole tells us that applying $\boldsymbol f$ to inputs infinitesimally close to $(x,y)=(-1,2)$ has the same effect as applying the linear transformation</p>
+
+\[\begin{bmatrix}1&amp;1\\2&amp;-1\end{bmatrix}\]
+
+<p>instead.</p>
+
+<p>The determinant of the Jacobian matrix is -3. This means that applying $\boldsymbol f$ around $(x,y)=(-1,2)$ changes the area by a factor of 3 and flips orientation.</p>
+
+<h2 id="examples">Examples</h2>
+
+<p>Here we will work through computing the Jacobian matrices of functions that pop up frequently in neural network maths.</p>
+
+<h3 id="left-multiplication-by-matrix">Left-multiplication by matrix</h3>
+
+<p>Let</p>
+
+\[f(x):=W\cdot x,\quad f:\mathbb R^n\to\mathbb R^m\]
+
+<p>where $W\in\mathbb R^{m\times n}$. Then</p>
+
+\[\begin{align*}
+\frac{\partial f_i}{\partial x_j}&amp;=\frac{\partial}{\partial x_j}\left(W_{i,1}x_1+\cdots+W_{i,n}x_n\right)\\
+&amp;=\frac{\partial}{\partial x_j}W_{i,j}x_j\\
+&amp;=W_{i,j}
+\end{align*}\]
+
+<p>hence</p>
+
+\[\frac{df}{dx}=W\]
+
+<p>which is a really neat result.</p>
+
+<h3 id="squared-l_2-norm">Squared $L_2$ norm</h3>
+
+<p>Let</p>
+
+\[f(x)=\Vert x\Vert_2^2,\quad f:\mathbb R^n\to\mathbb R.\]
+
+<p>Then</p>
+
+\[\begin{align*}
+\frac{\partial f}{\partial x_j}&amp;=\frac{\partial}{\partial x_j}\left(x_1^2+\cdots+x_n^2\right)\\
+&amp;=\frac{\partial}{\partial x_j}x_j^2\\
+&amp;=2x_j
+\end{align*}\]
+
+<p>hence</p>
+
+\[\frac{df}{dx}=2x^T.\]
+
+<h3 id="elementwise-functions">Elementwise functions</h3>
+
+<p>Let $g\circ x$ denote the function $g:\mathbb R\to\mathbb R$ being applied elementwise to $x$. Let</p>
+
+\[f(x)=g\circ x,\quad f:\mathbb R^n\to\mathbb R^n.\]
+
+<p>Then</p>
+
+\[\begin{align*}
+\frac{\partial f_i}{\partial x_j}&amp;=\frac{\partial}{\partial x_j}\left(g(x_i)\right)\\
+&amp;=g'(x_i)1_{i=j}
+\end{align*}\]
+
+<p>hence $\frac{df}{dx}$ is a diagonal matrix with its diagonal entries given by the vector $g’\circ x$. For ease of notation if $u$ is a vector, we define $\text{diag}(u)$ to be the diagonal matrix whose diagonal entries are given by the components of $u$. With this notation, we have that</p>
+
+\[\frac{df}{dx}=\text{diag}(g'\circ x).\]
+
+<p>Using this result we can easily deduce the following two results.</p>
+
+<h4 id="elementwise-multiplication-by-a-constant">Elementwise multiplication by a constant</h4>
+
+<p>Let</p>
+
+\[f(x)=x\odot c,\quad f:\mathbb R^n\to\mathbb R^n\]
+
+<p>where $c\in\mathbb R^n$ and $x\odot c$ denotes elementwise multiplication between $x$ and $c$. Then with the previous notation, the elementwise function is $g(x)=x\cdot c$ and so $g’(x)=c$. Hence</p>
+
+\[\frac{df}{dx}=\text{diag}(c).\]
+
+<h4 id="elementwise-addition-by-a-constant">Elementwise addition by a constant</h4>
+
+<p>Let</p>
+
+\[f(x)=x+c,\quad f:\mathbb R^n\to\mathbb R^n\]
+
+<p>where $c\in\mathbb R^n$. Then with the previous notation, the elementwise function is $g(x)=x+c$ and so $g’(x)=1$. Hence</p>
+
+\[\frac{df}{dx}=\mathbb I_n\]
+
+<p>the $n\times n$ identity matrix.</p>
 
       </div>
     </div>
@@ -153,7 +282,7 @@
           };
           (function() { // DON'T EDIT BELOW THIS LINE
           var d = document, s = d.createElement('script');
-          s.src = 'https://directdaylight.disqus.com/embed.js';
+          s.src = 'https://pilex-github.disqus.com/embed.js';
           s.setAttribute('data-timestamp', +new Date());
           (d.head || d.body).appendChild(s);
           })();
@@ -165,6 +294,9 @@
     </div>
   </div>
 
+  <script>
+    $("table").attr("class", "table")
+  </script>
 
   <footer>
     <hr>

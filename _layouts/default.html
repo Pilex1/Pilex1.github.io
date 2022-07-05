@@ -33,11 +33,33 @@
     </script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
+
+    {% assign import_list = page.import | split: "," %}
+    {% for import in import_list %}
+    {% if import == "three" %}
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.141.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+    {% else if import == "plotly" %}
+
+    <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+
+    {% endif %}
+    {% endfor %}
+
 </head>
 
 <body>
   {% include navigation.html %}
   {% include subnavigation.html %}
+
+  <script id="dsq-count-scr" src="//pilex-github.disqus.com/count.js" async></script>
 
   <div class="container">
     <div class="row">
@@ -61,7 +83,7 @@
           };
           (function() { // DON'T EDIT BELOW THIS LINE
           var d = document, s = d.createElement('script');
-          s.src = 'https://directdaylight.disqus.com/embed.js';
+          s.src = 'https://pilex-github.disqus.com/embed.js';
           s.setAttribute('data-timestamp', +new Date());
           (d.head || d.body).appendChild(s);
           })();
@@ -73,6 +95,9 @@
     </div>
   </div>
 
+  <script>
+    $("table").attr("class", "table")
+  </script>
 
   <footer>
     <hr>

@@ -1,0 +1,1 @@
+templates in this folder require additional javascript in /assets/js to function
