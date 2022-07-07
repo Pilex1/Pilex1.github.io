@@ -24,7 +24,7 @@
   link: /visualizations/index
   pages:
     - title: Mandelbrot and Julia Sets
-      link: /visualizations/mandelbrot-julia
+      link: /visualizations/mandelbrot-julia/mandelbrot-julia
     - title: Discrete Painleve Equations
       link: /visualizations/discrete-painleve
     - title: Visualizing complex-valued functions

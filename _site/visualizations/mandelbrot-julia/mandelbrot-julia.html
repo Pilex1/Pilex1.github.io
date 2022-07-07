@@ -99,13 +99,13 @@
                     <h4 class="card-title">Quick links</h4>
                     
                         
-                                <a class="d-block" href="/visualizations/mandelbrot-julia/mandelbrot-julia">Mandelbrot and Julia Sets</a>
-                        
+                            <a class="fw-bold text-light">Mandelbrot and Julia Sets</a>
+                            
+                            
                     
                         
-                            <a class="fw-bold text-light">Discrete Painleve Equations</a>
-                            
-                            
+                                <a class="d-block" href="/visualizations/discrete-painleve">Discrete Painleve Equations</a>
+                        
                     
                         
                                 <a class="d-block" href="/visualizations/complex-functions">Visualizing complex-valued functions</a>
@@ -134,7 +134,7 @@
     </div>
     <div class="row">
         <div class="col col-12">
-            <h1>Discrete Painleve Equations</h1>
+            <h1>Mandelbrot and Julia Sets</h1>
         </div>
     </div>
 </div>
@@ -147,7 +147,89 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        <h1 id="wip">WIP</h1>
+        <p>The Mandelbrot set is one of the most well-known fractals in computer science and mathematics. It’s a great example of how simple rules can lead to very complex behaviour.</p>
+
+<p>The Mandelbrot set is defined as follows. For an arbitrary $c\in\mathbb C$, define the recurrence relation</p>
+
+\[z_n=\begin{cases}
+0&amp; n=0\\
+z_{n-1}^2+c&amp;n&gt;0.
+\end{cases}\]
+
+<p>Consider the limiting behaviour of $z_n$ as $n\to\infty$. For certain values of $c$, the iterates $z_n$ grow unbounded i.e. $|z_n|\to\infty$ as $n\to\infty$ e.g. if $c=1$ then the sequence $z_n$ looks like $0,1,2,5,26,677,\cdots$ which grows arbitrarily large.</p>
+
+<p>For other values of $c$, the iterates $z_n$ remain bounded, either because they fall into a cycle, or they move about chaotically but crucially they never exceed a certain distance from the origin. The simplest example of this is if $c=0$ in which case the sequence $z_n$ consists of all 0s.</p>
+
+<p>The Mandelbrot set is defined as the set of $c\in\mathbb C$ such that the sequeunce $|z_n|$ remains bounded as $n\to\infty$. This is then plotted on the complex plane, with black denoting points inside the Mandelbrot set. Points outside the set are coloured based on how quickly or slowly $|z_n|$ diverges.</p>
+
+<p><img src="/assets/img/wikipedia-mandelbrot.jpg" class="d-block mx-auto my-2 border border-info " /></p>
+<div class="d-block text-center"><p>The Mandelbrot set (in black). <a href="https://www.wikiwand.com/en/Mandelbrot_set">Image source</a></p>
+</div>
+
+<p>Todo: add explanation of the Julia set</p>
+
+<h2 id="interactive-mandelbrot-set-and-julia-set">Interactive Mandelbrot Set and Julia Set</h2>
+
+<div class="row my-4">
+    <div class="col col-12">
+        <canvas id="canvas" class="d-block w-100"></canvas>
+    </div>
+</div>
+
+<script src="/assets/js/gl-matrix.js"></script>
+
+<script src="./mandVertex.js"></script>
+
+<script src="./mandFragment.js"></script>
+
+<script src="./juliaVertex.js"></script>
+
+<script src="./juliaFragment.js"></script>
+
+<script src="./renderer.js"></script>
+
+<script src="./app.js"></script>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title text-center">Controls</h4>
+        
+<p>The left half of the canvas is the Mandelbrot set, and the right half is the corresponding Julia set. Whilst hovering the mouse over the canvas, use the following keyboard shortcuts.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Keys</th>
+      <th>Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>W, A, S, D</td>
+      <td>Move</td>
+    </tr>
+    <tr>
+      <td>I, K</td>
+      <td>Zoom in/out</td>
+    </tr>
+    <tr>
+      <td>J, L</td>
+      <td>Rotate</td>
+    </tr>
+    <tr>
+      <td>Y, H</td>
+      <td>Increase/decrease iterations</td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>Reset</td>
+    </tr>
+  </tbody>
+</table>
+
+
+    </div>
+</div>
 
       </div>
     </div>
@@ -162,8 +244,8 @@
           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
           var disqus_config = function () {
-          this.page.url = "/visualizations/discrete-painleve.html";  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = "Discrete Painleve"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          this.page.url = "/visualizations/mandelbrot-julia/mandelbrot-julia.html";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "Mandelbrot Julia"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
           };
           (function() { // DON'T EDIT BELOW THIS LINE
           var d = document, s = d.createElement('script');

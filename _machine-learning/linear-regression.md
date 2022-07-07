@@ -1,18 +1,41 @@
 ---
 ---
 
-In linear regression we are given $m$ training example pairs $x^{(i)},y^{(i)}$ for $i=1,\cdots,m$ where $x^{(i)}\in\mathbb R^{1\times n},y^{(i)}\in\mathbb R$ and we want to predict $y$ from $x$ using a linear function. More precisely, we want to find weights $w\in\mathbb R^n$ so as to minimize the mean square error over all training pairs between the predicted value $\hat y^{(i)}=x^{(i)}\cdot w$ and the actual value $y^{(i)}$, that is, we want to find
+In linear regression we are given $m$ training example pairs $x^{(i)},y^{(i)}$ for $i=1,\cdots,m$ where $x^{(i)}\in\mathbb R^n,y^{(i)}\in\mathbb R$ and we want to predict $y$ from $x$ using a linear function. More precisely, we want to find weights $w\in\mathbb R^n$ so as to minimize the mean square error over all training pairs between the predicted value $\hat y^{(i)}=w^T\cdot x^{(i)}$ and the actual value $y^{(i)}$, that is, we want to find
 
 
 $$
-\hat w:=\arg\min_w\frac 1m\sum_{i=1}^m(x^{(i)}\cdot w-y^{(i)})^2.
+\hat w:=\arg\min_w\frac 1m\sum_{i=1}^m(w^T\cdot x^{(i)}-y^{(i)})^2.
 $$
 
 
 In practice, we allow ourselves to consider affine functions instead of linear functions, that is functions of the form $y=w^T\cdot x+b$ instead of $y=w^T\cdot x$. This can be achieved easily by adding an extra component to the inputs $x^{(i)}$ with a constant value of 1 so that $x\in\mathbb R^{n+1}$ and $w\in\mathbb R^{n+1}$ as well.
 
-In order to compute $\hat w$ analytically, it will be useful to vectorize the setup above. Arrange the $x^{(i)}$ as rows in a matrix $X\in\mathbb R^{m\times (n+1)}$. Similarly, arrange $y^{(i)}$ into a column vector $y\in\mathbb R^{m\times 1}$. Then the minimization problem becomes
+In order to compute $\hat w$ analytically, it will be useful to vectorize the setup above. Arrange the $x^{(i)}$ as rows in a matrix $X\in\mathbb R^{m\times (n+1)}$ i.e.
 
+
+$$
+X=\begin{bmatrix}
+\rule[.5ex]{2.5ex}{0.5pt}{x^{(1)}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\vdots\\
+\rule[.5ex]{2.5ex}{0.5pt}{x^{(m)}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}.
+$$
+
+
+ Similarly, arrange $y^{(i)}$ into a column vector $y\in\mathbb R^{m\times 1}$ i.e.
+
+
+$$
+Y=\begin{bmatrix}
+y^{(1)}\\
+\vdots\\
+y^{(m)}
+\end{bmatrix}.
+$$
+
+
+ Then the minimization problem becomes
 
 $$
 \begin{align*}
@@ -54,13 +77,15 @@ $$
 \end{align*}
 $$
 
+(Technically we should also check that this is indeed a minimum, not a saddle point nor a maximum, by looking at the eigenvalues of the Hessian matrix of $f$)
+
 ## Regularization (Ridge regression)
 
 A common approach to prevent overfitting in a linear regression model is to modify the function that we are minimizing $w$ over to instead be
 
 
 $$
-\hat w:=\arg\min_w\frac 1m\left(\left(\sum_{i=1}^m(x^{(i)}\cdot w-y^{(i)})^2\right)+\lambda\Vert w\Vert_2^2\right).
+\hat w:=\arg\min_w\frac 1m\left(\left(\sum_{i=1}^m (w^T\cdot x^{(i)}-y^{(i)})^2\right)+\lambda\Vert w\Vert_2^2\right).
 $$
 
 where $\lambda\in\mathbb R^+$ is a constant (in practice it's a hyperparameter that needs to be tuned). The above setup is also called "ridge regression". 

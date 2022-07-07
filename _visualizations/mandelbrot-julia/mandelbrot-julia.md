@@ -3,7 +3,7 @@
 
 The Mandelbrot set is one of the most well-known fractals in computer science and mathematics. It's a great example of how simple rules can lead to very complex behaviour. 
 
-The Mandelbrot set is defined as follows. For an arbitrary $c\in\mathbb C$, consider the recurrence relation
+The Mandelbrot set is defined as follows. For an arbitrary $c\in\mathbb C$, define the recurrence relation
 
 $$
 z_n=\begin{cases}
@@ -20,9 +20,11 @@ The Mandelbrot set is defined as the set of $c\in\mathbb C$ such that the sequeu
 
 {% include image.html src="wikipedia-mandelbrot.jpg" caption="The Mandelbrot set (in black). [Image source](https://www.wikiwand.com/en/Mandelbrot_set)" %}
 
+Todo: add explanation of the Julia set
+
 ## Interactive Mandelbrot Set and Julia Set
 
-{% include_relative mandelbrot-julia.html %}
+{% include_relative app.html %}
 
 {% capture controls %}
 
