@@ -21,7 +21,7 @@ $$
 $$
 
 
-Intuitively, each column $j$ tells you how much space in each of the output coordinates changes locally per change in $x_j$, the $j$th coordinate in the input space. The determinant of the Jacobian matrix then tells you how much area/volume of the output space is scaled by locally after applying the function $\boldsymbol f$.
+Intuitively, each column $j$ tells you the factor by which space in each of the output coordinates changes per infinitesimal change in $x_j$. The determinant of the Jacobian matrix then tells you the factor by which area/volume of the output space $\boldsymbol f$ changes per change in infinitesimal area/volume in the input space.
 
 For example, consider the function 
 
@@ -55,17 +55,30 @@ $$
 
 The first column of this matrix tells us that for an infinitesimal change in $x$ around $(x,y)=(-1,2)$, in the output space $f_1$ changes by a factor of 1 (i.e. it changes by the same amount) and $f_2$ changes by a factor of 2 (it increases twice as much), Similarly, the second column of the matrix tells us that for an infinitesimal change in $y$ around $(x,y)=(-1,2)$, in the output space $f_1$ changes by a factor of 1 and $f_2$ changes by a factor of -1.
 
-The Jacobian matrix as a whole tells us that applying $\boldsymbol f$ to inputs infinitesimally close to $(x,y)=(-1,2)$ has the same effect as applying the linear transformation
-
+Hence the Jacobian matrix as a whole tells us that an infinitesimal change in the input space at $(x,y)=(-1,2)$ has the effect of producing a linear change in the output space described by the matrix
 
 $$
-\begin{bmatrix}1&1\\2&-1\end{bmatrix}
+\begin{bmatrix}1&1\\2&-1\end{bmatrix}.
 $$
 
+To illustrate this, note that $f(-1,2)=(1,-2)$. Suppose we perturb the input slightly to $(x,y)=(-1+0.001,2-0.0005)=(-0.999,1.9995)$. Then the Jacobian matrix tells us that the change in the output space is approximately
 
-instead.
+$$
+\begin{bmatrix}
+1&1\\
+2&-1
+\end{bmatrix}\cdot\begin{bmatrix}
+0.001\\
+-0.0005
+\end{bmatrix}=\begin{bmatrix}
+0.0005\\
+0.0025
+\end{bmatrix}
+$$
 
-The determinant of the Jacobian matrix is -3. This means that applying $\boldsymbol f$ around $(x,y)=(-1,2)$ changes the area by a factor of 3 and flips orientation.
+meaning that we should expect $f(-0.999,1.9995)\approx (1,-2)+(0.0005,0.0025)=(1.0005,-1.9975)$. And indeed the true value is $f(-0.999,1.9995)=(1.0005,-1.9975005)$.
+
+Note also that the determinant of the Jacobian matrix is $-3$. This means if you were to consider the perturbation as an area (i.e. consider the square with corners given by $(x,y)=(-1,2)$ and $(x,y)=(-0.999,1.9995$) and apply $\boldsymbol f$ to this area, the resulting shape would be approximately $3$ times as large as the input, and the orientation would be flipped (due to the negative sign).
 
 ## Examples
 
@@ -97,11 +110,9 @@ hence
 
 
 $$
-\frac{df}{dx}=W
+\frac{df}{dx}=W.
 $$
 
-
-which is a really neat result.
 
 ### Squared $L_2$ norm
 

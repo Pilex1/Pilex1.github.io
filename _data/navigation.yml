@@ -30,9 +30,9 @@
     - title: Visualizing complex-valued functions
       link: /visualizations/complex-functions
     - title: Game of Life
-      link: /visualizations/game-of-life
+      link: /visualizations/cellular/game-of-life
     - title: Langton's Ant
-      link: /visualizations/langtons-ant
+      link: /visualizations/cellular/langtons-ant
     - title: Wave Equation
       link: /visualizations/wave-equation
 - title: Machine Learning

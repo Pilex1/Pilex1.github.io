@@ -1,0 +1,517 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+     <link rel="stylesheet" href="/assets/css/styles.css">
+
+     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
+
+    
+    
+
+</head>
+
+<body>
+  <!-- special case to handle the index page -->
+
+
+
+    
+    
+
+    
+    
+
+    
+    
+        <h1 class="text-center">Mathematical Visualizations</h1>
+        <p class="text-center">Fractals, cellular automata, and more!</p>
+        
+    
+
+    
+    
+
+
+
+
+<nav class="justify-content-center">
+    
+        <a href="/index">
+            Home
+        </a>
+    
+        <a href="/computer-graphics/index">
+            Computer Graphics
+        </a>
+    
+        <a href="/visualizations/index">
+            Mathematical Visualizations
+        </a>
+    
+        <a href="/machine-learning/index">
+            Machine Learning
+        </a>
+    
+</nav>
+  <div class="container">
+    <div class="row my-2">
+      <div class="col col-lg-6 mx-auto">
+        
+        
+        
+    
+        
+        
+    
+        
+        
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Quick links</h4>
+                    
+                        
+                                <a class="d-block" href="/visualizations/mandelbrot-julia/mandelbrot-julia">Mandelbrot and Julia Sets</a>
+                        
+                    
+                        
+                                <a class="d-block" href="/visualizations/discrete-painleve">Discrete Painleve Equations</a>
+                        
+                    
+                        
+                                <a class="d-block" href="/visualizations/complex-functions">Visualizing complex-valued functions</a>
+                        
+                    
+                        
+                            <a class="fw-bold text-light">Game of Life</a>
+                            
+                            
+                    
+                        
+                                <a class="d-block" href="/visualizations/cellular/langtons-ant">Langton's Ant</a>
+                        
+                    
+                        
+                                <a class="d-block" href="/visualizations/wave-equation">Wave Equation</a>
+                        
+                    
+                </div>
+            </div>
+        
+    
+        
+        
+    
+      </div>
+    </div>
+    <div class="row">
+        <div class="col col-12">
+            <h1>Game of Life</h1>
+        </div>
+    </div>
+</div>
+
+
+
+
+  <script id="dsq-count-scr" src="//pilex-github.disqus.com/count.js" async></script>
+
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <p>Here we discuss a classic cellular automata called Conway’s Game of Life and present some generalizations. Conway’s <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life</a> is played on a 2D square-tiled grid. Each grid square is called a cell and
+is either dead (black) or alive (white). After each successive iteration, the following rules are
+applied to all cells simultaneously:</p>
+
+<ul>
+  <li>If an alive cell has exactly 2 or 3 alive neighbours it remains alive. Otherwise it dies.</li>
+  <li>If a dead cell has exactly 3 alive neighbours it resurrects to life. Otherwise it remains dead.</li>
+</ul>
+
+<p>In Game of Life, a cell’s neighbours are defined as the eight cells surrounding it. This is known as the Moore neighbourhood.</p>
+
+<p><img src="/assets/img/moore.svg" class="d-block mx-auto my-2 border border-info " /></p>
+<div class="d-block text-center"><p>Moore neibourhood on a 2D square grid. <a href="https://en.wikipedia.org/wiki/Moore_neighborhood">Image Source</a></p>
+</div>
+
+<p>Below is an implementation of Game of Life. Click on a cell to toggle its state between dead and alive, and click the “Iterate” button to perform an iteration.</p>
+
+<div class="card m-3">
+    <div class="card-body">
+        <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Not working? Try using Firefox or Chrome.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div> -->
+        <h4 class="card-title">Generalized Game of Life</h4>
+        <div class="row">
+            <div class="col col-12 my-3">
+                <div class="btn-toolbar">
+                    <button id="btnRandomizeSquare" class="btn btn-outline-secondary ">Randomize</button>
+                    <button id="btnClearSquare" class="btn btn-outline-secondary">Clear</button>
+                    <button id="btnClearPlusSquare" class="btn btn-outline-secondary">Clear + Initialize Center</button>
+                </div>
+                <div class="btn-toolbar">
+                    <button id="btnIterateSquare" class="btn btn-success">Iterate</button>
+                </div>
+            </div>
+            <div class="col col-8">
+                <div class="row">
+                    <canvas id="canvasSquare" class="d-block w-100" resize="" style="border: 1px solid rgb(0, 183, 255);"></canvas>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <input type="color" id="colorAliveCellSquare" name="colorAliveCellSquare" value="#ffffff" />
+                        <label for="colorAliveCellSquare">Cell Colour (Alive)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="color" id="colorDeadCellSquare" name="colorDeadCellSquare" value="#000000" />
+                        <label for="colorDeadCellSquare">Cell Colour (Dead)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="color" id="colorOutlineSquare" name="colorOutlineSquare" value="#888888" />
+                        <label for="colorOutlineSquare">Outline Colour</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="range" class="form-range" id="cellSizeSquare" min="5" max="30" value="15" />
+                        <label for="cellSizeSquare" class="form-label">Cell Size</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="range" class="form-range" id="cellQuantitySquare" min="5" max="50" value="20" />
+                        <label for="cellQuantitySquare" class="form-label">Cell Count</label>
+                    </div>
+                    <div class="input-group">
+
+                        <button type="button" class="btn btn-primary" id="exportImageSquare">Export Image</button>
+
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        Please be patient! Exporting may take a while if the cell count is high.
+                    </div>
+                </div>
+            </div>
+            <div class="col col-4">
+                <h4>Neighbourhood Type</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="radioVonNeumannSquare" name="neighbourhoodSquare" value="Edge" />
+                    <label class="form-check-label" for="radioVonNeumannSquare">Von Neumann
+                        (Edge neighbourhood)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="radioMooreSquare" name="neighbourhoodSquare" value="Point" checked="" />
+                    <label class="form-check-label" for="radioMooreSquare">Moore (Point neighbourhood)</label>
+                </div>
+
+                <h4>Keep Alive</h4>
+                <div id="divKeepAliveNeumannSquare"></div>
+                <div id="divKeepAliveMooreSquare"></div>
+                <h4>Resurrect</h4>
+                <div id="divResurrectNeumannSquare"></div>
+                <div id="divResurrectMooreSquare"></div>
+            </div>
+        </div>
+        <!-- <div class="row">
+                    <div class="col col-12">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTikzSquare" aria-expanded="false" aria-controls="collapseTikzSquare">
+                            Toggle tikz output
+                          </button>
+                          <div class="collapse" id="collapseTikzSquare">
+                            <textarea rows="10" id="textTikzSquare" readonly class="w-100"></textarea>
+                          </div>
+                    </div>
+                </div> -->
+    </div>
+</div>
+
+<p>A more general Game of Life can be specified using the options on the side.</p>
+
+<p>The checkboxes under “Keep Alive” specify the number of alive neighbours required for an alive cell to remain alive. For example, with checkboxes 2 and 3 selected (the default), an alive cell must have exactly either 2 or 3 alive neighbours to remain alive.</p>
+
+<p>Similarly, the checkboxes under “Resurrect” specify the number of alive neighbours required for a dead cell to be resurrected. For example, with only checkbox 3 selected (the default), a dead cell must have exactly 3 alive neighbours to be resurrected.</p>
+
+<p>Another common neighbourhood for square grids is the <a href="&quot;https://en.wikipedia.org/wiki/Von_Neumann_neighborhood&quot;">Von Neumann</a> neighbourhood.  Here, a cell’s neighbours are defined as the four cells directly adjacent to it (i.e. excluding the diagonal cells). The radio buttons under “Neighbourhood Type” allow you to choose which neighbourhood to use.</p>
+
+<p><img src="/assets/img/neumann.svg" class="d-block mx-auto my-2 border border-info " /></p>
+<div class="d-block text-center"><p>Von Neumann neibourhood on a 2D square grid. <a href="https://commons.wikimedia.org/wiki/File:Von_neumann_neighborhood.svg">Image Source</a></p>
+</div>
+
+<h2 id="triangle-life">Triangle Life</h2>
+
+<p>Here, instead of a square-tiled grid, we consider triangle tilings. We can generalize the notions of
+the Moore and Von Neumann neighbourhoods to non-square grids as follows:</p>
+
+<ul>
+  <li>We define a cell’s Moore neighbourhood to be the set of cells sharing at least a common point
+  with the given cell.</li>
+  <li>We define a cell’s Von Neumann neighbourhood to be the set of cells sharing at least a common
+  edge with the given cell.</li>
+</ul>
+
+<p>For the case of square-tiled grids, this definition is consistent with the previous definition.
+However, we can now talk about Moore and Von Neumann neighbourhoods in arbitrary tilings. In the
+case of triangle tilings, the Moore neighbourhood of a cell consists of 12 cells, and the Von
+Neumann consists of 3.</p>
+
+<p>We apply the same rules as we did for square-tiled Game of Life, but now with triangular tilings.
+Again, the checkboxes under “Keep Alive” specify the number of alive neighbours required for an
+alive cell to remain alive. The checkboxes under “Resurrect” specify the number of alive neighbours
+required for a dead cell to be resurrected.</p>
+
+<!-- Since each cell
+now has at most 3 neighbours, we modify the original rules as follows:
+<ol>
+    <li>
+        If an alive cell has exactly 1 or 2 alive neighbours it remains alive. <br>
+        Otherwise it dies.
+    </li>
+    <li>
+        If a dead cell has exactly 2 alive neighbours it resurrects to life.<br>Otherwise it remains
+        dead.
+    </li>
+</ol> -->
+
+<div class="card m-3">
+    <div class="card-body">
+        <h4 class="card-title">Triangle Life</h4>
+        <div class="row">
+            <div class="col col-12">
+                <div class="btn-toolbar my-3">
+                    <button id="btnRandomizeTriangle" class="btn btn-outline-secondary ">Randomize</button>
+                    <button id="btnClearTriangle" class="btn btn-outline-secondary">Clear</button>
+                    <button id="btnClearPlusTriangle" class="btn btn-outline-secondary">Clear + Initialize Center</button>
+                </div>
+                <div class="btn-toolbar my-3">
+                    <button id="btnIterateTriangle" class="btn btn-success">Iterate</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-8">
+                <div class="row">
+                    <canvas id="canvasTriangle" class="d-block w-100" resize="" style="border: 1px solid rgb(0, 183, 255);
+                    "></canvas>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <input type="color" id="colorAliveCellTriangle" name="colorAliveCellTriangle" value="#ffffff" />
+                        <label for="colorAliveCellTriangle">Cell Colour (Alive)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="color" id="colorDeadCellTriangle" name="colorDeadCellTriangle" value="#000000" />
+                        <label for="colorDeadCellTriangle">Cell Colour (Dead)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="color" id="colorOutlineTriangle" name="colorOutlineTriangle" value="#888888" />
+                        <label for="colorOutlineTriangle">Outline Colour</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="range" class="form-range" id="cellSizeTriangle" min="5" max="30" value="15" />
+                        <label for="cellSizeTriangle" class="form-label">Cell Size</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="range" class="form-range" id="cellQuantityTriangle" min="4" max="50" value="12" step="2" />
+                        <label for="cellQuantityTriangle" class="form-label">Cell Count</label>
+                    </div>
+                    <div class="input-group">
+                        <button type="button" class="btn btn-primary" id="exportImageTriangle">Export Image</button>
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        Please be patient! Exporting may take a while if the cell count is high.
+                        </div>
+                </div>
+            </div>
+            <div class="col col-4">
+                <h4>Neighbourhood Type</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="radioVonNeumannTriangle" name="neighbourhoodTriangle" value="Edge" />
+                    <label class="form-check-label" for="radioVonNeumannTriangle">Von Neumann (Edge
+                        neighbourhood)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="radioMooreTriangle" name="neighbourhoodTriangle" value="Point" checked="" />
+                    <label class="form-check-label" for="radioMooreTriangle">Moore (Point neighbourhood)</label>
+                </div>
+                <h4>Keep Alive</h4>
+                <div id="divKeepAliveNeumannTriangle">
+                </div>
+                <div id="divKeepAliveMooreTriangle">
+                </div>
+                <h4>Resurrect</h4>
+                <div id="divResurrectNeumannTriangle"></div>
+                <div id="divResurrectMooreTriangle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let canvas = document.getElementById("canvasTriangle");
+    let factor = canvas.clientWidth / canvas.width;
+    canvas.width *= factor;
+    canvas.height = canvas.width;
+</script>
+
+<h2 id="hex-life">Hex Life</h2>
+
+<p>In this variant, we use hexagon tilings. Here, Von Neumann and Moore neighbourhoods are the same, both describing the six cells surrounding a given cell.</p>
+
+<div class="card m-3">
+    <div class="card-body">
+        <h4 class="card-title">Hex Life</h4>
+        <div class="row">
+            <div class="col col-12 my-3">
+                <div class="btn-toolbar">
+                    <button id="btnRandomizeHexagon" class="btn btn-outline-secondary ">Randomize</button>
+                    <button id="btnClearHexagon" class="btn btn-outline-secondary">Clear</button>
+                    <button id="btnClearPlusHexagon" class="btn btn-outline-secondary">Clear + Initialize Center</button>
+                </div>
+                <div class="btn-toolbar">
+                    <button id="btnIterateHexagon" class="btn btn-success">Iterate</button>
+                </div>
+            </div>
+            <div class="col col-8">
+                <div class="row">
+                    <canvas id="canvasHexagon" class="d-block w-100" resize="" style="border: 1px solid rgb(0, 183, 255);
+                    "></canvas>
+                </div>
+           
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="color" id="colorAliveCellHexagon" name="colorAliveCellHexagon" value="#ffffff" />
+                            <label for="colorAliveCellHexagon">Cell Colour (Alive)</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="color" id="colorDeadCellHexagon" name="colorDeadCellHexagon" value="#000000" />
+                            <label for="colorDeadCellHexagon">Cell Colour (Dead)</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="color" id="colorOutlineHexagon" name="colorOutlineHexagon" value="#888888" />
+                            <label for="colorOutlineHexagon">Outline Colour</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="range" class="form-range" id="cellSizeHexagon" min="5" max="30" value="15" />
+                            <label for="cellSizeHexagon" class="form-label">Cell Size</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="range" class="form-range" id="cellQuantityHexagon" min="5" max="50" value="10" />
+                            <label for="cellQuantityHexagon" class="form-label">Cell Count</label>
+                        </div>
+                        <div class="input-group">
+                            <button type="button" class="btn btn-primary" id="exportImageHexagon">Export Image</button>
+                        </div>
+                        <div class="alert alert-warning" role="alert">
+                            Please be patient! Exporting may take a while if the cell count is high.
+                          </div>
+                    </div>
+            </div>
+            <div class="col col-4">
+                <h4>Keep Alive</h4>
+                <div id="divKeepAliveHexagon">
+                </div>
+                <h4>Resurrect</h4>
+                <div id="divResurrectHexagon"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    canvas = document.getElementById("canvasHexagon");
+    factor = canvas.clientWidth / canvas.width;
+    canvas.width *= factor;
+    canvas.height = canvas.width;
+</script>
+
+<!-- Load latest acron version first -->
+<script type="text/javascript" src="https://unpkg.com/acorn"></script>
+
+<!-- Then load Paper.js -->
+<script type="text/javascript" src="/assets/js/paper-full.min.js"></script>
+
+<script type="text/javascript" src="./automata.js"></script>
+
+<script type="text/javascript" src="./automata-ui.js"></script>
+
+<script type="text/javascript" src="./automata-ui-square.js"></script>
+
+<script type="text/javascript" src="./automata-ui-triangle.js"></script>
+
+<script type="text/javascript" src="./automata-ui-hex.js"></script>
+
+<h2 id="references">References</h2>
+
+<p>Bays C. (2009) Cellular Automata in Triangular, Pentagonal and Hexagonal Tessellations. In: Meyers R. (eds) Encyclopedia of Complexity and Systems Science. Springer, New York, NY. <a href="https://doi.org/10.1007/978-0-387-30440-3_58">https://doi.org/10.1007/978-0-387-30440-3_58</a></p>
+
+      </div>
+    </div>
+    
+    
+    <div class="row">
+      <div class="col col-12">
+        
+        <div id="disqus_thread" class="my-5"></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+          var disqus_config = function () {
+          this.page.url = "/visualizations/cellular/game-of-life.html";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "Game Of Life"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://pilex-github.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        
+      
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $("table").attr("class", "table")
+  </script>
+
+  <footer>
+    <hr>
+    <p class="centered"
+      style="margin: 15px; margin-left: auto; margin-right: auto; font-size: 14px; text-align: center">
+      Copyright Alex Tan &copy; 2022
+    </p>
+  </footer>
+</body>
+
+</html>
