@@ -1,7 +1,9 @@
-- title: Home
+home:
+  title: Home
   subtitle: Home sweet home!
   link: /index
-- title: Computer Graphics
+computer-graphics:
+  title: Computer Graphics
   subtitle: Matrix madness
   link: /computer-graphics/index
   pages:
@@ -19,7 +21,8 @@
       link: /computer-graphics/2d-game
     - title: Platformer Game
       link: /computer-graphics/platformer
-- title: Mathematical Visualizations
+maths-visualizations:
+  title: Mathematical Visualizations
   subtitle: Fractals, cellular automata, and more!
   link: /visualizations/index
   pages:
@@ -35,7 +38,8 @@
       link: /visualizations/cellular/langtons-ant
     - title: Wave Equation
       link: /visualizations/wave-equation
-- title: Machine Learning
+machine-learning:
+  title: Machine Learning
   subtitle: And human learning too
   link: /machine-learning/index
   pages:

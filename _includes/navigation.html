@@ -2,28 +2,28 @@
 {% assign flag = false %}
 
 {% for item in site.data.navigation %}
-    {% assign link_split = item.link | split: '/' %}
+    {% assign link_split = item[1].link | split: '/' %}
     {% if page.collection == link_split[1] %}
-        <h1 class="text-center">{{ item.title }}</h1>
-        <p class="text-center">{{ item.subtitle }}</p>
+        <h1 class="text-center">{{ item[1].title }}</h1>
+        <p class="text-center">{{ item[1].subtitle }}</p>
         {% assign flag = true %}
     {% endif %}
 {% endfor %}
 
 {% if flag == false %}
     {% for item in site.data.navigation %}
-        {% assign link_split = item.link | split: '/' %}
+        {% assign link_split = item[1].link | split: '/' %}
         {% if 'index' == link_split[1] %}
-            <h1 class="text-center">{{ item.title }}</h1>
-            <p class="text-center">{{ item.subtitle }}</p>
+            <h1 class="text-center">{{ item[1].title }}</h1>
+            <p class="text-center">{{ item[1].subtitle }}</p>
         {% endif %}
     {% endfor %}
 {% endif %}
 
 <nav class="justify-content-center">
     {% for item in site.data.navigation %}
-        <a href="{{ item.link }}">
-            {{ item.title }}
+        <a href="{{ item[1].link }}">
+            {{ item[1].title }}
         </a>
     {% endfor %}
 </nav>

@@ -1,7 +1,7 @@
 ---
 ---
 
-Here we discuss a classic cellular automata called Conway's Game of Life and present some generalizations. Conway's [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) is played on a 2D square-tiled grid. Each grid square is called a cell and
+Here we discuss a classic cellular automaton called Conway's Game of Life and present some generalizations. Conway's [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) is played on a 2D square-tiled grid. Each grid square is called a cell and
 is either dead (black) or alive (white). After each successive iteration, the following rules are
 applied to all cells simultaneously:
 

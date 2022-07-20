@@ -163,7 +163,7 @@
 
 <p>for $i=1,2,\cdots,n^{[1]}$. To summarise, the setup we have currently looks like this</p>
 
-<p><img src="/assets/img/nn-one-layer.png" class="d-block mx-auto my-2 border border-info " /></p>
+<p><img src="/assets/img/nn-one-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
 <div class="d-block text-center"><p>One layer neural network.</p>
 </div>
 
@@ -175,13 +175,13 @@
 
 <p>The superscript of $[2]$ denotes which layer we are considering so $w^{[2]}$ are the weights of the second layer, $g^{[2]}$ is the activation function in the second layer and $a^{[2]}$ are the activation values in the second layer.</p>
 
-<p><img src="/assets/img/nn-two-layer.png" class="d-block mx-auto my-2 border border-info " /></p>
+<p><img src="/assets/img/nn-two-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
 <div class="d-block text-center"><p>Two layer neural network</p>
 </div>
 
 <p>We can keep adding more layers to our network by using the activations of the last layer as inputs to the next layer. However, at the end of the day we want to be predicting a single real value $y\in\mathbb R$. Hence we want the last layer to have a single node. For the last layer we may or may not want an activation function, depending on the desired output value. For example, if the prediction $\hat y$ should lie in $[0,1]$ then we should apply a sigmoid activation function. However if instead the predicted output can be any real number, then an activation function like sigmoid should not be applied as that would restrict the predicted output to always lie in $[0,1]$.</p>
 
-<p><img src="/assets/img/nn-final-layer.png" class="d-block mx-auto my-2 border border-info " /></p>
+<p><img src="/assets/img/nn-final-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
 <div class="d-block text-center">
 </div>
 

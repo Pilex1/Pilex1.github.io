@@ -1,0 +1,8 @@
+<div>
+    <video controls {{ include.attr }} class="ratio ratio-16x9">
+        <source src="/assets/video/{{ include.src }}" type="video/{{ include.type }}">
+    </video>
+    <div class="d-block text-center">
+        {{ include.caption | markdownify }}
+    </div>
+</div>

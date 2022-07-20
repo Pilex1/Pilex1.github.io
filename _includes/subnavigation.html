@@ -2,12 +2,12 @@
     <div class="row my-2">
       <div class="col col-lg-6 mx-auto">
         {% for item in site.data.navigation %}
-        {% assign link_split = item.link | split: '/' %}
+        {% assign link_split = item[1].link | split: '/' %}
         {% if link_split[1] == page.collection %}
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Quick links</h4>
-                    {% for subpage in item.pages %}
+                    {% for subpage in item[1].pages %}
                         {% if page.url contains subpage.link %}
                             <a class="fw-bold text-light">{{ subpage.title }}</a>
                             {% assign title = subpage.title %}
