@@ -51,11 +51,11 @@ In order to further investigate the behaviour of the highway forming ant pairs, 
 
 {% include video.html src="two ants torus highway.mp4" type="mp4" attr="muted" caption="Two LR ants on a toroidal grid in a cycle." %}
 
-Note that this appears to work only for the RL (and also LR, by symmetry) ruleset.
+Note that this appears to work only for the RL (and also LR, by symmetry) ruleset. It doesn't appear to work for other rulesets.
 
 ## Image encryption
 
-Despite this reversal phonomenon not appearing for pairs of ants in other rulesets, we can force an ant run in reverse if we modify the ruleset so that the rules are reversed. For example, consider the RLR ruleset, which, explicitly, describe the following rules
+Despite this reversal phonomenon not appearing for pairs of ants in other rulesets, we can force an ant to run in reverse if we modify the ruleset so that the rules are reversed. For example, consider the $RLR$ ruleset, which, explicitly, describe the following rules
 
 1. if the ant is on a cell with colour 0, change it to colour 1, turn right, and move forward one cell
 2. if the ant is on a cell with colour 1, change it to colour 2, turn left, and move forward one cell
@@ -67,7 +67,7 @@ We can reverse the behaviour of the ant if it instead follows the following rule
 2. move backward one cell, if the ant is now on a cell with colour 2, change it to colour 1, and turn *right*
 3. move backward one cell, if the ant is now on a cell with colour 0, change it to colour 2, and turn *left*
 
-Now, if we let an ant of any ruleset run long enough on a toroidal grid, it appears that the grid becomes completely chaotic. 
+Now, if we let an ant of any ruleset run long enough on a toroidal grid, it appears that the grid always becomes completely chaotic. 
 
 {% include video.html src="ant chaos.mp4" type="mp4" attr="muted" caption="Long term evolution of an LRL ant in a toroidal grid." %}
 
@@ -79,7 +79,9 @@ This is exactly what I demonstrate below. The ruleset here is set to $LRLRLR\cdo
 
 {% include youtube-video.html src="https://www.youtube.com/embed/W9aLjrx5CuE" %}
 
-This is definitely not the most practical way to do encryption and decryption as it takes a long time just to do the encryption and decryption process. Nonetheless I think it is pretty cool how, given a random looking encrypted image, the ant is able to slowly reconstruct the original image.
+Just as a side note, there is a slight technicality here. In typical colour space, a value of 0 would correspond to black, and 255 would correspond to white. In our colouring scehem it's reversed; 0 corresponds to white and 255 corresponds to black. You need to take care of this in the implementation details otherwise the image colours would appear inverted.
+
+Anyways, this is definitely not the most practical way to do encryption and decryption as it takes a long time just to do the encryption and decryption process. Nonetheless I think it is pretty cool how, given a random looking encrypted image, the ant is able to slowly reconstruct the original image.
 
 ## References
 

@@ -237,11 +237,11 @@
     </div>
 </div>
 
-<p>Note that this appears to work only for the RL (and also LR, by symmetry) ruleset.</p>
+<p>Note that this appears to work only for the RL (and also LR, by symmetry) ruleset. It doesn’t appear to work for other rulesets.</p>
 
 <h2 id="image-encryption">Image encryption</h2>
 
-<p>Despite this reversal phonomenon not appearing for pairs of ants in other rulesets, we can force an ant run in reverse if we modify the ruleset so that the rules are reversed. For example, consider the RLR ruleset, which, explicitly, describe the following rules</p>
+<p>Despite this reversal phonomenon not appearing for pairs of ants in other rulesets, we can force an ant to run in reverse if we modify the ruleset so that the rules are reversed. For example, consider the $RLR$ ruleset, which, explicitly, describe the following rules</p>
 
 <ol>
   <li>if the ant is on a cell with colour 0, change it to colour 1, turn right, and move forward one cell</li>
@@ -257,7 +257,7 @@
   <li>move backward one cell, if the ant is now on a cell with colour 0, change it to colour 2, and turn <em>left</em></li>
 </ol>
 
-<p>Now, if we let an ant of any ruleset run long enough on a toroidal grid, it appears that the grid becomes completely chaotic.</p>
+<p>Now, if we let an ant of any ruleset run long enough on a toroidal grid, it appears that the grid always becomes completely chaotic.</p>
 
 <div>
     <video controls="" muted="" class="ratio ratio-16x9">
@@ -279,7 +279,9 @@
     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/W9aLjrx5CuE" allowfullscreen=""></iframe>
 </div>
 
-<p>This is definitely not the most practical way to do encryption and decryption as it takes a long time just to do the encryption and decryption process. Nonetheless I think it is pretty cool how, given a random looking encrypted image, the ant is able to slowly reconstruct the original image.</p>
+<p>Just as a side note, there is a slight technicality here. In typical colour space, a value of 0 would correspond to black, and 255 would correspond to white. In our colouring scehem it’s reversed; 0 corresponds to white and 255 corresponds to black. You need to take care of this in the implementation details otherwise the image colours would appear inverted.</p>
+
+<p>Anyways, this is definitely not the most practical way to do encryption and decryption as it takes a long time just to do the encryption and decryption process. Nonetheless I think it is pretty cool how, given a random looking encrypted image, the ant is able to slowly reconstruct the original image.</p>
 
 <h2 id="references">References</h2>
 
