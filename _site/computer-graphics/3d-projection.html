@@ -6,16 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-     <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 
-     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
- 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 
 
   <script>
@@ -25,17 +28,28 @@
       },
       svg: {
         fontCache: 'global'
+      },
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            // console.log('MathJax initial typesetting complete');
+
+            // a hack, but you need this for lines created using \rule to be rendered in the correct colour
+            $("rect").removeAttr("fill");
+          });
+        }
       }
+
     };
-    </script>
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-    </script>
+  </script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
 
-    
-    
+  
+  
 
 </head>
 
@@ -166,25 +180,26 @@
           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
           var disqus_config = function () {
-          this.page.url = "/computer-graphics/3d-projection.html";  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = "3d Projection"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.url = "/computer-graphics/3d-projection.html";  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = "3d Projection"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
           };
-          (function() { // DON'T EDIT BELOW THIS LINE
-          var d = document, s = d.createElement('script');
-          s.src = 'https://pilex-github.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://pilex-github.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
           })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
         
-      
+
       </div>
     </div>
   </div>
 
   <script>
-    $("table").attr("class", "table")
+    $("table").attr("class", "table");
   </script>
 
   <footer>

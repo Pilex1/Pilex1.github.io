@@ -6,16 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-     <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 
-     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
- 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 
 
   <script>
@@ -25,17 +28,34 @@
       },
       svg: {
         fontCache: 'global'
+      },
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            // console.log('MathJax initial typesetting complete');
+
+            // a hack, but you need this for lines created using \rule to be rendered in the correct colour
+            $("rect").removeAttr("fill");
+          });
+        }
       }
+
     };
-    </script>
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-    </script>
+  </script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
 
-    
-    
+  
+  
+  
+
+  <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+
+  
+  
 
 </head>
 
@@ -151,7 +171,164 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
+        <p>Humans perceive colour through three kinds of cone cells that sense light (electromagnetic radiation) of different frequencies.</p>
+
+<p><img src="/assets/img/em-spectrum.jpg" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
+<div class="d-block text-center"><p><a href="https://sites.google.com/a/coe.edu/principles-of-structural-chemistry/relationship-between-light-and-matter/electromagnetic-spectrum">Image source</a></p>
+</div>
+
+<p>These cone cells have peaks of spectral sensitivity in short (S, 420nm - 440nm), middle (M, 530nm - 540nm), and long (L, 560nm - 580nm) wavelengths.</p>
+
+<p><img src="/assets/img/cones.png" class="d-block mx-auto my-2 border border-info " width="500" height="" /></p>
+<div class="d-block text-center">
+</div>
+
+<p>What we perceive as colour is a result of different light frequencies activating our three cone cells by different amounts.  Hence, we can associate every distribution of light frequencies with a certain colour. This distribution of frequencies is known as a <em>spectral power distribution</em> (SPD).  For example, the below diagram shows the SPD of daylight [2]. The combination of the relative amounts of these frequencies activating our cone cells produces the perceived colour of daylight.</p>
+
+<p><img src="/assets/img/spd-daylight.jpg" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
+<div class="d-block text-center">
+</div>
+
+<p>Given an SPD, we can convert it into sRGB, a widely used colour space for displays. This process is twofold. First, we convert the SPD into the XYZ colour space. Then the XYZ colour is normalized with respect to a whitepoint (in this example we use the D65 whitepoint), and converted to sRGB.</p>
+
+<p>The XYZ colour space is described by three values $X,Y,Z$. The colour matching functions $\bar{x}(\lambda),\bar{y}(\lambda),\bar{z}(\lambda)$ describe the relative amounts that a given wavelength contributes to the values $X,Y,Z$ respectively.</p>
+
+<p><img src="/assets/img/colour-matching.png" class="d-block mx-auto my-2 border border-info " width="600" height="" /></p>
+<div class="d-block text-center">
+</div>
+
+<p>Hence, given an SPD $I(\lambda)$, we can find the $X$ value by multiplying $I(\lambda)$ with the colour matching function $\bar{x}(\lambda)$, then integrate the resulting function. Explicitly,</p>
+
+\[X=\int_{380}^{780}\bar{x}(\lambda)I(\lambda)d\lambda\]
+
+<p>Similarly, for $Y$ and $Z$ we have:</p>
+
+\[\begin{align*}
+Y&amp;=\int_{380}^{780}\bar{y}(\lambda)I(\lambda)d\lambda\\
+Z&amp;=\int_{380}^{780}\bar{z}(\lambda)I(\lambda)d\lambda
+\end{align*}\]
+
+<p>In terms of implementation detail, we approximate the integration via a discrete sum. 
+The colour matching functions $\bar{x}(\lambda),\bar{y}(\lambda),\bar{z}(\lambda)$ can be approximated
+using sums of piecewise Gaussian functions, given by [1].</p>
+
+<p>We now normalize $X,Y,Z$ with respect to the D65 whitepoint. From the SPD $I_0(\lambda)$ of the D65 whitepoint, we can calculate its $X,Y,Z$ values, which we denote here by $X_0,Y_0,Z_0$.</p>
+
+<p>The normalized values of $X,Y,Z$ with respect to the D65 whitepoint are then given by:</p>
+
+\[\begin{align*}
+X_{D65}&amp;:=\frac{X}{Y_0}\\
+Y_{D65}&amp;:=\frac{Y}{Y_0}\\
+Z_{D65}&amp;:=\frac{Z}{Y_0}
+\end{align*}\]
+
+<p>This process normalizes the $X,Y,Z$ values such that the normalized $Y$ value (which represents luminance) of the D65 whitepoint is 1.</p>
+
+<p>Furthermore, the chromaticity values $(x,y)$ (see <a href="#xyY">below</a>) are unchanged.</p>
+
+<p>Next, we convert the normalized XYZ values into sRGB:</p>
+
+\[\begin{bmatrix}
+R_{\text{linear}}\\G_{\text{linear}}\\B_{\text{linear}}
+\end{bmatrix}=\begin{bmatrix}
+3.24096994 &amp;-1.53738318 &amp;-0.49861076\\
+-0.96924364&amp;1.8759675&amp;0.04155506\\
+0.05563008&amp;0.20397696&amp;1.05697151
+\end{bmatrix}\begin{bmatrix}
+X_{D65}\\Y_{D65}\\Z_{D65}
+\end{bmatrix}\]
+
+<p>Finally, gamma correction must be applied to these values:</p>
+
+\[\begin{bmatrix}
+R\\G\\B
+\end{bmatrix}=\begin{bmatrix}
+\gamma(R_{\text{linear}})\\\gamma(G_{\text{linear}})\\\gamma(B_{\text{linear}})
+\end{bmatrix}\]
+
+<p>where</p>
+
+\[\gamma(u):=\begin{cases}
+12.92u&amp;u\leq 0.0031308\\
+1.055u^{1/2.4}-0.055&amp;\text{otherwise}
+\end{cases}\]
+
+<h2 id="converting-xyz-to-xyy">Converting XYZ to xyY</h2>
+
+<p>Additionally, we can also convert the XYZ colour value into the xyY colour space which is defined as:</p>
+
+\[\begin{align*}
+x:=\frac{X}{X+Y+Z}\\
+y:=\frac{Y}{X+Y+Z}
+\end{align*}\]
+
+<p>and $Y$ referring to the same quantity in both colour spaces.</p>
+
+<p>The $(x,y)$ values denote chromaticity (see diagram below) and $Y$ is a measure of luminance (brightness).</p>
+
+<p><img src="/assets/img/colour-gamut.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
+<div class="d-block text-center">
+</div>
+
+<h2 id="interactive-spd-to-srgb-converter">Interactive SPD to sRGB Converter</h2>
+
+<p>For best colour accuracy, you should view this on an sRGB monitor.</p>
+
+<div class="row my-5">
+    <div class="col col-lg-6 col-12">
+        <div id="plotly-div"></div>
+    </div>
+    <div class="col col-lg-5 col-12">
+        <button type="button" class="btn btn-primary w-100 my-2" id="zero">Set to Black (Zero Wavelength Intensity)</button>
+        <button type="button" class="btn btn-primary w-100 my-2" id="white">Set to White (D65 Whitepoint)</button>
+    
         
+        <p>
+            Superimpose a Gaussian distribution $f(\lambda)=a\cdot\exp\left(-\frac{(\lambda-\lambda_0)^2}{2\sigma^2}\right)$
+        </p>
+
+        <label for="range-a"></label>
+        <input type="range" class="custom-range" id="range-a" />
+
+        <label for="range-c"></label>
+        <input type="range" class="custom-range" id="range-c" />
+
+        <label for="range-lambda"></label>
+        <input type="range" class="custom-range" id="range-lambda" />
+
+        <button type="button" class="btn btn-primary w-100 bg-success" id="freq-update">Superimpose</button>
+    </div>
+</div>
+
+<div class="row my-5">
+
+    <div class="col">
+
+        <canvas id="canvas" class="d-block w-100"></canvas>
+
+        Chromaticity value: <p id="chromaticity"></p>
+
+        Luminance: <p id="luminance"></p>
+
+        sRGB: <p id="srgb"></p>
+        
+        <p id="warning-luminance" class="text-warning">
+            Colour inaccuracy detected! The colour that would be produced by the given distribution requires an sRGB brightness greater than the permissible level (255).
+        </p>
+
+        <p id="warning-gamut" class="text-danger">
+            Colour inaccuracy detected! The colour that would be produced by the given distribution of wavelengths falls outside of the sRGB gamut.
+        </p>
+
+    </div>
+    <div class="col col-6 mx-auto">
+        <canvas id="gamut-canvas" class="d-block w-100"></canvas>
+        <a href="https://i.stack.imgur.com/fZIBb.png">Image Source</a>
+    </div>
+</div>
+
+<script src="spd-to-srgb-converter.js"></script>
+
 
       </div>
     </div>
@@ -166,25 +343,26 @@
           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
           var disqus_config = function () {
-          this.page.url = "/computer-graphics/colour.html";  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = "Colour"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.url = "/computer-graphics/colour.html";  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = "Colour"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
           };
-          (function() { // DON'T EDIT BELOW THIS LINE
-          var d = document, s = d.createElement('script');
-          s.src = 'https://pilex-github.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://pilex-github.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
           })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
         
-      
+
       </div>
     </div>
   </div>
 
   <script>
-    $("table").attr("class", "table")
+    $("table").attr("class", "table");
   </script>
 
   <footer>

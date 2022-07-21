@@ -1,0 +1,56 @@
+For best colour accuracy, you should view this on an sRGB monitor.
+   
+<div class="row my-5">
+    <div class="col col-lg-6 col-12">
+        <div id="plotly-div"></div>
+    </div>
+    <div class="col col-lg-5 col-12">
+        <button type="button" class="btn btn-primary w-100 my-2" id="zero">Set to Black (Zero Wavelength Intensity)</button>
+        <button type="button" class="btn btn-primary w-100 my-2" id="white">Set to White (D65 Whitepoint)</button>
+    
+        
+        <p>
+            Superimpose a Gaussian distribution $f(\lambda)=a\cdot\exp\left(-\frac{(\lambda-\lambda_0)^2}{2\sigma^2}\right)$
+        </p>
+
+        <label for="range-a"></label>
+        <input type="range" class="custom-range" id="range-a">
+
+        <label for="range-c"></label>
+        <input type="range" class="custom-range" id="range-c">
+
+        <label for="range-lambda"></label>
+        <input type="range" class="custom-range" id="range-lambda">
+
+        <button type="button" class="btn btn-primary w-100 bg-success" id="freq-update">Superimpose</button>
+    </div>
+</div>
+
+<div class="row my-5">
+
+    <div class="col">
+
+        <canvas id="canvas" class="d-block w-100"></canvas>
+
+        Chromaticity value: <p id="chromaticity"></p>
+
+        Luminance: <p id="luminance"></p>
+
+        sRGB: <p id="srgb"></p>
+        
+        <p id="warning-luminance" class="text-warning">
+            Colour inaccuracy detected! The colour that would be produced by the given distribution requires an sRGB brightness greater than the permissible level (255).
+        </p>
+
+        <p id="warning-gamut" class="text-danger">
+            Colour inaccuracy detected! The colour that would be produced by the given distribution of wavelengths falls outside of the sRGB gamut.
+        </p>
+
+    </div>
+    <div class="col col-6 mx-auto">
+        <canvas id="gamut-canvas" class="d-block w-100"></canvas>
+        <a href="https://i.stack.imgur.com/fZIBb.png">Image Source</a>
+    </div>
+</div>
+
+<script src="spd-to-srgb-converter.js"></script>

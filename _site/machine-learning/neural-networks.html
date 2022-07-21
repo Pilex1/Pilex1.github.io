@@ -6,16 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-     <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 
-     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
- 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 
 
   <script>
@@ -25,17 +28,28 @@
       },
       svg: {
         fontCache: 'global'
+      },
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            // console.log('MathJax initial typesetting complete');
+
+            // a hack, but you need this for lines created using \rule to be rendered in the correct colour
+            $("rect").removeAttr("fill");
+          });
+        }
       }
+
     };
-    </script>
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-    </script>
+  </script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
 
-    
-    
+  
+  
 
 </head>
 
@@ -139,27 +153,31 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        <h1 id="wip">WIP</h1>
+        <h1 id="work-in-progress">Work in progress</h1>
 
 <p>Neural networks and deep learning are an active research topic. We focus here on understanding the simplest types of neural networks which are feedforward fully-connected neural networks, and we will focus on using them for supervised learning.</p>
 
-<p>We start off with a regression problem, similar to what we had for linear regression. As before, suppose we are given $m$ training example pairs $x^{(i)},y^{(i)}$ for $i=1,\cdots,m$ where $x^{(i)}\in\mathbb R^{ n},y^{(i)}\in\mathbb R$ and we want to predict $y$ from $x$. In linear regression we used a linear (technically, affine) function to predict $y$ from $x$ by making the prediction $\hat y=w^T\cdot x$. Of course, this won’t work too well when there is non-linearity in the data. To model some non-linearity we introduce a nonlinear activation function $g:\mathbb R\to\mathbb R$ that we apply to $w^T\cdot x$, which gives us</p>
+<h2 id="basics">Basics</h2>
 
-\[a=g(w^T\cdot x)\]
+<p>We start off with a regression problem, similar to what we had for linear regression. As before, suppose we are given $m$ training example pairs $x^{(i)},y^{(i)}$ for $i=1,\cdots,m$ where $x^{(i)}\in\mathbb R^{ n},y^{(i)}\in\mathbb R$ and we want to predict $y$ from $x$. In linear regression we used a linear (technically, affine) function to predict $y$ from $x$ by making the prediction $\hat y=w^T\cdot x$. In order to simplify notation later on, we will write this instead as $\hat y=x^T\cdot w$.</p>
+
+<p>Of course, if the relationship between $y$ and $x$ is non-linear, then this model will not perform very well. In order to introduce some non-linearity to our model, we introduce a non-linear activation function $g:\mathbb R\to\mathbb R$ that we apply to $x^T\cdot w$, which gives us</p>
+
+\[a=g(x^T\cdot w)\]
 
 <p>which is called the activation value. Common choices for $g$ include the sigmoid function $g(x)=\frac{1}{1+e^{-x}}$ or the ReLU function $g(x)=\max(0,x)$.</p>
 
 <p>Unlike linear regression, we will use <em>multiple</em> sets of weights. Call the first set of weights $w_1$ and the first activation value $a_1$ so that</p>
 
-\[a_1=g(w_1^T\cdot x).\]
+\[a_1=g(x\cdot w_1^T).\]
 
 <p>We can apply the same process with a different set of weights $w_2$ and obtain a different activation value</p>
 
-\[a_2=g(w_2^T\cdot x)\]
+\[a_2=g(x\cdot w_2^T)\]
 
 <p>and so on. Let $n^{[1]}$ denote the number of different weights we used. Then in general we compute</p>
 
-\[a_i=g(w_i^T\cdot x)\]
+\[a_i=g(x\cdot w_i^T)\]
 
 <p>for $i=1,2,\cdots,n^{[1]}$. To summarise, the setup we have currently looks like this</p>
 
@@ -169,9 +187,9 @@
 
 <p>We call this a neural network with one layer. The circles or activation values are the “neurons” or nodes in the network.</p>
 
-<p>We can add more layers by considering all the activation values as a vector $a^{[1]}\in\mathbb R^{n^{[1]}}$ and treating it as an input and repeating the same process. That is, we have a set of new weights, say $w^{[2]}_1,w^{[2]}_2,\cdots,w^{[2]}_{n^{[2]}}$ and we compute the activation values in the second layer as</p>
+<p>We can add more layers by considering all the activation values as a vector $a^{[1]}\in\mathbb R^{n^{[1]}}$, treating it as an input, and repeating the same process. That is, we have a set of new weights, say $w^{[2]}_1,w^{[2]}_2,\cdots,w^{[2]}_{n^{[2]}}$ and we compute the activation values in the second layer as</p>
 
-\[a_i^{[2]}=g^{[2]}({w^{[2]}_i}^T\cdot a).\]
+\[a_i^{[2]}=g^{[2]}({a^{[1]}}^T\cdot w_i^{[2]}).\]
 
 <p>The superscript of $[2]$ denotes which layer we are considering so $w^{[2]}$ are the weights of the second layer, $g^{[2]}$ is the activation function in the second layer and $a^{[2]}$ are the activation values in the second layer.</p>
 
@@ -179,11 +197,69 @@
 <div class="d-block text-center"><p>Two layer neural network</p>
 </div>
 
-<p>We can keep adding more layers to our network by using the activations of the last layer as inputs to the next layer. However, at the end of the day we want to be predicting a single real value $y\in\mathbb R$. Hence we want the last layer to have a single node. For the last layer we may or may not want an activation function, depending on the desired output value. For example, if the prediction $\hat y$ should lie in $[0,1]$ then we should apply a sigmoid activation function. However if instead the predicted output can be any real number, then an activation function like sigmoid should not be applied as that would restrict the predicted output to always lie in $[0,1]$.</p>
+<p>We can keep adding more layers to our network by using the activations of the last layer as inputs to the next layer. However, at the end of the day we want to be predicting a single real value $y\in\mathbb R$. Hence for the last layer we have just a single node, and the value of that node is the model’s prediction. Also, for the last layer we have to pay a bit more attention to the activation function; for example, if the prediction $\hat y$ should lie in $[0,1]$ then we should apply a sigmoid activation function. However if instead the predicted output can be any real number, then an activation function like sigmoid should <em>not</em> be applied as that would restrict the predicted output to always lie in $[0,1]$.</p>
 
 <p><img src="/assets/img/nn-final-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
 <div class="d-block text-center">
 </div>
+
+<h2 id="vectorization">Vectorization</h2>
+
+<p>And that’s all a neural network is! Before we proceed any further, we will vectorize our setup, like we did for linear regression. Recall that we have $m$ training examples pairs $\{(x_i,y_i)\}_{i=1}^m$ for $x_i\in\mathbb R^n,y_i\in\mathbb R$. As we did for linear regression, arrange the $x_i$ as rows of a matrix $X$ and similarly arrange the $y_i$ as rows of a matrix $Y$. Explicitly,</p>
+
+\[X=\begin{bmatrix}
+\rule[.5ex]{2.5ex}{0.5pt}{x^{(1)}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\vdots\\
+\rule[.5ex]{2.5ex}{0.5pt}{x^{(m)}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}.\]
+
+<p>and</p>
+
+\[Y=\begin{bmatrix}
+y^{(1)}\\
+\vdots\\
+y^{(m)}
+\end{bmatrix}.\]
+
+<p>Now, we arrange the weights of the first layer as <em>columns</em> of a matrix $W^{[1]}$ i.e.</p>
+
+\[W^{[1]}=\begin{bmatrix}
+{\rule[-1ex]{0.5pt}{2.5ex}}&amp;&amp;{\rule[-1ex]{0.5pt}{2.5ex}}\\
+w_1^{[1]}&amp;\cdots&amp;w_{n^{[1]}}^{[1]}\\
+{\rule[-1ex]{0.5pt}{2.5ex}}&amp;&amp;{\rule[-1ex]{0.5pt}{2.5ex}}
+\end{bmatrix}.\]
+
+<p>Matrix multiply $X$ and $W^{[1]}$, and apply the activation function $g^{[1]}$ elementwise to each component of the resulting matrix, to get a new matrix</p>
+
+\[A^{[1]}=g^{[1]}\circ (X\cdot W^{[1]})\]
+
+<p>What’s really neat about this is that because of how matrix multiplication works, we actually have</p>
+
+\[A^{[1]}=\begin{bmatrix}
+\rule[.5ex]{2.5ex}{0.5pt}{a^{(1)[1]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\vdots\\
+\rule[.5ex]{2.5ex}{0.5pt}{a^{(m)[1]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}\]
+
+<p>i.e. the $i$th row of $A^{[1]}$ give us the activation values in the first layer of training example $i$.</p>
+
+<p>We can do this process for all layers so that in general, at layer $\ell$ we have</p>
+
+\[A^{[\ell]}=g^{[\ell]}\circ (A^{[\ell-1]}\cdot W^{[\ell]})=\begin{bmatrix}
+\rule[.5ex]{2.5ex}{0.5pt}{a^{(1)[\ell]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\vdots\\
+\rule[.5ex]{2.5ex}{0.5pt}{a^{(m)[\ell]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}\]
+
+<h2 id="gradient-descent">Gradient descent</h2>
+
+<p>The hard part though is figuring out what values we should set the weights $w_1^{[1]},w_2^{[1]},\cdots,w_{n^{[1]}}^{[1]},w_1^{[2]},w_2^{[2]},\cdots,w_{n^{[2]}}^{[2]},\cdots$ to. In our setup for linear regression, we picked $w$ so as to minimize the mean squared error over all the training examples</p>
+
+\[f(w)=\frac 1m\sum_{i=1}^m(\hat y ^{(i)}-y^{(i)})^2\]
+
+<p>where $\hat y^{(i)}$ denotes the predicted value and is dependent on $w$, and $y^{(i)}$ denotes the true value. In linear regression, we were able to explicitly solve for $w$ by finding the critical points of the above function. This time around, however, we are not so lucky, and there is no closed form solution for our neural network setup.</p>
+
+<p>Instead we will approximate the optimal solution $w$ by using gradient descent.</p>
 
       </div>
     </div>
@@ -198,25 +274,26 @@
           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
           var disqus_config = function () {
-          this.page.url = "/machine-learning/neural-networks.html";  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = "Neural Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.url = "/machine-learning/neural-networks.html";  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = "Neural Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
           };
-          (function() { // DON'T EDIT BELOW THIS LINE
-          var d = document, s = d.createElement('script');
-          s.src = 'https://pilex-github.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://pilex-github.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
           })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
         
-      
+
       </div>
     </div>
   </div>
 
   <script>
-    $("table").attr("class", "table")
+    $("table").attr("class", "table");
   </script>
 
   <footer>
