@@ -36,8 +36,8 @@ maths-visualizations:
       link: /visualizations/cellular/game-of-life
     - title: Langton's Ant
       link: /visualizations/cellular/langtons-ant
-    - title: Wave Equation
-      link: /visualizations/wave-equation
+    # - title: Wave Equation
+    #   link: /visualizations/wave-equation
 machine-learning:
   title: Machine Learning
   subtitle: And human learning too
@@ -45,9 +45,11 @@ machine-learning:
   pages:
     - title: Jacobian matrix
       link: /machine-learning/jacobian
-    - title: Chain rule for vector valued functions
+    - title: Chain rule for vector-to-vector functions
       link: /machine-learning/chain-rule
     - title: Linear regression
       link: /machine-learning/linear-regression
-    - title: Neural networks
-      link: /machine-learning/neural-networks
+    - title: Neural networks part 1
+      link: /machine-learning/neural-networks-1
+    - title: Neural networks part 2
+      link: /machine-learning/neural-networks-2
