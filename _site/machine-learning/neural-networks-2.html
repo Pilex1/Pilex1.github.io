@@ -120,7 +120,7 @@
                         
                     
                         
-                                <a class="d-block" href="/machine-learning/chain-rule">Chain rule for vector valued functions</a>
+                                <a class="d-block" href="/machine-learning/chain-rule">Chain rule for vector-to-vector functions</a>
                         
                     
                         
@@ -157,7 +157,153 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        
+        <h2 id="bias-term">Bias term</h2>
+
+<p>In our setup so far, at each layer $\ell$ the inputs $a^{[\ell-1]}$ are matrix-multiplied by a set of weights, to produce the $z$ values i.e.</p>
+
+\[z_i^{[\ell]}={a^{[\ell-1]}}^T\cdot w_i\]
+
+<p>Like we did in linear regression, we typically also add a bias term to this so that we have</p>
+
+\[z_i^{[\ell]}={a^{[\ell-1]}}^T\cdot w_i+b_i^{[\ell]}\]
+
+<p>Again, like we did in linear regression, an easy way to account for this is to add an extra component to all the inputs with a constant value of 1, and add an extra component to the weights. In our vectorized setup, this would correspond with adding an extra column of 1s at the far right of each $A^{[\ell-1]}$, and the weight matrices $W^{[\ell]}$ having an extra row at the bottom. The bias terms would then be updated by gradient descent in the same way the weight terms are updated.</p>
+
+<p>Alternatively, we can explicitly write out the equations involving the bias term and compute the partial derivatives explicitly. In vectorized form, arrange the $b_i^{[\ell]}$ into a row vector</p>
+
+\[b^{[\ell]}=\begin{bmatrix}
+b_1^{[\ell]}&amp;
+b_2^{[\ell]}&amp;
+\cdots&amp;
+b_{n^{[\ell]}}^{[\ell]}
+\end{bmatrix}\]
+
+<p>Then compute</p>
+
+\[Z^{[\ell]}={A^{[\ell-1]}}^T\cdot W+b^{[\ell]}\]
+
+<p>where the addition here is between a matrix and a row vector, and is interpreted to mean that the addition is broadcasted over all the rows of the matrix i.e. the addition looks like</p>
+
+\[Z^{[\ell]}={A^{[\ell-1]}}^T\cdot W+\begin{bmatrix}
+\rule[.5ex]{2.5ex}{0.5pt}b^{[\ell]}\rule[.5ex]{2.5ex}{0.5pt}\\
+\vdots\\
+\rule[.5ex]{2.5ex}{0.5pt}b^{[\ell]}\rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}\]
+
+<h3 id="matrix-calculus-broadcasted-addition">Matrix calculus: broadcasted addition</h3>
+
+<p>We now need to work out what the derivative of broadcast addition looks like within our matrix calculus frameowrk. Following the notation from our framework, let</p>
+
+\[G:X\mapsto C+X\]
+
+<p>where $X\in\mathbb R^{1\times n}$ is a row vector, $C\in\mathbb R^{m\times n}$ is a constant matrix, and the addition is broadcasted. If $f$ is a matrix-to-scalar function taking $G$ as input, then</p>
+
+\[\begin{align*}
+\frac{df}{dX_{1,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{1,j}}\tag{multivariable chain rule}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{1,j}}(C_{k,\ell}+X_{1,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{\ell=j}\\
+&amp;=\sum_{k}\frac{df}{dG_{k,j}}\\
+\implies \frac{df}{dX}&amp;=\sum_{\text{rows}}\frac{df}{dG}.
+\end{align*}\]
+
+<p>Analogously, we can look at columnwise broadcasting. If</p>
+
+\[G:X\mapsto C+X\]
+
+<p>where $X\in\mathbb R^{m\times 1}$ is a <em>column</em> vector, $C\in\mathbb R^{m\times n}$, and the addition is broadcasted, then using similar reasoning,</p>
+
+\[\frac{df}{dX}=\sum_{\text{columns}}\frac{df}{dG}.\]
+
+<h3 id="tying-things-together">Tying things together</h3>
+
+<p>We can now go back to what we were doing before. Recall we had</p>
+
+\[Z^{[\ell]}={A^{[\ell-1]}}^T\cdot W+b^{[\ell]}\]
+
+<p>where the addition is broadcasted between a matrix and row vector. Then our results above tell us that (with $G:b^{[\ell]}\mapsto {A^{[\ell-1]}}^T\cdot W+b^{[\ell]}=Z^{[\ell]}$ and $f:Z^{[\ell]}\mapsto\cdots$)</p>
+
+\[\frac{df}{db^{[\ell]}}=\sum_{\text{rows}}\frac{df}{dZ^{[\ell]}}\]
+
+<h2 id="regression-with-multiple-outputs">Regression with multiple outputs</h2>
+
+<p>So far our neural network has been predicting a single real value. Sometimes we may want to have multiple outputs i.e. $y^{(i)}\in\mathbb R^n$. Previously, we minimized the mean squared error between the model’s predictions and the actual values, where the error was simply the difference between the predictions and true values $\hat y^{(i)}-y^{(i)}$. When the output is a vector, we can extend this to the $L_2$ norm between the predictions and true values</p>
+
+\[f(W)=\frac 1m\sum_{i=1}^m\Vert \hat y^{(i)}-y^{(i)}\Vert_2^2\]
+
+<p>To vectorize the setup, place the $y^{(i)}$ as rows of a matrix $Y$ as before:</p>
+
+\[Y=\begin{bmatrix}
+\rule[.5ex]{2.5ex}{0.5pt}{y^{(1)}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\vdots\\
+\rule[.5ex]{2.5ex}{0.5pt}{y^{(m)}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}.\]
+
+<p>The weight matrix in the last layer will need to have its shape suitably adjusted to produce predictions of the correct shape. Then the loss function in vectorized form becomes</p>
+
+<p>\(\frac 1m \Vert A^{[L]}-Y\Vert_F^2\)
+which is the same as what we had before. Recall, however, that when we had a scalar output, $A^{[L]}-Y$ was a column vector in disguise and taking the Frobenius norm was really the same as taking the $L_2$ norm. Now, $A^{[L]}-Y$ is a proper matrix and we take the Frobenius norm of this matrix.</p>
+
+<h2 id="binary-classification">Binary classification</h2>
+
+<p>We have looked at how to do regression: predicting a real value (or vector of real values). Sometimes we want to perform classification instead, where we classify an example into one out of a discrete number of classes. We start with the simplest of these: binary classification. Here there are two classes and we want to predict which class an example falls into.</p>
+
+<p>The way this is typically done is to take our setup for a neural network for regression with a scalar output, and use a sigmoid function as activation for the last layer so that the output lies in the range $[0,1]$. Examples with a prediction closer to 0 fall into one class, and examples with a prediction closer to 1 fall into the other.</p>
+
+<p>Also, instead of using mean squared error as the loss, we typically use binary cross-entropy instead. For a single example, binary cross-entropy is defined as</p>
+
+\[-y^{(i)}\log_2\hat y^{(i)}-(1-y^{(i)})\log_2(1-\hat y^{(i)})\]
+
+<p>which is equivalent to</p>
+
+\[\begin{cases}
+-\log_2\hat y ^{(i)},&amp;y^{(i)}=1\\
+-\log_2(1-\hat y^{(i)}),&amp;y^{(i)}=0
+\end{cases}\]
+
+<p>Using this form, we see that if the true value is 1 ($y^{(i)}=1$) then if the prediction is also 1, the loss is 0. However, as the predicted value approaches 0, the binary cross-entropy approaches positive infinity. Conversely, if the true value is 0 ($y^{(i)}=0$) then if the prediction is also 0, the loss is 0. As the predicted value approaches 1, the binary cross-entropy again approaches positive infinity.</p>
+
+<p>We will use the first form from here, however, as this expresses binary cross-entropy as a differentiable function.</p>
+
+<p>Taking into account all the training examples, we want to find weights so as to minimize the mean binary cross-entropy over all the training examples</p>
+
+\[f(W)=\frac 1m\sum_{i=1}^m\left[-y^{(i)}\log_2\hat y^{(i)}-(1-y^{(i)})\log_2(1-\hat y^{(i)})\right]\]
+
+<p>Since the $y^{(i)}$ and $\hat y^{(i)}$ are arranged as rows in the matrices $Y$ and $A^{[L]}$ respectively, we have</p>
+
+\[\begin{align*}
+f(W)&amp;=\frac 1m\sum_{i=1}^m\left(-Y_i\log_2 A^{[L]}_i-(1-Y_i)\log_2(1-A^{[L]}_i)\right)\\
+&amp;=-\frac 1m\left(\left(\sum_{i=1}^mY_i\log_2 A^{[L]}_i\right)+\left(\sum_{i=1}^m(1-Y_i)\log_2(1-A^{[L]}_i)\right)\right)\\
+&amp;=-\frac 1m\left(Y^T\cdot\log_2\circ A^{[L]}+(1-Y)^T\cdot\log_2\circ (1-A^{[L]})\right)
+\end{align*}\]
+
+<p>Taking the partial derivative with respect to $A^{L}$ using our matrix calculus framework gives</p>
+
+\[\begin{align*}
+\frac{df}{dA^{[L]}}&amp;=-\frac 1m\left(\frac{d}{dA^{[L]}}\left(Y^T\cdot \log_2\circ A^{[L]}\right)+\frac{d}{dA^{[L]}}\left((1-Y)^T\cdot \log_2\circ (1-A^{[L]})\right)\right)\\
+&amp;=-\frac 1m\left(Y\cdot\frac{d}{dA^{[L]}}\left(\log_2\circ A^{[L]}\right)+(1-Y)\cdot\frac{d}{dA^{[L]}}\left(\log_2\circ(1-A^{[L]}\right)\right)\\
+&amp;=-\frac 1m\left(Y\cdot\frac{1}{\ln 2}\oslash A^{[L]}+(1-Y)\cdot\frac{-1}{\ln 2}\oslash(1-A^{[L]})\right)\\
+&amp;=\frac{1}{m\ln 2}\left((1-Y)\oslash(1-A^{[L]})-Y\oslash A^{[L]}\right)
+\end{align*}\]
+
+<p>Since we are using the sigmoid activation function for the last layer, we have</p>
+
+\[A^{[L]}=\sigma\circ Z^{[L]}\]
+
+<p>and we also have (exercise for the reader)</p>
+
+\[\sigma'=\sigma\cdot (1-\sigma)\]
+
+<p>We can then simplifiy $\frac{df}{dZ^{[L]}}$ as follows</p>
+
+\[\begin{align*}
+\frac{df}{dZ^{[L]}}&amp;=\frac{df}{dA^{[L]}}\odot (\sigma'\circ Z^{[L]})\\
+&amp;=\frac{1}{m\ln 2}\left((1-Y)\oslash(1-A^{[L]})-Y\oslash A^{[L]}\right)\odot (\sigma\circ Z^{[L]})\odot ((1-\sigma)\circ Z^{[L]})\\
+&amp;=\frac{1}{m\ln 2}\left((1-Y)\oslash(1-A^{[L]})-Y\oslash A^{[L]}\right)\odot A^{[L]}\odot (1-A^{[L]})\\
+&amp;=\frac{1}{m\ln 2}\left((1-Y)\odot A^{[L]}-Y\odot (1-A^{[L]})\right)
+\end{align*}\]
+
+<h2 id="multi-class-classification">Multi-class classification</h2>
+
 
       </div>
     </div>
