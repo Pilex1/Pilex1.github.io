@@ -29,7 +29,13 @@ maths-visualizations:
     - title: Mandelbrot and Julia Sets
       link: /visualizations/mandelbrot-julia/mandelbrot-julia
     - title: Discrete Painleve Equations
-      link: /visualizations/discrete-painleve
+      link: /visualizations/discrete-painleve/dp1
+      base: /visualizations/discrete-painleve
+      pages:
+        - title: dP1
+          link: /visualizations/discrete-painleve/dp1
+        - title: qP1
+          link: /visualizations/discrete-painleve/qp1
     - title: Visualizing complex-valued functions
       link: /visualizations/complex-functions
     - title: Game of Life

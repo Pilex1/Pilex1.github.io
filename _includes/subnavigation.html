@@ -1,25 +1,39 @@
 <div class="container">
     <div class="row my-2">
-      <div class="col col-lg-6 mx-auto">
-        {% for item in site.data.navigation %}
-        {% assign link_split = item[1].link | split: '/' %}
-        {% if link_split[1] == page.collection %}
+        <div class="col col-lg-6 mx-auto">
+            {% for item in site.data.navigation %}
+            {% assign link_split = item[1].link | split: '/' %}
+            {% if link_split[1] == page.collection %}
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Quick links</h4>
                     {% for subpage in item[1].pages %}
-                        {% if page.url contains subpage.link %}
-                            <a class="fw-bold text-light">{{ subpage.title }}</a>
-                            {% assign title = subpage.title %}
-                            {% else %}
-                                <a class="d-block" href="{{ subpage.link }}">{{ subpage.title }}</a>
+                    {% assign base = subpage.base | default: subpage.link %}
+                    {% if page.url contains base %}
+                    <a class="fw-bold text-light">{{ subpage.title }}</a>
+
+                    {% if subpage.pages %}
+                    <div class="mx-4">
+                        {% for subsubpage in subpage.pages %}
+                        {% if page.url contains subsubpage.link %}
+                        <a class="fw-bold text-light">{{ subsubpage.title }}</a>
+                        {% else %}
+                        <a class="d-block" href="{{ subsubpage.link }}">{{ subsubpage.title }}</a>
                         {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% assign title = subpage.title %}
+                    {% else %}
+                    <a class="d-block" href="{{ subpage.link }}">{{ subpage.title }}</a>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
-        {% endif %}
-    {% endfor %}
-      </div>
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
     <div class="row">
         <div class="col col-12">
@@ -27,5 +41,3 @@
         </div>
     </div>
 </div>
-
-
