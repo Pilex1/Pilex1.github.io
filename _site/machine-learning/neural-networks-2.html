@@ -240,14 +240,15 @@ b_{n^{[\ell]}}^{[\ell]}
 
 <p>The weight matrix in the last layer will need to have its shape suitably adjusted to produce predictions of the correct shape. Then the loss function in vectorized form becomes</p>
 
-<p>\(\frac 1m \Vert A^{[L]}-Y\Vert_F^2\)
-which is the same as what we had before. Recall, however, that when we had a scalar output, $A^{[L]}-Y$ was a column vector in disguise and taking the Frobenius norm was really the same as taking the $L_2$ norm. Now, $A^{[L]}-Y$ is a proper matrix and we take the Frobenius norm of this matrix.</p>
+\[\frac 1m \Vert A^{[L]}-Y\Vert_F^2\]
+
+<p>which is the same as what we had before. Recall, however, that when we had a scalar output, $A^{[L]}-Y$ was a column vector in disguise and taking the Frobenius norm was really the same as taking the $L_2$ norm. Now, $A^{[L]}-Y$ is a proper matrix and we take the Frobenius norm of this matrix.</p>
 
 <h2 id="binary-classification">Binary classification</h2>
 
 <p>We have looked at how to do regression: predicting a real value (or vector of real values). Sometimes we want to perform classification instead, where we classify an example into one out of a discrete number of classes. We start with the simplest of these: binary classification. Here there are two classes and we want to predict which class an example falls into.</p>
 
-<p>The way this is typically done is to take our setup for a neural network for regression with a scalar output, and use a sigmoid function as activation for the last layer so that the output lies in the range $[0,1]$. Examples with a prediction closer to 0 fall into one class, and examples with a prediction closer to 1 fall into the other.</p>
+<p>The way this is typically done is to take our setup for a neural network for regression with a scalar output, and use a sigmoid function as activation for the last layer so that the output lies in the range $[0,1]$. Examples with a prediction closer to 0 fall into one class, and examples with a prediction closer to 1 fall into the other. You can think of this value as the probability that the example belongs to one of the classes.</p>
 
 <p>Also, instead of using mean squared error as the loss, we typically use binary cross-entropy instead. For a single example, binary cross-entropy is defined as</p>
 
@@ -303,6 +304,189 @@ f(W)&amp;=\frac 1m\sum_{i=1}^m\left(-Y_i\log_2 A^{[L]}_i-(1-Y_i)\log_2(1-A^{[L]}
 \end{align*}\]
 
 <h2 id="multi-class-classification">Multi-class classification</h2>
+
+<p>If we want to perform classification over more than two classes, we need to modify our setup from binary classification a bit. Let $C$ denote the number of classes. Instead of having a scalar output, we now have a vector output in $\mathbb R^C$. The $j$th component of this vector represents the probability or confidence of the model that the particular example belongs to class $j$. To ensure that the individual components lie in the range $[0,1]$ and that they add up to 1, we use a softmax activation function for the last layer</p>
+
+\[a^{[L]}_j=\frac{\exp(z^{[L]}_j)}{\sum_{i=1}^C\exp(z^{[L]}_i)}\]
+
+<p>The actual values are represented as one-hot vectors, meaning that an actual value of class $j$ is represented by a vector in $\mathbb R^C$ where the $j$th component is 1 and the reset are 0. As always, when we vectorize things, each $a^{(i)[L]}$ are arranged as rows in the matrix $A^{[L]}$ so that the $i,j$th component of $A^{[L]}$ is</p>
+
+\[A^{[L]}_{i,j}:=\frac{\exp({Z^{[L]}_{i,j})}}{\sum_{t=1}^C\exp (Z^{[L]}_{i,t})}\]
+
+<p>and similarly for $Y$.</p>
+
+<p>For the loss function, we use cross-entropy again modified to work with our setup here involving multiple classes:</p>
+
+\[\sum_{j=1}^C-y^{(i)}_j\log_2\hat y^{(i)}_j\]
+
+<p>which is equivalent to</p>
+
+\[-\log_2\hat y^{(i)}_j\]
+
+<p>where $j$ is the true class. Again, for our analytic calculations, we use the first form, which is differentiable. Ultimately, we want to minimize the mean cross-entropy loss</p>
+
+\[f(W)=\frac 1m\sum_{i=1}^m\sum_{j=1}^C-y^{(i)}_j\log_2\hat y^{(i)}_j\]
+
+<p>which in vectorized form is</p>
+
+\[f(W)=-\frac 1m\sum(Y\odot(\log_2\circ A^{[L]}))\]
+
+<p>where the sum takes place over all the entries in the matrix. There’s a couple operations here that we haven’t yet seen within our matrix calculus framework so let’s briefly go over that now.</p>
+
+<h3 id="matrix-calculus-elementwise-multiplication">Matrix calculus: elementwise multiplication</h3>
+
+<p>Let</p>
+
+\[\begin{align*}
+G:X\mapsto X\odot C\\
+G:\mathbb R^{m\times n}\to\mathbb R^{m\times n}
+\end{align*}\]
+
+<p>where $C\in\mathbb R^{m\times n}$​ is a constant. If $f$ is a matrix-to-scalar function taking $G$ as input, then</p>
+
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\tag{multivariable chain rule}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}(X_{k,\ell}\cdot C_{k,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\cdot C_{k,\ell}\\
+&amp;=\frac{df}{dG_{i,j}}\cdot C_{i,j}\\
+\implies\frac{df}{dX}&amp;=\frac{df}{dG}\odot C
+\end{align*}\]
+
+<h3 id="matrix-calculus-matrix-sum">Matrix calculus: matrix sum</h3>
+
+<p>Let</p>
+
+\[\begin{align*}
+f:G\mapsto\sum G\\
+f:\mathbb R^{m\times n}\to\mathbb R
+\end{align*}\]
+
+<p>Then</p>
+
+\[\begin{align*}
+\frac{df}{dG_{i,j}}&amp;=\frac{d}{dG_{i,j}}\sum_{k,\ell}G_{k,\ell}\\
+&amp;=\frac{d}{dG_{i,j}}G_{i,j}\\
+&amp;=1\\
+\implies \frac{df}{dG}&amp;=1.
+\end{align*}\]
+
+<p>the matrix of all 1s.</p>
+
+<h3 id="tying-things-together-1">Tying things together</h3>
+
+<p>Using the above results, we have</p>
+
+\[\begin{align*}
+\frac{df}{dA^{[L]}}&amp;=-\frac 1m\cdot\frac{d\left(\sum(Y\odot (\log_2 \circ A^{[L]}))\right)}{dA^{[L]}}\\
+&amp;=-\frac 1m\cdot\frac{d\left(\sum(Y\odot (\log_2 \circ A^{[L]}))\right)}{d(\log_2\circ A^{[L]})}\odot \frac{1}{\ln 2}\oslash A^{[L]}\\
+&amp;=-\frac{1}{m\ln 2}\cdot \frac{d\left(\sum(Y\odot (\log_2 \circ A^{[L]}))\right)}{d(\log_2\circ A^{[L]})}\oslash A^{[L]}\\
+&amp;=-\frac{1}{m\ln 2}\cdot Y\odot  \frac{d\left(\sum(Y\odot (\log_2 \circ A^{[L]}))\right)}{d(Y\odot (\log_2 \circ A^{[L]})))}\oslash A^{[L]}\\
+&amp;=-\frac{1}{m\ln 2}\cdot Y\odot 1\oslash A^{[L]}\\
+&amp;=-\frac{1}{m\ln 2}\cdot Y\oslash A^{[L]}
+\end{align*}\]
+
+<p>where $\oslash$ denotes elementwise division.</p>
+
+<p>We also have</p>
+
+\[\begin{align*}
+\frac{df}{dZ^{[L]}_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dA^{[L]}_{k,\ell}}\cdot\frac{dA_{k,\ell}^{[L]}}{dZ_{i,j}^{[L]}}\\
+&amp;=\sum_{k,\ell}-\frac{1}{m\ln 2}\cdot\frac{Y_{k,\ell}}{A^{[L]}_{k,\ell}}\cdot\frac{d}{dZ^{[L]}_{i,j}}\left(\frac{\exp({Z^{[L]}_{k,\ell})}}{\sum_{t=1}^C\exp (Z^{[L]}_{k,t})}\right)\\
+&amp;=-\frac{1}{m\ln 2}\sum_{k,\ell}\frac{Y_{k,\ell}}{A^{[L]}_{k,\ell}}\cdot\frac{1}{\left(\sum_{t=1}^C\exp(Z_{k,t}^{[L]})\right)^2}\cdot\left(\sum_{t=1}^C\exp(Z_{k,t}^{[L]})\cdot1_{k=i,\ell=j}\exp Z_{k,\ell}^{[L]}-\exp Z_{k,\ell}^{[L]}\cdot 1_{k=i}\exp(Z_{k,j}^{[L]})\right)\\
+&amp;=-\frac{1}{m\ln 2}\left(\frac{Y_{i,j}}{A_{i,j}^{[L]}}\cdot\frac{1}{\sum_{t=1}^C\exp(Z_{i,t}^{[L]})}\cdot \exp Z_{i,j}^{[L]}-\sum_\ell\frac{Y_{i,\ell}}{A_{i,\ell}^{[L]}}\cdot \frac{1}{\left(\sum_{t=1}^C\exp(Z_{i,t}^{[L]})\right)^2}\cdot \exp Z_{i,\ell}^{[L]}\exp(Z_{i,j}^{[L]})\right)\\
+&amp;=-\frac{1}{m\ln 2}\cdot\frac{\exp Z_{i,j}^{[L]}}{\sum_{t=1}^C\exp(Z_{i,t}^{[L]})}\cdot\left(\frac{Y_{i,j}}{A_{i,j}^{[L]}}-\sum_\ell\frac{Y_{i,\ell}}{A_{i,\ell}^{[L]}}\cdot\frac{\exp Z_{i,\ell}^{[L]}}{\sum_{t=1}^C\exp(Z_{i,t}^{[L]})}\right)\\
+&amp;=-\frac 1{m\ln 2}\cdot A_{i,j}^{[L]}\cdot\left(\frac{Y_{i,j}}{A_{i,j}^{[L]}}-\sum_\ell\frac{Y_{i,\ell}}{A_{i,\ell}^{[L]}}\cdot A_{i,\ell}^{[L]}\right)\\
+&amp;=-\frac 1{m\ln 2}\cdot Y_{i,j}+\frac{1}{m\ln 2}\cdot A_{i,j}^{[L]}\cdot\sum_\ell Y_{i,\ell}\\
+&amp;=\frac{1}{m\ln 2}\cdot (A_{i,j}^{[L]}-Y_{i,j})\\
+\implies \frac{df}{dZ^{[L]}}&amp;=\frac 1{m\ln 2}\cdot (A^{[L]}-Y)
+\end{align*}\]
+
+<!--We want to be able to take derivatives of $f$ with respect to $A^{[L]}$ and $Z^{[L]}$ and there are two operations here which we have not yet seen in our matrix calculus framework: broadcasted elementwise division, and summing over all entries of a matrix.
+
+### Matrix calculus: broadcasted elementwise division
+
+First let's deal with broadcasted elementwise division.
+
+Let
+$$
+G:X\mapsto C\oslash X
+$$
+
+
+where $X\in\mathbb R^{1\times n}$ is a row vector, $C\in\mathbb R^{m\times n}$ is a constant matrix, and the division is broadcasted. If $f$ is a matrix-to-scalar function taking $G$ as input, then
+
+
+$$
+\begin{align*}
+\frac{df}{dX_{1,j}}&=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{1,j}}\tag{multivariable chain rule}\\
+&=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{1,j}}(C_{k,\ell}/X_{1,\ell})\\
+&=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{\ell=j}\cdot-\frac{C_{k,\ell}}{X_{1,\ell}^2}\\
+&=\sum_{k}-\frac{df}{dG_{k,j}}\cdot\frac{C_{k,j}}{X_{1,j}^2}\\
+&=-\frac{1}{X_{1,j}^2}\sum_k\frac{df}{dG_{k,j}}\cdot C_{k,j}\\
+&=-\frac{1}{X_{1,j}^2}\sum_k(\frac{df}{dG})^T_{j,k}\cdot C_{k,j}\\
+\implies \frac{df}{dX}&=-\text{diag}_\text{rows}((\frac{df}{dG})^T\cdot C)\oslash (X\odot X)
+\end{align*}
+$$
+
+
+where $\text{diag}_{\text{rows}}(X)$ means taking the diagonal entries of the matrix $X$ and placing them as entries of a row vector.
+
+In the context of vectorized softmax, we actually want the inputs to be a column vector i.e. $X\in\mathbb R^{m\times 1}$. In this case, following similar logic, we get (exercise to the reader)
+
+
+$$
+\frac{df}{dX}=-\text{diag}_\text{columns}(\frac{df}{dG}\cdot C^T)\oslash (X\odot X)
+$$
+
+### Matrix calculus: broadcasted elementwise multiplication
+
+For the sake of completeness, let's also look at broadcasted elementwise multiplication. Let
+$$
+G:X\mapsto C\odot X
+$$
+
+
+where $X\in\mathbb R^{1\times n}$ is a row vector, $C\in\mathbb R^{m\times n}$ is a constant matrix, and the multiplication is broadcasted. If $f$ is a matrix-to-scalar function taking $G$ as input, then
+
+
+$$
+\begin{align*}
+\frac{df}{dX_{1,j}}&=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{1,j}}\tag{multivariable chain rule}\\
+&=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{1,j}}(C_{k,\ell}\cdot X_{1,\ell})\\
+&=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{\ell=j}\cdot C_{k,\ell}\\
+&=\sum_{k}\frac{df}{dG_{k,j}}\cdot C_{k,j}\\
+&=\sum_k(\frac{df}{dG})^T_{j,k}\cdot C_{k,j}\\
+\implies \frac{df}{dX}&=\text{diag}_{\text{rows}}((\frac{df}{dG})^T\cdot C)
+\end{align*}
+$$
+
+
+If the inputs are a column vector i.e. $X\in\mathbb R^{m\times 1}$, then (exercise to the reader)
+
+
+$$
+\frac{df}{dX}=\text{diag}_{\text{columns}}(\frac{df}{dG}\cdot C^T)
+$$
+
+### Tying things together
+
+Recall that
+
+
+$$
+A^=(\exp\circ Z^{[L]})\oslash\left(\sum_{\text{columns}}\exp\circ Z^{[L]}\right)
+$$
+
+
+Using our matrix calculus framework, we have
+
+
+$$
+\begin{align*}
+\frac{df}{dA^{[L]}}&=
+\end{align*}
+$$
+-->
 
 
       </div>

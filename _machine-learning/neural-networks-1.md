@@ -3,7 +3,7 @@
 
 Neural networks and deep learning are an active research topic. We focus here on understanding the simplest types of neural networks which are feedforward fully-connected neural networks, and we will focus on using them for supervised learning. 
 
-## Basics
+## Introduction
 
 We start off with a regression problem, similar to what we had for linear regression. As before, suppose we are given $m$ training example pairs $x^{(i)},y^{(i)}$ for $i=1,\cdots,m$ where $x^{(i)}\in\mathbb R^{ n},y^{(i)}\in\mathbb R$ and we want to predict $y$ from $x$. In linear regression we used a linear (technically, affine) function to predict $y$ from $x$ by making the prediction $\hat y=w^T\cdot x$. In order to simplify notation later on, we will write this instead as $\hat y=x^T\cdot w$.
 
