@@ -365,7 +365,8 @@ class StereographicVisualizer {
 				"y": [],
 				"mode": "markers",
 				"type": "scatter",
-				"name": x.name
+				"name": x.name,
+                "showlegend": true
 			};
 			for (const [n, y] of x.data.entries()) {
 				curData.x.push(n);
@@ -375,6 +376,7 @@ class StereographicVisualizer {
 		}
 
 		Plotly.redraw("plotMagnitude");
+        // Plotly.restyle("plotMagnitude", )
     }
 
 	generateMagnitudeData(iteratesMap, name, log=false) {
