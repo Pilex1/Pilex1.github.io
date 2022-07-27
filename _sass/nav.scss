@@ -1,8 +1,11 @@
+$background-color: #1f2020;
+
 nav {
     padding: 1rem 1rem;
     display: flex;
     border-top: 1px solid aliceblue;
     border-bottom: 1px solid aliceblue;
+    background-color: $background-color;
 }
 
 nav>a {

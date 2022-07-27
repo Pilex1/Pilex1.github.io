@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Advent+Pro:300");
-* { font-family: 'Advent Pro', sans-serif; background-color: #1f2020; color: aliceblue; box-sizing: border-box; font-size: 20px; }
+* { font-family: 'Advent Pro', sans-serif; color: aliceblue; box-sizing: border-box; font-size: 20px; }
 
 body { background-color: #1f2020; color: aliceblue; }
 
@@ -13,9 +13,7 @@ h2 { font-size: 40px; font-weight: normal; margin: 60px auto 30px auto; border-b
 
 h3 { font-size: 32px; font-weight: normal; margin: 30px auto; color: #c9d2dc; font-family: 'Advent Pro', sans-serif; }
 
-.card h4 { color: aliceblue; border-bottom: 1px solid #1f2020; font-size: 28px; }
-
-.card a { font-size: 20px; }
+.card { background-color: #1f2020; color: aliceblue; border: 1px solid aliceblue; }
 
 p { font-size: 20px; margin: 30px auto; padding: 0px auto; }
 
@@ -25,7 +23,7 @@ li { margin: 10px 0px; }
 
 hr { color: aliceblue; border-top: 1px solid aliceblue; }
 
-nav { padding: 1rem 1rem; display: flex; border-top: 1px solid aliceblue; border-bottom: 1px solid aliceblue; }
+nav { padding: 1rem 1rem; display: flex; border-top: 1px solid aliceblue; border-bottom: 1px solid aliceblue; background-color: #1f2020; }
 
 nav > a { background-color: #1f2020; padding: 0rem 1.5rem; color: #14ccb4; display: block; font-size: 22px; }
 

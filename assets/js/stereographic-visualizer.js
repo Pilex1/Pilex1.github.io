@@ -83,6 +83,7 @@ class StereographicVisualizer {
         // misc variables
         this.line = null;
 
+        // plotly
         this.points = [];
         this.numIterates = 0;
 		this.plotlyData = [];
@@ -276,22 +277,23 @@ class StereographicVisualizer {
         // add iterate points
         this.numIterates = 100;
         let iterates = this.generateIterates(this.numIterates);
-        // console.debug(iterates);
+        console.debug(iterates);
 
-		//let iteratesListLength = Array.isArray(iterates.get(0)) ? iterates.get(0).length : 1;
+		// let iteratesListLength = Array.isArray(iterates.get(0)) ? iterates.get(0).length : 1;
+        // let iteratesListLength = iterates.length;
 
-		//let magnitudeData = [];
-		//for (let i = 0; i < iteratesListLength; i++) {
-			//let curMagnitudeData = {
-				//x: [],
-				//y: [],
-				//mode: "markers",
-				//type: "scatter",
-				//name: iteratesListLength > 1 ? "Iterate " + i : "Iterates"
-			//};
-			//magnitudeData.push(curMagnitudeData);
-			//this.plotlyData.push(curMagnitudeData);
-		//}
+		// let magnitudeData = [];
+		// for (let i = 0; i < iteratesListLength; i++) {
+		// 	let curMagnitudeData = {
+		// 		x: [],
+		// 		y: [],
+		// 		mode: "markers",
+		// 		type: "scatter",
+		// 		name: iteratesListLength > 1 ? "Iterate " + i : "Iterates"
+		// 	};
+		// 	magnitudeData.push(curMagnitudeData);
+		// 	this.plotlyData.push(curMagnitudeData);
+		// }
 
 
 
@@ -312,7 +314,7 @@ class StereographicVisualizer {
 			const data = iterateObj.data;
 			const name = iterateObj.name;
 
-            let pointsVec3 = [];
+            // let pointsVec3 = [];
 
 			for (const [n, x] of data.entries()) {
 				let st = this.stereographic(x);
@@ -330,8 +332,8 @@ class StereographicVisualizer {
 					new THREE.MeshPhongMaterial({ color: colour, emissive: colour })
 				);
 
-                if (n % 4 == 0)
-                pointsVec3.push(new THREE.Vector3(-st.x, -st.y, -st.z));
+                // if (n % 4 == 0)
+                // pointsVec3.push(new THREE.Vector3(-st.x, -st.y, -st.z));
 
 				this.scene.add(point);
 
@@ -347,16 +349,11 @@ class StereographicVisualizer {
 				$("#tableValues").append(tableData);
 			}	
 
-            // pointsVec3 = [];
-            // pointsVec3.push( new THREE.Vector3( 0, 2, 0 ) );
-            // pointsVec3.push( new THREE.Vector3( 0.5, -2, 0 ) );
-            // pointsVec3.push( new THREE.Vector3( 1, 2, 0 ) );
-
-            this.line = new THREE.Line(
-                new THREE.BufferGeometry().setFromPoints(pointsVec3),
-                new THREE.LineBasicMaterial({color: 0x0000ff})
-            );
-            this.scene.add(this.line);
+            // this.line = new THREE.Line(
+            //     new THREE.BufferGeometry().setFromPoints(pointsVec3),
+            //     new THREE.LineBasicMaterial({color: 0x0000ff})
+            // );
+            // this.scene.add(this.line);
 
 		}
 

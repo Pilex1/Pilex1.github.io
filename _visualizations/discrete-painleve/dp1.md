@@ -19,3 +19,5 @@ For visualization, the iterates $w_n$ are [stereographically projected]("https:/
 {% include_relative dp1-app.html %}
 
 {% include components/stereographic-visualizer-ui.html %}
+
+The graph above shows a plot of plot $\|w_n\|$ (the complex magnitude of $w_n$) as a function of $n$.

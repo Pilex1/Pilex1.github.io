@@ -192,7 +192,121 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        <p>test</p>
+        <p>This is given by the recurrence equation</p>
+
+\[w_{n+1}w_{n-1}=\frac{1}{w_n}-\frac{1}{aq^nw_n^2}\]
+
+<p>with $a,q\in\mathbb C$ constants.</p>
+
+<div class="row">
+    <div class="col col-8" id="sceneDiv">
+
+    </div>
+    <div class="col col-4">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a" data-bs-toggle="collapse">$a$=<p class="d-inline-block" id="_label-complex-picker-a"></p>
+</button>
+<div class="collapse" id="_collapse-complex-picker-a">
+    <canvas id="_complex-picker-a"></canvas>
+</div>
+
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("a", "0.35", "onshift", 1.5);
+</script>
+            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-q" data-bs-toggle="collapse">$q$=<p class="d-inline-block" id="_label-complex-picker-q"></p>
+</button>
+<div class="collapse" id="_collapse-complex-picker-q">
+    <canvas id="_complex-picker-q"></canvas>
+</div>
+
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("q", "1", "onshift", 1.5);
+</script>
+            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w0" data-bs-toggle="collapse">$w_0$=<p class="d-inline-block" id="_label-complex-picker-w0"></p>
+</button>
+<div class="collapse" id="_collapse-complex-picker-w0">
+    <canvas id="_complex-picker-w0"></canvas>
+</div>
+
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("w0", "0.5", "onshift", 1.5);
+</script>
+            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w1" data-bs-toggle="collapse">$w_1$=<p class="d-inline-block" id="_label-complex-picker-w1"></p>
+</button>
+<div class="collapse" id="_collapse-complex-picker-w1">
+    <canvas id="_complex-picker-w1"></canvas>
+</div>
+
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("w1", "0.5i", "onshift", 1.5);
+</script>
+        </div>
+       
+    </div>
+</div>
+<script type="module" src="./qp1-app.js"></script>
+
+<div class="row my-2">
+    <div class="col col-lg-4 col-12">
+        <p id="lbl-pos"></p>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="checkRotate" />
+            <label class="form-check-label" for="checkRotate">Auto-rotate</label>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btnResetCamera">Reset Camera</button>
+
+		<div class="input-group">
+			<label for="range-colour-brightness" id="label-colour-brightness">Colour Brightness</label>
+			<input type="range" id="range-colour-brightness" class="custom-range" min="0" max="1" step="0.05" value="0.35" />
+		</div>		
+
+        <div class="input-group">
+            <input type="color" id="colorBackground" name="colorBackground" value="#ffffff" />
+            <label for="colorBackground">Background Colour</label>
+        </div>
+
+        <div class="input-group">
+            <input type="color" id="colorSphere" name="colorSphere" value="#e3e3e3" />
+            <label for="colorSphere">Sphere Colour</label>
+        </div>
+        <div class="input-group">
+            <input type="color" id="colorEmissionSphere" name="colorEmissionSphere" value="#adadad" />
+            <label for="colorEmissionSphere">Sphere Emission Colour</label>
+        </div>
+        <button type="button" class="btn btn-primary" id="btnSaveImage">Save Image</button>
+
+    </div>
+    <div class="col col-lg-8 col-12">
+		<div id="plotMagnitude"></div>
+
+        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseValues"
+            aria-expanded="false" aria-controls="collapseValues">
+            Show/Hide Values
+        </button> -->
+
+        <!-- <div class="collapse show" id="collapseValues"> -->
+
+        <div class="card card-body" style="overflow-y: auto; height: 500px;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">$n$</th>
+                        <th scope="col">$w_n$</th>
+                        <th scope="col">Stereographic projection of $w_n$</th>
+                    </tr>
+                </thead>
+                <tbody id="tableValues"></tbody>
+            </table>
+        </div>
+        <!-- </div> -->
+    </div>
+
+</div>
 
       </div>
     </div>

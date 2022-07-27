@@ -4,7 +4,6 @@ $background-color: #1f2020;
 
 * {
     font-family: 'Advent Pro', sans-serif;
-    background-color: $background-color;
     color: aliceblue;
     box-sizing: border-box;
     font-size: 20px;
@@ -47,19 +46,10 @@ h3 {
     font-family: 'Advent Pro', sans-serif;
 }
 
-// .card {
-//     background-color: aliceblue;
-//     color: $background-color; 
-// }
-
-.card h4 {
-    color: aliceblue;
-    border-bottom: 1px solid $background-color; 
-    font-size: 28px;
-}
-
-.card a {
-    font-size: 20px;
+.card {
+    background-color: $background-color;
+    color: aliceblue; 
+    border: 1px solid aliceblue;
 }
 
 p {
