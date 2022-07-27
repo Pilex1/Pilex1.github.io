@@ -26,6 +26,7 @@ class StereographicVisualizer {
             })
         }
 
+
         // this.guiInputs = guiInputs;
         // this.values = new Map();
         // for (let x of this.guiInputs) {
@@ -97,7 +98,8 @@ class StereographicVisualizer {
 				//type: this.plotType,
 				type: "linear",
 				autorange: true
-			}
+			},
+            uirevision: false
 		}
 		Plotly.newPlot("plotMagnitude", this.plotlyData, this.plotlyMagnitudeLayout);
 
@@ -277,23 +279,7 @@ class StereographicVisualizer {
         // add iterate points
         this.numIterates = 100;
         let iterates = this.generateIterates(this.numIterates);
-        console.debug(iterates);
-
-		// let iteratesListLength = Array.isArray(iterates.get(0)) ? iterates.get(0).length : 1;
-        // let iteratesListLength = iterates.length;
-
-		// let magnitudeData = [];
-		// for (let i = 0; i < iteratesListLength; i++) {
-		// 	let curMagnitudeData = {
-		// 		x: [],
-		// 		y: [],
-		// 		mode: "markers",
-		// 		type: "scatter",
-		// 		name: iteratesListLength > 1 ? "Iterate " + i : "Iterates"
-		// 	};
-		// 	magnitudeData.push(curMagnitudeData);
-		// 	this.plotlyData.push(curMagnitudeData);
-		// }
+        // console.debug(iterates);
 
 
 
@@ -375,8 +361,7 @@ class StereographicVisualizer {
 			this.plotlyData.push(curData);
 		}
 
-		Plotly.redraw("plotMagnitude");
-        // Plotly.restyle("plotMagnitude", )
+		Plotly.react("plotMagnitude", this.plotlyData, {uirevision: true});
     }
 
 	generateMagnitudeData(iteratesMap, name, log=false) {
