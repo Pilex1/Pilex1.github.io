@@ -1,7 +1,9 @@
 ---
 ---
 
-Neural networks and deep learning are an active research topic. We focus here on understanding the simplest types of neural networks which are feedforward fully-connected neural networks, and we will focus on using them for supervised learning. 
+There are a lot of articles, blogs, Youtube videos, etc. out there that introduce neural networks, however most of these do not discuss the mathematics behind neural network training in depth, which is what really interested me when I first learn about neural networks. Two valuable resources I found that *did* discuss this were Andrew Ng's ["Neural Networks and Deep Learning" course on Coursera](https://www.coursera.org/learn/neural-networks-deep-learning) and Michael Nielsen's [online book of the same title](http://neuralnetworksanddeeplearning.com/index.html), both of which I highly recommend you check out if you are interested in this topic. I wanted to present here my own take on deriving the backpropagation equations for neural network training; my approach involves developing a framework for computing derivatives of matrix valued functions.
+
+I first introduce briefly what a neural network is, so that you will be able to follow along even without any prior knowledge, though I do recommend the above two resources to gain a broader understanding. I then introduce my framework for computing derivatives, and then I derive the backpropagation equations using the framework.
 
 ## Introduction
 
@@ -48,7 +50,7 @@ $$
 
 for $i=1,2,\cdots,n^{[1]}$. To summarise, the setup we have currently looks like this
 
-{% include image.html src="nn-one-layer.png" caption="One layer neural network." %}
+{% include image.html src="nn-one-layer.png" caption="One layer neural network." width=400 %}
 
 We call this a neural network with one layer. The circles or activation values are the "neurons" or nodes in the network.
 
@@ -70,13 +72,13 @@ $$
 
 The superscript of $[2]$ denotes which layer we are considering so $w^{[2]}$ are the weights of the second layer, $g^{[2]}$ is the activation function in the second layer and $a^{[2]}$ are the activation values in the second layer.
 
-{% include image.html src="nn-two-layer.png" caption="Two layer neural network" %}
+{% include image.html src="nn-two-layer.png" caption="Two layer neural network" width=700 %}
 
 We can keep adding more layers to our network by using the activations of the last layer as inputs to the next layer. However, at the end of the day we want to be predicting a single real value $y\in\mathbb R$. Hence for the last layer we have just a single node, and the value of that node is the model's prediction. 
 
 Also, for the last layer we have to pay a bit more attention to the activation function; for example, if the prediction $\hat y$ should lie in $[0,1]$ then we should apply a sigmoid activation function. However if instead the predicted output can be any real number, then an activation function like sigmoid should *not* be applied as that would restrict the predicted output to always lie in $[0,1]$.
 
-{% include image.html src="nn-final-layer.png" %}
+{% include image.html src="nn-final-layer.png" width=700 %}
 
 ## Vectorization
 
@@ -235,7 +237,7 @@ for all $i,j,\ell$. This can be done in principal, but to make our lives easier,
 
 Our function $f$ is essentially comprised of a series of matrix-to-matrix operations (e.g. matrix multiplication, or applying an elementwise function to a matrix), followed by a matrix-to-scalar function at the end (i.e. computing the $L_2$ norm). 
 
-Let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$. Consider $f(G(X))$ which is matrix-to-scalar. 
+We will abstract this as follows: let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$. Consider $f(G(X))$ which is matrix-to-scalar. 
 
 
 ### Matrix-to-matrix derivatives
@@ -491,5 +493,3 @@ W^{[\ell]}\leftarrow W^{[\ell]}-\alpha \cdot \frac{df}{dW^{[\ell]}}
 $$
 
 where $\alpha>0$ is the learning rate. In practice, variations of the traditional gradient descent update rule are used instead (e.g. Adam), though we will not discuss about them in depth here. 
-
-Next up we will discuss some details such as adding a bias term, having multiple outputs instead of one, and performing classification instead of regression.

@@ -54,7 +54,6 @@ h3 {
 
 p {
     font-size: 20px;
-    margin: 30px auto;
     padding: 0px auto;
 }
 ul {
@@ -71,4 +70,8 @@ li {
 hr {
     color: aliceblue;
     border-top: 1px solid aliceblue;
+}
+
+.caption > p {
+    font-size: 16px;
 }

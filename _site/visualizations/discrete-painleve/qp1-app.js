@@ -4,19 +4,6 @@ import { complexPickerGet } from "/assets/js/components-helper.js"
 class QP1Visualizer extends StereographicVisualizer {
     constructor() {
         super(window, "sceneDiv", ["a", "q", "w0", "w1"]/*, "linear"*/);
-        //this.iteratesCache = null;
-
-        // this.sceneSfu = new THREE.Scene();
-        // this.cameraSfu = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        // this.cameraSfu.position.set(0, -0.5, 2);
-        // this.cameraSfu.rotation.set(0.3, 0, 0);
-
-        //this.divSfu = document.getElementById('sceneDivSfu');
-        //this.rendererSfu = new THREE.WebGLRenderer({ "preserveDrawingBuffer": true });
-        //this.rendererSfu.setSize(this.divSfu.clientWidth, this.divSfu.clientWidth);
-        //$("#sceneDivSfu")[0].appendChild(this.rendererSfu.domElement);
-
-        //this.pointsSfu = [];
     }
 
     generateIterates(numIterates) {

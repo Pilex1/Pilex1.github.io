@@ -186,8 +186,13 @@ x_{ndc}\\ y_{ndc}\\ z_{ndc}
 
 <p>In the computer graphics community, this is often called <strong>perspective division</strong> since we are dividing by the $w$ coordinate. The resulting coordinate space is called <strong>normalized device coordinates</strong>.</p>
 
-<p><img src="/assets/img/ndc-diagram.svg" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center"><p>Normalized device coordinates. <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection">Image source</a>.</p>
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/ndc-diagram.svg" class="d-block mx-auto mt-2 mb-0 border border-info " width="600" height="" />
+    
+    
+    <div class="caption"><p>Normalized device coordinates. <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection">Image source</a>.</p>
+</div>
 </div>
 
 <p>An object is rendered by OpenGL only if its normalized device coordinates lie between -1 and 1 i.e. $(x_{ndc},y_{ndc},z_{ndc})\in [-1,1]^3$. The $x_{ndc}$ and $y_{ndc}$ coordinates specify the horizontal and vertical positions as one would expect, with positive $x_{ndc}$ towards the right and positive $y_{ndc}$ towards the top.</p>

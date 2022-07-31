@@ -6,7 +6,7 @@ Langton's Ant is another cellular automaton. Like Game of Life, there is an infi
 1. if the ant is on a white square, flip the colour of the square, turn 90 degrees clockwise (i.e. turn right), and move forward one cell
 2. if the ant is on a black square, flip the colour of the square, turn 90 degrees counterclockwise (i.e. turn left), and move forward one cell
 
-{% include image.html src="LangtonsAntAnimated.gif" caption="First 200 iterations of Langton's Ant starting on a grid of all white. [Image source](https://www.wikiwand.com/en/Langton%27s_ant)." %}
+{% include image.html src="LangtonsAntAnimated.gif" caption="First 200 iterations of Langton's Ant starting on a grid of all white. [Image source](https://www.wikiwand.com/en/Langton%27s_ant)." width=400 %}
 
 What's interesting is that for the first few hundred iterations, the ant creates simple patterns that are often symmetric, as seen above. However, the pattern soon becomes highly irregular and the ant moves pseudo-randomly. Finally, at around 10,000 iterations, the ant starts building a recurrent "highway" pattern indefinitely.
 

@@ -12,7 +12,7 @@ $$f(z)=a_0+a_1z+\cdots+a_dz^d$$
 
 we evaluate $f$ over the complex unit circle, that is, we compute $f(z)$ for every $z\in\mathbb C$ such that $\|z\|=1$. The values $f(z)$ are plotted on the complex plane and coloured based on $\arg(z)$; specifically, we map the range $[0,2\pi]$ in $\arg(z)$ to the "H" (hue) component of the HSL colour space. 	
 
-{% include image.html src="colour-wheel.png" caption="[Image source](https://www.newsshooter.com/2018/07/30/fiilex-matrix-ii-rgbw-hands-review/hue-color-wheel-by-degree/)" %}
+{% include image.html src="colour-wheel.png" caption="[Image source](https://www.newsshooter.com/2018/07/30/fiilex-matrix-ii-rgbw-hands-review/hue-color-wheel-by-degree/)" width=500 %}
 
 As an example, the below program visualizes the polynomial 
 
@@ -40,7 +40,7 @@ $$
 
 over the unit circle. 
 
-{% include image.html src="complex-circle-cardioid.png" class="w-50" %}
+{% include image.html src="complex-circle-cardioid.png" w=50 %}
 
 This produces a unit [cardioid](https://www.wikiwand.com/en/Cardioid) (i.e. a cardioid with $a=1$).
 
@@ -103,25 +103,25 @@ $$
 
 Shown below is its behaviour when applied over the unit circle.
 
-{% include image.html src="complex_example_unit.png" caption="$f(z)$ evaluated over the unit circle." class="w-50" %}
+{% include image.html src="complex_example_unit.png" caption="$f(z)$ evaluated over the unit circle." w=50 %}
 
 We now investigate what happens when we evaluate $f$ over a small circle and a large circle. In the two images below we use $r=0.1$ and $r=0.4$ respectively.
 
-{% include double-image.html src1="complex_example_small.png" caption1="$f(z)$ evaluated over a circle with radius $r=0.1$." src2="complex_example_large.png" caption2="$f(z)$ evaluated over a circle with radius $r=4$." class="w-50" %}
+{% include double-image.html src1="complex_example_small.png" caption1="$f(z)$ evaluated over a circle with radius $r=0.1$." src2="complex_example_large.png" caption2="$f(z)$ evaluated over a circle with radius $r=4$." w=50 %}
 
 Consistent with our argument earlier, we see that when evaluating $f(z)$ over a circle with a large radius, the output is an even bigger approximate-circle, and when evaluating $f(z)$ over a circle with a small radius, the output is a small approximate-circle centered around $a_0=1$.
 
 Now let's try finding an intermediate input circle so that our polynomial $f(z)$ has a root (i.e. crosses the origin). If we start from $r=0.1$ and slowly increase the radius $r$, we'll see that around $r=0.73$ the output crosses the origin. This tells us that one of the roots of $f$ has magnitude appropximately $0.73$. Furthermore, since the part of the output that crosses the origin is yellow in colour, we know (from <a href="#colour wheel">this diagram</a>) that the argument must be approximately $\frac{\pi}{3}$. Hence one of the roots is $z\approx 0.73e^{\frac{\pi}{3}i}\approx 0.73e^{1.05i}$.
 
-{% include image.html src="complex_example_root_1.png" caption="$f(z)$ evaluated over a circle with radius $r=0.73$." class="w-50" %}
+{% include image.html src="complex_example_root_1.png" caption="$f(z)$ evaluated over a circle with radius $r=0.73$." w=50 %}
 
 What's more, we can even compute the two other roots (which are guaranteed to exist by the fundamental theorem). If we continue to increase $r$ we see that at around $r=1.06$ the output curve intersects with the origin once again. This time the colour is somewhere between light blue and green, corresponding to an argument of approximately $\frac{5}{6}\pi$. Hence a second root is $z\approx 1.06e^{\frac 56\pi i}\approx 1.06e^{2.62i}$.
 
-{% include image.html src="complex_example_root_2.png" caption="$f(z)$ evaluated over a circle with radius $r=1.06$." class="w-50" %}
+{% include image.html src="complex_example_root_2.png" caption="$f(z)$ evaluated over a circle with radius $r=1.06$." w=50 %}
 
 Finally, increasing $r$ again gives a third root at around $r=1.3$ which is pink in colour, corresponding to an argument of approximately $\frac 53\pi$. Hence a third root is $z\approx 1.3e^{\frac 53\pi i}=1.3e^{-\frac 13\pi i}\approx 1.3e^{-1.05i}$.
 
-{% include image.html src="complex_example_root_3.png" caption="$f(z)$ evaluated over a circle with radius $r=1.3$." class="w-50" %}
+{% include image.html src="complex_example_root_3.png" caption="$f(z)$ evaluated over a circle with radius $r=1.3$." w=50 %}
 
 If you increase $r$ further, notice that the output curve will never cross the origin again, confirming that indeed there are only three roots to this cubic polynomial.
 

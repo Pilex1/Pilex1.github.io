@@ -18,7 +18,7 @@ $$
 
 In the computer graphics community, this is often called **perspective division** since we are dividing by the $w$ coordinate. The resulting coordinate space is called **normalized device coordinates**. 
 
-{% include image.html src="ndc-diagram.svg" caption="Normalized device coordinates. [Image source](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection)." %}
+{% include image.html src="ndc-diagram.svg" caption="Normalized device coordinates. [Image source](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection)." width=600 %}
 
 An object is rendered by OpenGL only if its normalized device coordinates lie between -1 and 1 i.e. $(x_{ndc},y_{ndc},z_{ndc})\in [-1,1]^3$. The $x_{ndc}$ and $y_{ndc}$ coordinates specify the horizontal and vertical positions as one would expect, with positive $x_{ndc}$ towards the right and positive $y_{ndc}$ towards the top.
 

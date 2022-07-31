@@ -18,7 +18,7 @@ For other values of $c$, the iterates $z_n$ remain bounded, either because they 
 
 The Mandelbrot set is defined as the set of $c\in\mathbb C$ such that the sequeunce $\|z_n\|$ remains bounded as $n\to\infty$. This is then plotted on the complex plane, with black denoting points inside the Mandelbrot set. Points outside the set are coloured based on how quickly or slowly $\|z_n\|$ diverges.
 
-{% include image.html src="wikipedia-mandelbrot.jpg" caption="The Mandelbrot set (in black). [Image source](https://www.wikiwand.com/en/Mandelbrot_set)" %}
+{% include image.html src="wikipedia-mandelbrot.jpg" caption="The Mandelbrot set (in black). [Image source](https://www.wikiwand.com/en/Mandelbrot_set)" w=50 %}
 
 Todo: add explanation of the Julia set
 

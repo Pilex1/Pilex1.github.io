@@ -15,13 +15,15 @@ h3 { font-size: 32px; font-weight: normal; margin: 30px auto; color: #c9d2dc; fo
 
 .card { background-color: #1f2020; color: aliceblue; border: 1px solid aliceblue; }
 
-p { font-size: 20px; margin: 30px auto; padding: 0px auto; }
+p { font-size: 20px; padding: 0px auto; }
 
 ul { list-style-type: circle; font-size: 20px; margin: 0px auto; max-width: 800px; }
 
 li { margin: 10px 0px; }
 
 hr { color: aliceblue; border-top: 1px solid aliceblue; }
+
+.caption > p { font-size: 16px; }
 
 nav { padding: 1rem 1rem; display: flex; border-top: 1px solid aliceblue; border-bottom: 1px solid aliceblue; background-color: #1f2020; }
 

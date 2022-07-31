@@ -1,2 +1,10 @@
-<img src="/assets/img/{{ include.src }}" class="d-block mx-auto my-2 border border-info {{ include.class }}" width="{{ include.width }}"  height="{{ include.height }}">
-<div class="d-block text-center">{{ include.caption | markdownify }}</div>
+<div class="d-block text-center fst-italic"> 
+    {% if include.width or include.height %}
+    <img src="/assets/img/{{ include.src }}" class="d-block mx-auto mt-2 mb-0 border border-info {{ include.class }}" width="{{ include.width }}"  height="{{ include.height }}">
+    {% else %}
+    {% assign w = include.w | default: 100 %}
+    <img src="/assets/img/{{ include.src }}" class="d-block w-{{ w }} mx-auto mt-2 mb-0 border border-info {{ include.class }}">
+    {% endif %}
+    
+    <div class="caption">{{ include.caption | markdownify }}</div>
+</div>

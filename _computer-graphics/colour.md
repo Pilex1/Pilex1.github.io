@@ -4,7 +4,7 @@ import: "plotly"
 
 Humans perceive colour through three kinds of cone cells that sense light (electromagnetic radiation) of different frequencies.
 
-{% include image.html src="em-spectrum.jpg" caption="[Image source](https://sites.google.com/a/coe.edu/principles-of-structural-chemistry/relationship-between-light-and-matter/electromagnetic-spectrum)" %}
+{% include image.html src="em-spectrum.jpg" caption="[Image source](https://sites.google.com/a/coe.edu/principles-of-structural-chemistry/relationship-between-light-and-matter/electromagnetic-spectrum)" width=700 %}
 
 These cone cells have peaks of spectral sensitivity in short (S, 420nm - 440nm), middle (M, 530nm - 540nm), and long (L, 560nm - 580nm) wavelengths.
 
@@ -12,7 +12,7 @@ These cone cells have peaks of spectral sensitivity in short (S, 420nm - 440nm),
 
 What we perceive as colour is a result of different light frequencies activating our three cone cells by different amounts.  Hence, we can associate every distribution of light frequencies with a certain colour. This distribution of frequencies is known as a *spectral power distribution* (SPD).  For example, the below diagram shows the SPD of daylight [2]. The combination of the relative amounts of these frequencies activating our cone cells produces the perceived colour of daylight.
 
-{% include image.html src="spd-daylight.jpg" %}
+{% include image.html src="spd-daylight.jpg" width=600 %}
 
 Given an SPD, we can convert it into sRGB, a widely used colour space for displays. This process is twofold. First, we convert the SPD into the XYZ colour space. Then the XYZ colour is normalized with respect to a whitepoint (in this example we use the D65 whitepoint), and converted to sRGB.
 
@@ -118,7 +118,7 @@ and $Y$ referring to the same quantity in both colour spaces.
 
 The $(x,y)$ values denote chromaticity (see diagram below) and $Y$ is a measure of luminance (brightness).
 
-{% include image.html src="colour-gamut.png" %}
+{% include image.html src="colour-gamut.png" width=500 %}
 
 ## Interactive SPD to sRGB Converter
 

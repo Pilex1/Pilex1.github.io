@@ -180,28 +180,48 @@
       <div class="col col-12">
         <p>Humans perceive colour through three kinds of cone cells that sense light (electromagnetic radiation) of different frequencies.</p>
 
-<p><img src="/assets/img/em-spectrum.jpg" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center"><p><a href="https://sites.google.com/a/coe.edu/principles-of-structural-chemistry/relationship-between-light-and-matter/electromagnetic-spectrum">Image source</a></p>
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/em-spectrum.jpg" class="d-block mx-auto mt-2 mb-0 border border-info " width="700" height="" />
+    
+    
+    <div class="caption"><p><a href="https://sites.google.com/a/coe.edu/principles-of-structural-chemistry/relationship-between-light-and-matter/electromagnetic-spectrum">Image source</a></p>
+</div>
 </div>
 
 <p>These cone cells have peaks of spectral sensitivity in short (S, 420nm - 440nm), middle (M, 530nm - 540nm), and long (L, 560nm - 580nm) wavelengths.</p>
 
-<p><img src="/assets/img/cones.png" class="d-block mx-auto my-2 border border-info " width="500" height="" /></p>
-<div class="d-block text-center">
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/cones.png" class="d-block mx-auto mt-2 mb-0 border border-info " width="500" height="" />
+    
+    
+    <div class="caption">
+</div>
 </div>
 
 <p>What we perceive as colour is a result of different light frequencies activating our three cone cells by different amounts.  Hence, we can associate every distribution of light frequencies with a certain colour. This distribution of frequencies is known as a <em>spectral power distribution</em> (SPD).  For example, the below diagram shows the SPD of daylight [2]. The combination of the relative amounts of these frequencies activating our cone cells produces the perceived colour of daylight.</p>
 
-<p><img src="/assets/img/spd-daylight.jpg" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center">
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/spd-daylight.jpg" class="d-block mx-auto mt-2 mb-0 border border-info " width="600" height="" />
+    
+    
+    <div class="caption">
+</div>
 </div>
 
 <p>Given an SPD, we can convert it into sRGB, a widely used colour space for displays. This process is twofold. First, we convert the SPD into the XYZ colour space. Then the XYZ colour is normalized with respect to a whitepoint (in this example we use the D65 whitepoint), and converted to sRGB.</p>
 
 <p>The XYZ colour space is described by three values $X,Y,Z$. The colour matching functions $\bar{x}(\lambda),\bar{y}(\lambda),\bar{z}(\lambda)$ describe the relative amounts that a given wavelength contributes to the values $X,Y,Z$ respectively.</p>
 
-<p><img src="/assets/img/colour-matching.png" class="d-block mx-auto my-2 border border-info " width="600" height="" /></p>
-<div class="d-block text-center">
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/colour-matching.png" class="d-block mx-auto mt-2 mb-0 border border-info " width="600" height="" />
+    
+    
+    <div class="caption">
+</div>
 </div>
 
 <p>Hence, given an SPD $I(\lambda)$, we can find the $X$ value by multiplying $I(\lambda)$ with the colour matching function $\bar{x}(\lambda)$, then integrate the resulting function. Explicitly,</p>
@@ -273,8 +293,13 @@ y:=\frac{Y}{X+Y+Z}
 
 <p>The $(x,y)$ values denote chromaticity (see diagram below) and $Y$ is a measure of luminance (brightness).</p>
 
-<p><img src="/assets/img/colour-gamut.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center">
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/colour-gamut.png" class="d-block mx-auto mt-2 mb-0 border border-info " width="500" height="" />
+    
+    
+    <div class="caption">
+</div>
 </div>
 
 <h2 id="interactive-spd-to-srgb-converter">Interactive SPD to sRGB Converter</h2>

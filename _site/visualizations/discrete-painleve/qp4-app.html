@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col col-8" id="sceneDiv">
+
+    </div>
+    <div class="col col-4">
+        <div class="d-grid gap-2">
+            {% include components/complex-picker-collapse.html id="a0" title="$a_0$" value="-0.7+0.3i" snap="onshift" range=1.5 %}
+            {% include components/complex-picker-collapse.html id="a1" title="$a_1$" value="-0.8-0.5i" snap="onshift" range=1.5 %}
+            {% include components/complex-picker-collapse.html id="a2" title="$a_2$" value="-0.7+0.4i" snap="onshift" range=1.5 %}
+            <label id="label-q" class="d-block"></label>
+            {% include components/complex-picker-collapse.html id="t0" title="$t_0$" value="i" snap="onshift" range=1.5 %}
+            {% include components/complex-picker-collapse.html id="f0" title="$f_0(t_0)$" value="-1" snap="onshift" range=1.5 %}
+            {% include components/complex-picker-collapse.html id="f1" title="$f_1(t_0)$" value="-1" snap="onshift" range=1.5 %}
+        </div>
+       
+    </div>
+</div>
+<script type="module" src="./qp4-app.js"></script>

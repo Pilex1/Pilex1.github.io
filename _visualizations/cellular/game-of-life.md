@@ -10,7 +10,7 @@ applied to all cells simultaneously:
 
 In Game of Life, a cell's neighbours are defined as the eight cells surrounding it. This is known as the Moore neighbourhood.
 
-{% include image.html src="moore.svg" caption="Moore neibourhood on a 2D square grid. [Image Source](https://en.wikipedia.org/wiki/Moore_neighborhood)" %}
+{% include image.html src="moore.svg" caption="Moore neibourhood on a 2D square grid. [Image Source](https://en.wikipedia.org/wiki/Moore_neighborhood)" width=300 %}
 
 Below is an implementation of Game of Life. Click on a cell to toggle its state between dead and alive, and click the "Iterate" button to perform an iteration.
 
@@ -24,7 +24,7 @@ Similarly, the checkboxes under "Resurrect" specify the number of alive neighbou
           
 Another common neighbourhood for square grids is the [Von Neumann]("https://en.wikipedia.org/wiki/Von_Neumann_neighborhood") neighbourhood.  Here, a cell's neighbours are defined as the four cells directly adjacent to it (i.e. excluding the diagonal cells). The radio buttons under "Neighbourhood Type" allow you to choose which neighbourhood to use.
 
-{% include image.html src="neumann.svg" caption="Von Neumann neibourhood on a 2D square grid. [Image Source](https://commons.wikimedia.org/wiki/File:Von_neumann_neighborhood.svg)" %}
+{% include image.html src="neumann.svg" caption="Von Neumann neibourhood on a 2D square grid. [Image Source](https://commons.wikimedia.org/wiki/File:Von_neumann_neighborhood.svg)" width=300 %}
 
 ## Triangle Life
 

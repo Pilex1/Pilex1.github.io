@@ -9,13 +9,13 @@ To keep things simple, we will focus our discussions on 2D Euclidean space inste
 
 To motivate 3D projective space, we start with an unrelated problem. Consider two lines in 2D Euclidean space. Under what conditions will the lines intersect? The answer is obvious: two lines will always intersect, unless they are parallel to each other.
 
-{% include image.html src="parallel-intersecting-lines.jpg" caption="Two lines always intersect unless they are parallel to each other. [Image source](http://www.msrblog.com/science/mathematic/parallel-lines-and-intersecting-lines-definition-in-geometry.html)." %}
+{% include image.html src="parallel-intersecting-lines.jpg" caption="Two lines always intersect unless they are parallel to each other. [Image source](http://www.msrblog.com/science/mathematic/parallel-lines-and-intersecting-lines-definition-in-geometry.html)." width=400 %}
 
 From a purely abstract standpoint however, this condition is cumbersome to work with. Anytime we want to discuss about lines and their intersections, we have to consider different cases depending on whether or not the lines are parallel. Moreover, given two random lines, they are not parallel almost surely (from a measure theoretic standpoint), and hence have an intersection almost surely. So it would be nice if we can define things so that even parallel lines have an intersection in some sense.
 
 And indeed, there is a sense in which that happens! If you add an additional dimension and view your two parallel lines from *3D* Euclidean space, they appear to intersect at a point infinitely far away on the horizon.
 
-{% include image.html src="parallel-lines-projection.png" caption="Parallel lines intersect at the horizon, when viewed in 3D." %}
+{% include image.html src="parallel-lines-projection.png" caption="Parallel lines intersect at the horizon, when viewed in 3D." width=600 %}
 
 This intersection point at the horizon is aptly named the "point at infinity". And you will have noticed in the diagram above that there are indeed multiple points at infinity, each of which correspond to the direction that the parallel lines point in. Hence it makes sense to use a 2D vector $(x,y)$, interpreted as a *direction vector*, to characterise different points at infinities e.g. a vector of $(1,2)$ represents the point at infinity at which parallel lines with direction $(1,2)$ intersect. Note that the choice of direction vector $(x,y)$ is not unique; different vectors $(2,4)$ or $(-1,-2)$ would represent the same point at infinity. This will be important in a moment.
 

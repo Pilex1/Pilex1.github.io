@@ -162,7 +162,9 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        <p>Neural networks and deep learning are an active research topic. We focus here on understanding the simplest types of neural networks which are feedforward fully-connected neural networks, and we will focus on using them for supervised learning.</p>
+        <p>There are a lot of articles, blogs, Youtube videos, etc. out there that introduce neural networks, however most of these do not discuss the mathematics behind neural network training in depth, which is what really interested me when I first learn about neural networks. Two valuable resources I found that <em>did</em> discuss this were Andrew Ng’s <a href="https://www.coursera.org/learn/neural-networks-deep-learning">“Neural Networks and Deep Learning” course on Coursera</a> and Michael Nielsen’s <a href="http://neuralnetworksanddeeplearning.com/index.html">online book of the same title</a>, both of which I highly recommend you check out if you are interested in this topic. I wanted to present here my own take on deriving the backpropagation equations for neural network training; my approach involves developing a framework for computing derivatives of matrix valued functions.</p>
+
+<p>I first introduce briefly what a neural network is, so that you will be able to follow along even without any prior knowledge, though I do recommend the above two resources to gain a broader understanding. I then introduce my framework for computing derivatives, and then I derive the backpropagation equations using the framework.</p>
 
 <h2 id="introduction">Introduction</h2>
 
@@ -188,8 +190,13 @@
 
 <p>for $i=1,2,\cdots,n^{[1]}$. To summarise, the setup we have currently looks like this</p>
 
-<p><img src="/assets/img/nn-one-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center"><p>One layer neural network.</p>
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/nn-one-layer.png" class="d-block mx-auto mt-2 mb-0 border border-info " width="400" height="" />
+    
+    
+    <div class="caption"><p>One layer neural network.</p>
+</div>
 </div>
 
 <p>We call this a neural network with one layer. The circles or activation values are the “neurons” or nodes in the network.</p>
@@ -204,16 +211,26 @@
 
 <p>The superscript of $[2]$ denotes which layer we are considering so $w^{[2]}$ are the weights of the second layer, $g^{[2]}$ is the activation function in the second layer and $a^{[2]}$ are the activation values in the second layer.</p>
 
-<p><img src="/assets/img/nn-two-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center"><p>Two layer neural network</p>
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/nn-two-layer.png" class="d-block mx-auto mt-2 mb-0 border border-info " width="700" height="" />
+    
+    
+    <div class="caption"><p>Two layer neural network</p>
+</div>
 </div>
 
 <p>We can keep adding more layers to our network by using the activations of the last layer as inputs to the next layer. However, at the end of the day we want to be predicting a single real value $y\in\mathbb R$. Hence for the last layer we have just a single node, and the value of that node is the model’s prediction.</p>
 
 <p>Also, for the last layer we have to pay a bit more attention to the activation function; for example, if the prediction $\hat y$ should lie in $[0,1]$ then we should apply a sigmoid activation function. However if instead the predicted output can be any real number, then an activation function like sigmoid should <em>not</em> be applied as that would restrict the predicted output to always lie in $[0,1]$.</p>
 
-<p><img src="/assets/img/nn-final-layer.png" class="d-block mx-auto my-2 border border-info " width="" height="" /></p>
-<div class="d-block text-center">
+<div class="d-block text-center fst-italic"> 
+    
+    <img src="/assets/img/nn-final-layer.png" class="d-block mx-auto mt-2 mb-0 border border-info " width="700" height="" />
+    
+    
+    <div class="caption">
+</div>
 </div>
 
 <h2 id="vectorization">Vectorization</h2>
@@ -323,7 +340,7 @@ A^{[\ell]}&amp;:=g^{[\ell]}\circ Z^{[\ell]}=\begin{bmatrix}
 
 <p>Our function $f$ is essentially comprised of a series of matrix-to-matrix operations (e.g. matrix multiplication, or applying an elementwise function to a matrix), followed by a matrix-to-scalar function at the end (i.e. computing the $L_2$ norm).</p>
 
-<p>Let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$. Consider $f(G(X))$ which is matrix-to-scalar.</p>
+<p>We will abstract this as follows: let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$. Consider $f(G(X))$ which is matrix-to-scalar.</p>
 
 <h3 id="matrix-to-matrix-derivatives">Matrix-to-matrix derivatives</h3>
 
@@ -515,8 +532,6 @@ $$
 \[W^{[\ell]}\leftarrow W^{[\ell]}-\alpha \cdot \frac{df}{dW^{[\ell]}}\]
 
 <p>where $\alpha&gt;0$ is the learning rate. In practice, variations of the traditional gradient descent update rule are used instead (e.g. Adam), though we will not discuss about them in depth here.</p>
-
-<p>Next up we will discuss some details such as adding a bias term, having multiple outputs instead of one, and performing classification instead of regression.</p>
 
       </div>
     </div>

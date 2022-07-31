@@ -1,9 +1,9 @@
 import { StereographicVisualizer } from "/assets/js/stereographic-visualizer.js";
 import { complexPickerGet } from "/assets/js/components-helper.js"
 
-class QP1Visualizer extends StereographicVisualizer {
+class QP4Visualizer extends StereographicVisualizer {
     constructor() {
-        super(window, "sceneDiv", ["a", "q", "w0", "w1"]/*, "linear"*/);
+        super(window, "sceneDiv", ["a0", "a1", "a2", "t0", "f0", "f1"]/*, "linear"*/);
     }
 
     generateIterates(numIterates) {
