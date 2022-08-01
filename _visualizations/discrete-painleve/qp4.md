@@ -54,6 +54,8 @@ $$
 \end{align*}
 $$
 
+Hence there is a bit of redundancy in plotting all three sequences, as from any two of the sequences we can extract the third sequence. Nevertheless, we plot all three below.
+
 {% include_relative qp4-app.html %}
 
 {% include components/stereographic-visualizer-ui.html %}

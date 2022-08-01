@@ -150,6 +150,10 @@
                         <a class="d-block" href="/visualizations/discrete-painleve/qp1">qP1</a>
                         
                         
+                        
+                        <a class="fw-bold text-light">qP4</a>
+                        
+                        
                     </div>
                     
 
@@ -192,7 +196,52 @@
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        <div class="row">
+        <p>Here there are three iterates $f_0(t),f_1(t),f_2(t)$ which are notated as functions of $t$. The initial values for each of the three at $t=t_0$ are given i.e. $f_0(t_0),f_1(t_0),f_2(t_0)$ are given. There are constants $a_0,a_1,a_2$ which are also given, making for a total of six parameters.</p>
+
+<p>Define $t_0^2:=f_0(t_0)\cdot f_1(t_0)\cdot f_2(t_0)$ and define $q:=a_0\cdot a_1\cdot a_2$.</p>
+
+<p>The iterates satisfy the recurrence relation</p>
+
+\[\begin{cases}\displaystyle
+
+\frac{\overline{f}_0}{a_0\cdot a_1\cdot f_1}=\frac{1+a_2\cdot f_2\cdot (1+a_0\cdot f_0)}{1+a_0\cdot f_0\cdot (1+a_1\cdot f_1)}, &amp;\\
+
+\displaystyle\frac{\overline{f}_1}{a_1\cdot a_2\cdot f_2}=\frac{1+a_0\cdot f_0\cdot (1+a_1\cdot f_1)}{1+a_1\cdot f_1\cdot (1+a_2\cdot f_2)}, &amp;\\
+
+\displaystyle\frac{\overline{f}_2}{a_2\cdot a_0\cdot f_0}=\frac{1+a_1\cdot f_1\cdot (1+a_2\cdot f_2)}{1+a_2\cdot f_2\cdot (1+a_0\cdot f_0)}, &amp;
+
+\end{cases}\]
+
+<p>where $f_i$ is shorthand for $f_i(t)$ and $\bar f_i$ is shorthand for $f_i(q\cdot t)$.</p>
+
+<p>Using the above recurrence relation, we can calculate</p>
+
+\[\begin{align*}
+f_0(t_0),&amp;&amp;f_1(t_0),&amp;&amp;f_2(t_0)\\
+f_0(q\cdot t_0),&amp;&amp;f_1(q\cdot t_0),&amp;&amp;f_2(q\cdot t_0)\\
+f_0(q^2\cdot t_0),&amp;&amp;f_1(q^2\cdot t_0),&amp;&amp;f_2(q^2\cdot t_0)\\
+f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
+\vdots
+\end{align*}\]
+
+<p>and so we plot the three sequences</p>
+
+\[\{ f_0(q^n\cdot t_0) \}_{n=0}^\infty,\quad\{ f_1(q^n\cdot t_0) \}_{n=0}^\infty,\quad \{ f_2(q^n\cdot t_0) \}_{n=0}^\infty\]
+
+<p>stereographically as we did for all the other Painleve sequences.</p>
+
+<p>Note that $f_0(t)\cdot f_1(t)\cdot f_2(t)=t^2$ for all $t$ for which $f_i(t)$ is defined. To see this, firstly note that at $t=t_0$ we have $f_0(t_0)\cdot f_1(t_0)\cdot f_2(t_0)=t_0^2$ by definition. Now assume $f_0(t)\cdot f_1(t)\cdot f_2(t)=t^2$ holds. Then</p>
+
+\[\begin{align*}
+\frac{f_0(q\cdot t)}{a_0\cdot a_1\cdot f_1(t)}\cdot\frac{f_1(q\cdot t)}{a_1\cdot a_2\cdot f_2(t)}\cdot \frac{f_2(q\cdot t)}{a_2\cdot a_0\cdot f_0(t)}&amp;= 1\\
+\implies f_0(q\cdot t)\cdot f_1(q\cdot t)\cdot f_2(q\cdot t)&amp;=(a_0\cdot a_1\cdot a_2)^2\cdot(f_0(t)\cdot f_1(t)\cdot f_2(t))\\
+&amp;=q^2\cdot t^2\\
+&amp;= (q\cdot t)^2.\tag*{$\blacksquare$}
+\end{align*}\]
+
+<p>Hence there is a bit of redundancy in plotting all three sequences, as from any two of the sequences we can extract the third sequence. Nevertheless, we plot all three below.</p>
+
+<div class="row">
     <div class="col col-8" id="sceneDiv">
 
     </div>
@@ -229,16 +278,6 @@
     complexPickerRegister("a2", "-0.7+0.4i", "onshift", 1.5);
 </script>
             <label id="label-q" class="d-block"></label>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-t0" data-bs-toggle="collapse">$t_0$=<p class="d-inline-block" id="_label-complex-picker-t0"></p>
-</button>
-<div class="collapse" id="_collapse-complex-picker-t0">
-    <canvas id="_complex-picker-t0"></canvas>
-</div>
-
-<script type="module">
-    import { complexPickerRegister } from "/assets/js/components-helper.js";
-    complexPickerRegister("t0", "i", "onshift", 1.5);
-</script>
             <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f0" data-bs-toggle="collapse">$f_0(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f0"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-f0">
@@ -258,6 +297,16 @@
 <script type="module">
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("f1", "-1", "onshift", 1.5);
+</script>
+            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f2" data-bs-toggle="collapse">$f_2(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f2"></p>
+</button>
+<div class="collapse" id="_collapse-complex-picker-f2">
+    <canvas id="_complex-picker-f2"></canvas>
+</div>
+
+<script type="module">
+    import { complexPickerRegister } from "/assets/js/components-helper.js";
+    complexPickerRegister("f2", "-1", "onshift", 1.5);
 </script>
         </div>
        
