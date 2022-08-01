@@ -36,6 +36,8 @@ maths-visualizations:
           link: /visualizations/discrete-painleve/dp1
         - title: qP1
           link: /visualizations/discrete-painleve/qp1
+        - title: qP4
+          link: /visualizations/discrete-painleve/qp4
     - title: Visualizing complex-valued functions
       link: /visualizations/complex-functions
     - title: Game of Life
