@@ -202,13 +202,14 @@
 
 <p>with $a,q\in\mathbb C$ constants.</p>
 
-<div class="row">
+<div class="row my-2">
     <div class="col col-8" id="sceneDiv">
 
     </div>
     <div class="col col-4">
         <div class="d-grid gap-2">
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a" data-bs-toggle="collapse">$a$=<p class="d-inline-block" id="_label-complex-picker-a"></p>
+            
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a" data-bs-toggle="collapse">$a$=<p class="d-inline-block" id="_label-complex-picker-a"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-a">
     <canvas id="_complex-picker-a"></canvas>
@@ -218,7 +219,7 @@
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("a", "0.35", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-q" data-bs-toggle="collapse">$q$=<p class="d-inline-block" id="_label-complex-picker-q"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-q" data-bs-toggle="collapse">$q$=<p class="d-inline-block" id="_label-complex-picker-q"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-q">
     <canvas id="_complex-picker-q"></canvas>
@@ -228,7 +229,7 @@
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("q", "1", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w0" data-bs-toggle="collapse">$w_0$=<p class="d-inline-block" id="_label-complex-picker-w0"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w0" data-bs-toggle="collapse">$w_0$=<p class="d-inline-block" id="_label-complex-picker-w0"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-w0">
     <canvas id="_complex-picker-w0"></canvas>
@@ -238,7 +239,7 @@
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("w0", "0.5", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w1" data-bs-toggle="collapse">$w_1$=<p class="d-inline-block" id="_label-complex-picker-w1"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w1" data-bs-toggle="collapse">$w_1$=<p class="d-inline-block" id="_label-complex-picker-w1"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-w1">
     <canvas id="_complex-picker-w1"></canvas>
@@ -248,6 +249,19 @@
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("w1", "0.5i", "onshift", 1.5);
 </script>
+
+            <div>
+    
+    
+    
+
+    <label class="d-inline">Number of iterates: </label><label id="_label-numIterates"></label>
+    <input type="range" class="form-range" id="_range-numIterates" />
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("numIterates", "8", "1024", "16", "128", false, false, false);
+    </script>
+</div>
         </div>
        
     </div>

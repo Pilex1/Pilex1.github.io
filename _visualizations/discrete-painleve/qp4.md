@@ -56,6 +56,13 @@ $$
 
 Hence there is a bit of redundancy in plotting all three sequences, as from any two of the sequences we can extract the third sequence. Nevertheless, we plot all three below.
 
-{% include_relative qp4-app.html %}
-
-{% include components/stereographic-visualizer-ui.html %}
+{% capture parameters %}
+{% include components/complex-picker-collapse.html id="a0" title="$a_0$" value="-0.7+0.3i" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="a1" title="$a_1$" value="-0.8-0.5i" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="a2" title="$a_2$" value="-0.7+0.4i" snap="onshift" range=1.5 %}
+<hr>
+{% include components/complex-picker-collapse.html id="f0" title="$f_0(t_0)$" value="-1" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="f1" title="$f_1(t_0)$" value="-1" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="f2" title="$f_2(t_0)$" value="-1" snap="onshift" range=1.5 %}
+{% endcapture %}
+{% include components/painleve-ui.html parameters=parameters js="./qp4-app.js" %}

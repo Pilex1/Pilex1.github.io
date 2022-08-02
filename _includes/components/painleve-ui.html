@@ -1,4 +1,18 @@
 <div class="row my-2">
+    <div class="col col-8" id="sceneDiv">
+
+    </div>
+    <div class="col col-4">
+        <div class="d-grid gap-2">
+            {{ include.parameters }}
+            {% include components/slider.html id="numIterates" label="Number of iterates: " min="8" max="1024" step="16" value="128" log=false %}
+        </div>
+       
+    </div>
+</div>
+<script type="module" src="{{ include.js }}"></script>
+
+<div class="row my-2">
     <div class="col col-lg-4 col-12">
         <p id="lbl-pos"></p>
         <div class="form-check">

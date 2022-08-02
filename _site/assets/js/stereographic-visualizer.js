@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'https://unpkg.com/three@0.141.0/examples/jsm/controls/OrbitControls.js';
-import { complexPickerGet } from "./components-helper.js"
+import { complexPickerGet, sliderGetValue, sliderOnUpdate } from "./components-helper.js"
 
 export { StereographicVisualizer };
 
@@ -121,8 +121,8 @@ class StereographicVisualizer {
         $("#colorSphere").on("input", () => this.updateFromGui());
         $("#colorEmissionSphere").on("input", () => this.updateFromGui());
         $("#colorBackground").on("input", () => this.updateFromGui());
-        $("#range-iterations").on("input", () => {
-            this.updateFromGui();
+
+        sliderOnUpdate("numIterates", () => {
             this.updateIterates();
         });
 
@@ -225,8 +225,8 @@ class StereographicVisualizer {
         this.sphere.material.emissive = new THREE.Color($("#colorEmissionSphere").val());
 
         // numIterates
-        this.numIterates = parseInt(math.pow(2, parseInt($("#range-iterations").val())));
-        $("#label-iterations").text("Number of iterations: " + this.numIterates);
+        // this.numIterates = parseInt(math.pow(2, parseInt($("#range-iterations").val())));
+        // $("#label-iterations").text("Number of iterations: " + this.numIterates);
 
     }
 
@@ -277,7 +277,8 @@ class StereographicVisualizer {
         $("#tableValues").empty();
 
         // add iterate points
-        this.numIterates = 100;
+        // this.numIterates = 100;
+        this.numIterates = sliderGetValue("numIterates").val;
         let iterates = this.generateIterates(this.numIterates);
         // console.debug(iterates);
 

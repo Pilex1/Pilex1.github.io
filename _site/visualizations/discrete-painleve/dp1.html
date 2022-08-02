@@ -208,13 +208,14 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
 
 <p>For visualization, the iterates $w_n$ are <a href="&quot;https://en.wikipedia.org/wiki/Stereographic_projection&quot;">stereographically projected</a> onto the unit sphere.</p>
 
-<div class="row">
+<div class="row my-2">
     <div class="col col-8" id="sceneDiv">
 
     </div>
     <div class="col col-4">
         <div class="d-grid gap-2">
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-alpha" data-bs-toggle="collapse">$\alpha$=<p class="d-inline-block" id="_label-complex-picker-alpha"></p>
+            
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-alpha" data-bs-toggle="collapse">$\alpha$=<p class="d-inline-block" id="_label-complex-picker-alpha"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-alpha">
     <canvas id="_complex-picker-alpha"></canvas>
@@ -224,7 +225,7 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("alpha", "0.25+0.25i", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-beta" data-bs-toggle="collapse">$\beta$=<p class="d-inline-block" id="_label-complex-picker-beta"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-beta" data-bs-toggle="collapse">$\beta$=<p class="d-inline-block" id="_label-complex-picker-beta"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-beta">
     <canvas id="_complex-picker-beta"></canvas>
@@ -234,7 +235,7 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("beta", "0", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-gamma" data-bs-toggle="collapse">$\gamma$=<p class="d-inline-block" id="_label-complex-picker-gamma"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-gamma" data-bs-toggle="collapse">$\gamma$=<p class="d-inline-block" id="_label-complex-picker-gamma"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-gamma">
     <canvas id="_complex-picker-gamma"></canvas>
@@ -244,7 +245,7 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("gamma", "-0.5", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w0" data-bs-toggle="collapse">$w_0$=<p class="d-inline-block" id="_label-complex-picker-w0"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w0" data-bs-toggle="collapse">$w_0$=<p class="d-inline-block" id="_label-complex-picker-w0"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-w0">
     <canvas id="_complex-picker-w0"></canvas>
@@ -254,7 +255,7 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("w0", "0", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w1" data-bs-toggle="collapse">$w_1$=<p class="d-inline-block" id="_label-complex-picker-w1"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-w1" data-bs-toggle="collapse">$w_1$=<p class="d-inline-block" id="_label-complex-picker-w1"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-w1">
     <canvas id="_complex-picker-w1"></canvas>
@@ -264,6 +265,19 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("w1", "1", "onshift", 1.5);
 </script>
+
+            <div>
+    
+    
+    
+
+    <label class="d-inline">Number of iterates: </label><label id="_label-numIterates"></label>
+    <input type="range" class="form-range" id="_range-numIterates" />
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("numIterates", "8", "1024", "16", "128", false, false, false);
+    </script>
+</div>
         </div>
        
     </div>

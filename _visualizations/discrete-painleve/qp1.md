@@ -10,6 +10,10 @@ $$
 
 with $a,q\in\mathbb C$ constants.
 
-{% include_relative qp1-app.html %}
-
-{% include components/stereographic-visualizer-ui.html %}
+{% capture parameters %}
+{% include components/complex-picker-collapse.html id="a" title="$a$" value="0.35" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="q" title="$q$" value="1" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="w0" title="$w_0$" value="0.5" snap="onshift" range=1.5 %}
+{% include components/complex-picker-collapse.html id="w1" title="$w_1$" value="0.5i" snap="onshift" range=1.5 %}
+{% endcapture %}
+{% include components/painleve-ui.html parameters=parameters js="./qp1-app.js" %}

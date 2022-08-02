@@ -241,13 +241,14 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
 
 <p>Hence there is a bit of redundancy in plotting all three sequences, as from any two of the sequences we can extract the third sequence. Nevertheless, we plot all three below.</p>
 
-<div class="row">
+<div class="row my-2">
     <div class="col col-8" id="sceneDiv">
 
     </div>
     <div class="col col-4">
         <div class="d-grid gap-2">
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a0" data-bs-toggle="collapse">$a_0$=<p class="d-inline-block" id="_label-complex-picker-a0"></p>
+            
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a0" data-bs-toggle="collapse">$a_0$=<p class="d-inline-block" id="_label-complex-picker-a0"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-a0">
     <canvas id="_complex-picker-a0"></canvas>
@@ -257,7 +258,7 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("a0", "-0.7+0.3i", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a1" data-bs-toggle="collapse">$a_1$=<p class="d-inline-block" id="_label-complex-picker-a1"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a1" data-bs-toggle="collapse">$a_1$=<p class="d-inline-block" id="_label-complex-picker-a1"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-a1">
     <canvas id="_complex-picker-a1"></canvas>
@@ -267,7 +268,7 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("a1", "-0.8-0.5i", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a2" data-bs-toggle="collapse">$a_2$=<p class="d-inline-block" id="_label-complex-picker-a2"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-a2" data-bs-toggle="collapse">$a_2$=<p class="d-inline-block" id="_label-complex-picker-a2"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-a2">
     <canvas id="_complex-picker-a2"></canvas>
@@ -277,8 +278,8 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("a2", "-0.7+0.4i", "onshift", 1.5);
 </script>
-            <label id="label-q" class="d-block"></label>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f0" data-bs-toggle="collapse">$f_0(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f0"></p>
+<hr />
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f0" data-bs-toggle="collapse">$f_0(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f0"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-f0">
     <canvas id="_complex-picker-f0"></canvas>
@@ -288,7 +289,7 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("f0", "-1", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f1" data-bs-toggle="collapse">$f_1(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f1"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f1" data-bs-toggle="collapse">$f_1(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f1"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-f1">
     <canvas id="_complex-picker-f1"></canvas>
@@ -298,7 +299,7 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("f1", "-1", "onshift", 1.5);
 </script>
-            <button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f2" data-bs-toggle="collapse">$f_2(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f2"></p>
+<button class="btn btn-primary w-100" data-bs-target="#_collapse-complex-picker-f2" data-bs-toggle="collapse">$f_2(t_0)$=<p class="d-inline-block" id="_label-complex-picker-f2"></p>
 </button>
 <div class="collapse" id="_collapse-complex-picker-f2">
     <canvas id="_complex-picker-f2"></canvas>
@@ -308,6 +309,19 @@ f_0(q^3\cdot t_0),&amp;&amp;f_1(q^3\cdot t_0),&amp;&amp;f_2(q^3\cdot t_0)\\
     import { complexPickerRegister } from "/assets/js/components-helper.js";
     complexPickerRegister("f2", "-1", "onshift", 1.5);
 </script>
+
+            <div>
+    
+    
+    
+
+    <label class="d-inline">Number of iterates: </label><label id="_label-numIterates"></label>
+    <input type="range" class="form-range" id="_range-numIterates" />
+    <script type="module">
+        import { sliderRegister } from "/assets/js/components-helper.js";
+        sliderRegister("numIterates", "8", "1024", "16", "128", false, false, false);
+    </script>
+</div>
         </div>
        
     </div>

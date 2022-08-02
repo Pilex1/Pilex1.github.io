@@ -195,23 +195,25 @@ Specifically, we are interested in complex valued polynomials (though the same t
         <div>
     
     
+    
 
-    <label>Regular $n$-gon, $n=$</label><label id="_label-ngon"></label>
+    <label class="d-inline">Regular $n$-gon, $n=$</label><label id="_label-ngon"></label>
     <input type="range" class="form-range" id="_range-ngon" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
-        sliderRegister("ngon", "3", "8", "1", "inf", false, true);
+        sliderRegister("ngon", "3", "8", "1", "inf", false, true, false);
     </script>
 </div>
         <div>
     
     
+    
 
-    <label>Radius $r=$</label><label id="_label-radius"></label>
+    <label class="d-inline">Radius $r=$</label><label id="_label-radius"></label>
     <input type="range" class="form-range" id="_range-radius" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
-        sliderRegister("radius", "0.1", "4", "0.01", "1", false, false);
+        sliderRegister("radius", "0.1", "4", "0.01", "1", false, false, false);
     </script>
 </div>
 
@@ -220,12 +222,13 @@ Specifically, we are interested in complex valued polynomials (though the same t
         <div>
     
     
+    
 
-    <label>Polynomial degree: $d=$</label><label id="_label-poly-degree"></label>
+    <label class="d-inline">Polynomial degree: $d=$</label><label id="_label-poly-degree"></label>
     <input type="range" class="form-range" id="_range-poly-degree" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
-        sliderRegister("poly-degree", "2", "5", "1", "3", false, false);
+        sliderRegister("poly-degree", "2", "5", "1", "3", false, false, false);
     </script>
 </div>
         <div id="div-dynamic-ui"></div>
