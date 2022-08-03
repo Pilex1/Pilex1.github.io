@@ -1,5 +1,5 @@
 import { StereographicVisualizer } from "/assets/js/stereographic-visualizer.js";
-import { complexPickerGet } from "/assets/js/components-helper.js"
+import { complexPickerGet, checkboxOnUpdate, checkboxGetValue } from "/assets/js/components-helper.js"
 
 class DP1Visualizer extends StereographicVisualizer {
     constructor() {
@@ -17,6 +17,13 @@ class DP1Visualizer extends StereographicVisualizer {
         //$("#sceneDivSfu")[0].appendChild(this.rendererSfu.domElement);
 
 		//this.pointsSfu = [];
+
+		checkboxOnUpdate("0", () => {this.updateIterates()});
+		checkboxOnUpdate("1", () => {this.updateIterates()});
+		checkboxOnUpdate("2", () => {this.updateIterates()});
+		checkboxOnUpdate("3", () => {this.updateIterates()});
+
+
     }
 
     generateIterates(numIterates) {
@@ -33,30 +40,52 @@ class DP1Visualizer extends StereographicVisualizer {
         let w_prev = w0;
         let w_cur = w1;
 
-        for (let i = 2; i < numIterates; i++) {
+        for (let n = 1; n < numIterates-1; n++) {
             let w_next = math.add(
-                math.multiply(alpha, i, w_cur.inverse()),
+                math.multiply(alpha, n, w_cur.inverse()),
                 math.multiply(beta, w_cur.inverse()),
                 gamma,
                 math.multiply(-1, w_cur),
                 math.multiply(-1, w_prev)
             );
-            result.set(i, w_next);
+            result.set(n+1, w_next);
 
             w_prev = w_cur;
             w_cur = w_next;
         }
 
-		//this.iteratesCache = result;
+		let resultFiltered = new Map();
+		for (const [n, x] of result.entries()) {
+			for (let i = 0; i <= 3; i++) {
+				if (n%4 == i && checkboxGetValue(`${i}`)) resultFiltered.set(n, x);
+			}
+		}
+
 		return [{
-			"data": result,
+			"data": resultFiltered,
 			"name": "w_n"
 		}];
     }
 
 	generateAdditional(iterates) {
+		let data = iterates[0].data;
+
+		let ratiosEven = new Map();
+		let ratiosOdd = new Map();
+
+		for (const [n, w_n] of data.entries()) {
+			if (n%2==0 && data.has(n-1)) {
+				ratiosEven.set(n, math.abs(math.divide(w_n, data.get(n-1))));
+			}
+			if (n%2==1 && data.has(n-1)) {
+				ratiosOdd.set(n, math.abs(math.divide(w_n, data.get(n-1))));
+			}
+		}
+
 		return [
-			this.generateMagnitudeData(iterates[0].data, "|w_n|")
+			this.generateMagnitudeData(iterates[0].data, "|w_n|"),
+			{"data": ratiosEven, "name": "|w_n/w_{n-1}|, n even"},
+			{"data": ratiosOdd, "name": "|w_n/w_{n-1}|, n odd|"}
 		];
 	}
 

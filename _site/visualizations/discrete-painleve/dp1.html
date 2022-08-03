@@ -275,9 +275,23 @@ green, blue, purple, and back to red (specifically they’re mapped using the hu
     <input type="range" class="form-range" id="_range-numIterates" />
     <script type="module">
         import { sliderRegister } from "/assets/js/components-helper.js";
-        sliderRegister("numIterates", "8", "1024", "16", "128", false, false, false);
+        sliderRegister("numIterates", "8", "8192", "8", "128", false, false, false);
     </script>
 </div>
+            
+<div>
+    <label><input type="checkbox" checked="" id="_checkbox-0" />Show $w_n$ where $n\equiv 0\mod 4$</label>
+</div>
+<div>
+    <label><input type="checkbox" checked="" id="_checkbox-1" />Show $w_n$ where $n\equiv 1\mod 4$</label>
+</div>
+<div>
+    <label><input type="checkbox" checked="" id="_checkbox-2" />Show $w_n$ where $n\equiv 2\mod 4$</label>
+</div>
+<div>
+    <label><input type="checkbox" checked="" id="_checkbox-3" />Show $w_n$ where $n\equiv 3\mod 4$</label>
+</div>
+
         </div>
        
     </div>

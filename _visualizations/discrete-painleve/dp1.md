@@ -23,6 +23,12 @@ For visualization, the iterates $w_n$ are [stereographically projected]("https:/
 {% include components/complex-picker-collapse.html id="w0" title="$w_0$" value="0" snap="onshift" range=1.5 %}
 {% include components/complex-picker-collapse.html id="w1" title="$w_1$" value="1" snap="onshift" range=1.5 %}
 {% endcapture %}
-{% include components/painleve-ui.html parameters=parameters js="./dp1-app.js" %}
+{% capture moreOptions %}
+{% include components/checkbox.html id="0" label="Show $w_n$ where $n\equiv 0\mod 4$" %}
+{% include components/checkbox.html id="1" label="Show $w_n$ where $n\equiv 1\mod 4$" %}
+{% include components/checkbox.html id="2" label="Show $w_n$ where $n\equiv 2\mod 4$" %}
+{% include components/checkbox.html id="3" label="Show $w_n$ where $n\equiv 3\mod 4$" %}
+{% endcapture %}
+{% include components/painleve-ui.html parameters=parameters moreOptions=moreOptions js="./dp1-app.js" %}
 
 The graph above shows a plot of plot $\|w_n\|$ (the complex magnitude of $w_n$) as a function of $n$.

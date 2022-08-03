@@ -1,6 +1,7 @@
 import { ComplexPicker } from "./complex-picker.js";
 
 export { sliderRegister, sliderOnUpdate, sliderGetMax, sliderGetMin, sliderGetStep, sliderGetValue };
+export { checkboxOnUpdate, checkboxGetValue };
 export { complexPickerRegister, complexPickerGet };
 
 let sliderData = new Map();
@@ -98,6 +99,16 @@ function sliderGetValue(id) {
     let parseFn = sliderData.get(id).parseFn;
     return parseFn($("#_range-" + id).val());
 }
+
+function checkboxOnUpdate(id, updateFunc) {
+    $("#_checkbox-" + id).on("change", updateFunc);
+}
+
+function checkboxGetValue(id) {
+    return $("#_checkbox-" + id).is(":checked");
+}
+
+
 
 let complexPickers = new Map();
 
