@@ -172,8 +172,6 @@ $$
 $$
 
 
-Using this result we can easily deduce the following two results.
-
 #### Elementwise multiplication by a constant
 
 Let
@@ -184,8 +182,17 @@ f(x)=x\odot c,\quad f:\mathbb R^n\to\mathbb R^n
 $$
 
 
-where $c\in\mathbb R^n$ and $x\odot c$ denotes elementwise multiplication between $x$ and $c$. Then with the previous notation, the elementwise function is $g(x)=x\cdot c$ and so $g'(x)=c$. Hence
+where $c\in\mathbb R^n$ and $x\odot c$ denotes elementwise multiplication between $x$ and $c$. Then
 
+
+$$
+\begin{align*}
+\frac{\partial f_i}{\partial x_j}&=\frac{\partial}{\partial x_j}\left(c_ix_i\right)\\
+&=c_i1_{i=j}
+\end{align*}
+$$
+
+hence
 
 $$
 \frac{df}{dx}=\text{diag}(c).
@@ -201,8 +208,16 @@ f(x)=x+c,\quad f:\mathbb R^n\to\mathbb R^n
 $$
 
 
-where $c\in\mathbb R^n$. Then with the previous notation, the elementwise function is $g(x)=x+c$ and so $g'(x)=1$. Hence
+where $c\in\mathbb R^n$. Hence
 
+$$
+\begin{align*}
+\frac{\partial f_i}{\partial x_j}&=\frac{\partial}{\partial x_j}\left(x_i+c_i\right)\\
+&=1_{i=j}
+\end{align*}
+$$
+
+hence
 
 $$
 \frac{df}{dx}=\mathbb I_n

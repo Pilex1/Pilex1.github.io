@@ -274,15 +274,20 @@ y&amp;x\\
 
 \[\frac{df}{dx}=\text{diag}(g'\circ x).\]
 
-<p>Using this result we can easily deduce the following two results.</p>
-
 <h4 id="elementwise-multiplication-by-a-constant">Elementwise multiplication by a constant</h4>
 
 <p>Let</p>
 
 \[f(x)=x\odot c,\quad f:\mathbb R^n\to\mathbb R^n\]
 
-<p>where $c\in\mathbb R^n$ and $x\odot c$ denotes elementwise multiplication between $x$ and $c$. Then with the previous notation, the elementwise function is $g(x)=x\cdot c$ and so $g’(x)=c$. Hence</p>
+<p>where $c\in\mathbb R^n$ and $x\odot c$ denotes elementwise multiplication between $x$ and $c$. Then</p>
+
+\[\begin{align*}
+\frac{\partial f_i}{\partial x_j}&amp;=\frac{\partial}{\partial x_j}\left(c_ix_i\right)\\
+&amp;=c_i1_{i=j}
+\end{align*}\]
+
+<p>hence</p>
 
 \[\frac{df}{dx}=\text{diag}(c).\]
 
@@ -292,7 +297,14 @@ y&amp;x\\
 
 \[f(x)=x+c,\quad f:\mathbb R^n\to\mathbb R^n\]
 
-<p>where $c\in\mathbb R^n$. Then with the previous notation, the elementwise function is $g(x)=x+c$ and so $g’(x)=1$. Hence</p>
+<p>where $c\in\mathbb R^n$. Hence</p>
+
+\[\begin{align*}
+\frac{\partial f_i}{\partial x_j}&amp;=\frac{\partial}{\partial x_j}\left(x_i+c_i\right)\\
+&amp;=1_{i=j}
+\end{align*}\]
+
+<p>hence</p>
 
 \[\frac{df}{dx}=\mathbb I_n\]
 
