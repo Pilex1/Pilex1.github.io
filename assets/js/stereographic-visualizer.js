@@ -115,12 +115,12 @@ class StereographicVisualizer {
 
         // colour
 		$("#range-colour-brightness").on("input", () => {
-			this.updateFromGui();
+			this.updateColors();
 			this.updateIterates();
 		})
-        $("#colorSphere").on("input", () => this.updateFromGui());
-        $("#colorEmissionSphere").on("input", () => this.updateFromGui());
-        $("#colorBackground").on("input", () => this.updateFromGui());
+        $("#colorSphere").on("input", () => this.updateColors());
+        $("#colorEmissionSphere").on("input", () => this.updateColors());
+        $("#colorBackground").on("input", () => this.updateColors());
 
         sliderOnUpdate("numIterates", () => {
             this.updateIterates();
@@ -218,7 +218,7 @@ class StereographicVisualizer {
         this.camera.rotation.set(this.initialCameraRot.x, this.initialCameraRot.y, this.initialCameraRot.z);
     }
 
-    updateFromGui() {
+    updateColors() {
         // colours
         this.renderer.setClearColor($("#colorBackground").val(), 1);
         this.sphere.material.color = new THREE.Color($("#colorSphere").val());
@@ -435,7 +435,7 @@ class StereographicVisualizer {
     }
 
     startAnimation() {
-        this.updateFromGui();
+        this.updateColors();
         this.updateValuesFromGui();
         this.updateIterates();
 

@@ -72,6 +72,7 @@ class DP1Visualizer extends StereographicVisualizer {
 
 		let ratiosEven = new Map();
 		let ratiosOdd = new Map();
+		let arg = new Map();
 
 		for (const [n, w_n] of data.entries()) {
 			if (n%2==0 && data.has(n-1)) {
@@ -80,12 +81,21 @@ class DP1Visualizer extends StereographicVisualizer {
 			if (n%2==1 && data.has(n-1)) {
 				ratiosOdd.set(n, math.abs(math.divide(w_n, data.get(n-1))));
 			}
+			arg.set(n, math.arg(w_n));
+		}
+
+		let magnitudeData = this.generateMagnitudeData(iterates[0].data, "|w_n|");
+		let expMagnitude = new Map();
+		for (const [n, w_n] of magnitudeData.data.entries()) {
+			expMagnitude.set(n, math.pow(math.abs(w_n), 2));
 		}
 
 		return [
-			this.generateMagnitudeData(iterates[0].data, "|w_n|"),
+			magnitudeData,
 			{"data": ratiosEven, "name": "|w_n/w_{n-1}|, n even"},
-			{"data": ratiosOdd, "name": "|w_n/w_{n-1}|, n odd|"}
+			{"data": ratiosOdd, "name": "|w_n/w_{n-1}|, n odd|"},
+			{"data": expMagnitude, "name": "|w_n|^2"},
+			{"data": arg, "name": "arg(w_n)"}
 		];
 	}
 
