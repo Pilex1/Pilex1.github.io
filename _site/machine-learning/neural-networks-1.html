@@ -460,8 +460,9 @@ f:\mathbb R^{m\times n}\to\mathbb R
 
 <h3 id="derivative-with-respect-to-al">Derivative with respect to $A^{[L]}$</h3>
 
-<p>Recall that if we have the model’s predictions $A^{[L]}$ we define the loss to be
-\(f(A^{[L]})=\frac 1m\Vert A^{[L]}-Y\Vert_F^2\)
+<p>Recall that if we have the model’s predictions $A^{[L]}$ we define the loss to be</p>
+
+<p>\(f(A^{[L]})=\frac 1m\Vert A^{[L]}-Y\Vert_F^2\)
 Let’s calculate</p>
 
 \[\frac{df}{dA^{[L]}}.\]
@@ -479,25 +480,33 @@ Let’s calculate</p>
 
 <h3 id="derivative-with-respect-to-zl">Derivative with respect to $Z^{[L]}$</h3>
 
-<p>Recall that $A^{[L]}=g^{[L]}(Z^{[L]})$ where $g^{[L]}$ is the activation function of the last layer. We can calculate
-\(\frac{df}{dZ^{[L]}}\)
-using our matrix calculus framework since
-\(\begin{align*}
+<p>Recall that $A^{[L]}=g^{[L]}(Z^{[L]})$ where $g^{[L]}$ is the activation function of the last layer. We can calculate</p>
+
+\[\frac{df}{dZ^{[L]}}\]
+
+<p>using our matrix calculus framework since</p>
+
+\[\begin{align*}
 \frac{df}{dZ^{[L]}}&amp;=\frac{df}{dA^{[L]}}\odot {g^{[L]}}'(Z^{[L]})\\
 &amp;=\frac 2m (A^{[L]}-Y)\odot ({g^{[L]}}'(Z^{[L]})).
-\end{align*}\)
-The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:Z^{[L]}\mapsto g^{[L]}(Z^{[L]})$ and the second equality is due to substituting our computation for $\frac{df}{dA^{[L]}}$ that we just did above.</p>
+\end{align*}\]
+
+<p>The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:Z^{[L]}\mapsto g^{[L]}(Z^{[L]})$ and the second equality is due to substituting our computation for $\frac{df}{dA^{[L]}}$ that we just did above.</p>
 
 <h3 id="derivative-with-respect-to-wl">Derivative with respect to $W^{[L]}$</h3>
 
-<p>We can now calculate
-\(\frac{df}{dW^{[L]}}\)
-which is one of the terms that we need to calculate for gradient descent. Recalling that $Z^{[L]}=A^{[L-1]}\cdot W^{[L]}$, we have
-\(\begin{align*}
+<p>We can now calculate</p>
+
+\[\frac{df}{dW^{[L]}}\]
+
+<p>which is one of the terms that we need to calculate for gradient descent. Recalling that $Z^{[L]}=A^{[L-1]}\cdot W^{[L]}$, we have</p>
+
+\[\begin{align*}
 \frac{df}{dW^{[L]}}&amp;={A^{[L-1]}}^T\cdot\frac{df}{dZ^{[L]}}\\
 &amp;=\frac 2m {A^{[L-1]}}^T\cdot (A^{[L]}-Y)\odot ({g^{[L]}}'(Z^{[L]})).
-\end{align*}\)
-The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:W^{[L]}\mapsto A^{[L-1]}\cdot W^{[L]}$ and the second equality is due to substituting the result above.</p>
+\end{align*}\]
+
+<p>The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:W^{[L]}\mapsto A^{[L-1]}\cdot W^{[L]}$ and the second equality is due to substituting the result above.</p>
 
 <h3 id="derivatives-in-an-arbitrary-layer">Derivatives in an arbitrary layer</h3>
 
@@ -509,25 +518,27 @@ The first equality is due to the matrix calculus framework with matrix-to-matrix
 
 \[\frac{df}{dA^{[\ell]}}=\frac{df}{dZ^{[\ell+1]}}\cdot {W^{[\ell+1]}}^T\]
 
-<p>We can calculate the derivatives with respect to $Z^{[\ell]}$ and $W^{[\ell]}$ in the exact same way that we calculated the derivatives for $Z^{[L]}$ and $W^{[L]}$ respectively (check yourself), so we get
-\(\frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'( Z^{[\ell]}))\\
-\frac{df}{dW^{[\ell]}}={A^{[\ell-1]}}^T\cdot\frac{df}{dZ^{[\ell]}}\)</p>
+<p>We can calculate the derivatives with respect to $Z^{[\ell]}$ and $W^{[\ell]}$ in the exact same way that we calculated the derivatives for $Z^{[L]}$ and $W^{[L]}$ respectively (check yourself), so we get</p>
+
+\[\frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'( Z^{[\ell]}))\\
+\frac{df}{dW^{[\ell]}}={A^{[\ell-1]}}^T\cdot\frac{df}{dZ^{[\ell]}}\]
 
 <h2 id="derivative-summary">Derivative summary</h2>
 
-<p>To summarise, our matrix calculus framework allowed us to compute the derivatives of the loss function with respect to any matrix quantity in our neural network. Explicitly, we have
-\(\begin{align*}
+<p>To summarise, our matrix calculus framework allowed us to compute the derivatives of the loss function with respect to any matrix quantity in our neural network. Explicitly, we have</p>
+
+\[\begin{align*}
 \frac{df}{dA^{[L]}}=\frac 1m\cdot 2(A^{[L]}-Y)\\
 \frac{df}{dA^{[\ell]}}=\frac{df}{dZ^{[\ell+1]}}\cdot {W^{[\ell+1]}}^T,&amp;\qquad \ell =1,2,\cdots,L-1\\
 \frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'( Z^{[\ell]})),&amp;\qquad \ell=1,2,\cdots,L\\
 \frac{df}{dW^{[\ell]}}={A^{[\ell-1]}}^T\cdot\frac{df}{dZ^{[\ell]}},&amp;\qquad\ell=1,2,\cdots,L
-\end{align*}\)</p>
+\end{align*}\]
 
 <h2 id="final-notes">Final notes</h2>
 
 <p>Note that although we only needed to calculate $\frac{df}{dW^{[\ell]}}$, we also calculated $\frac{df}{dA^{[\ell]}}$ and $\frac{df}{dZ^{[\ell]}}$ as they are required in intermediate calculations.</p>
 
-<p>Now that we’ve calculate $\frac{df}{dW^{[\ell]}}$, we can apply gradient descent to approximate $W^*$, the optimal set of weights that result in the lowest MSE across all the training examples. To do this, typically all the weights are initialized randomly, and the weights are updated as</p>
+<p>Now that we’ve calculated $\frac{df}{dW^{[\ell]}}$, we can apply gradient descent to approximate $W^*$, the optimal set of weights that result in the lowest MSE across all the training examples. To do this, typically all the weights are initialized randomly, and the weights are updated as</p>
 
 \[W^{[\ell]}\leftarrow W^{[\ell]}-\alpha \cdot \frac{df}{dW^{[\ell]}}\]
 

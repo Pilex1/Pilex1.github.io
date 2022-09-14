@@ -381,6 +381,7 @@ We now have all the pieces available to compute the derivatives in our neural ne
 ### Derivative with respect to $A^{[L]}$
 
 Recall that if we have the model's predictions $A^{[L]}$ we define the loss to be
+
 $$
 f(A^{[L]})=\frac 1m\Vert A^{[L]}-Y\Vert_F^2
 $$
@@ -408,31 +409,39 @@ To get to the second last line we have used our matrix calculus framework with t
 ### Derivative with respect to $Z^{[L]}$
 
 Recall that $A^{[L]}=g^{[L]}(Z^{[L]})$ where $g^{[L]}$ is the activation function of the last layer. We can calculate
+
 $$
 \frac{df}{dZ^{[L]}}
 $$
+
 using our matrix calculus framework since
+
 $$
 \begin{align*}
 \frac{df}{dZ^{[L]}}&=\frac{df}{dA^{[L]}}\odot {g^{[L]}}'(Z^{[L]})\\
 &=\frac 2m (A^{[L]}-Y)\odot ({g^{[L]}}'(Z^{[L]})).
 \end{align*}
 $$
+
 The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:Z^{[L]}\mapsto g^{[L]}(Z^{[L]})$ and the second equality is due to substituting our computation for $\frac{df}{dA^{[L]}}$ that we just did above.
 
 ### Derivative with respect to $W^{[L]}$
 
 We can now calculate
+
 $$
 \frac{df}{dW^{[L]}}
 $$
+
 which is one of the terms that we need to calculate for gradient descent. Recalling that $Z^{[L]}=A^{[L-1]}\cdot W^{[L]}$, we have
+
 $$
 \begin{align*}
 \frac{df}{dW^{[L]}}&={A^{[L-1]}}^T\cdot\frac{df}{dZ^{[L]}}\\
 &=\frac 2m {A^{[L-1]}}^T\cdot (A^{[L]}-Y)\odot ({g^{[L]}}'(Z^{[L]})).
 \end{align*}
 $$
+
 The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:W^{[L]}\mapsto A^{[L-1]}\cdot W^{[L]}$ and the second equality is due to substituting the result above.
 
 ### Derivatives in an arbitrary layer
@@ -450,6 +459,7 @@ $$
 $$
 
 We can calculate the derivatives with respect to $Z^{[\ell]}$ and $W^{[\ell]}$ in the exact same way that we calculated the derivatives for $Z^{[L]}$ and $W^{[L]}$ respectively (check yourself), so we get
+
 $$
 \frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'( Z^{[\ell]}))\\
 \frac{df}{dW^{[\ell]}}={A^{[\ell-1]}}^T\cdot\frac{df}{dZ^{[\ell]}}
@@ -458,6 +468,7 @@ $$
 ## Derivative summary
 
 To summarise, our matrix calculus framework allowed us to compute the derivatives of the loss function with respect to any matrix quantity in our neural network. Explicitly, we have
+
 $$
 \begin{align*}
 \frac{df}{dA^{[L]}}=\frac 1m\cdot 2(A^{[L]}-Y)\\
@@ -472,7 +483,7 @@ $$
 
 Note that although we only needed to calculate $\frac{df}{dW^{[\ell]}}$, we also calculated $\frac{df}{dA^{[\ell]}}$ and $\frac{df}{dZ^{[\ell]}}$ as they are required in intermediate calculations.
 
-Now that we've calculate $\frac{df}{dW^{[\ell]}}$, we can apply gradient descent to approximate $W^*$, the optimal set of weights that result in the lowest MSE across all the training examples. To do this, typically all the weights are initialized randomly, and the weights are updated as
+Now that we've calculated $\frac{df}{dW^{[\ell]}}$, we can apply gradient descent to approximate $W^*$, the optimal set of weights that result in the lowest MSE across all the training examples. To do this, typically all the weights are initialized randomly, and the weights are updated as
 
 $$
 W^{[\ell]}\leftarrow W^{[\ell]}-\alpha \cdot \frac{df}{dW^{[\ell]}}

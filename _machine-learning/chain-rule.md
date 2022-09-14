@@ -20,6 +20,7 @@ We have already seen previously some examples of Jacobians of common functions. 
 We know how to compute the Jacobian of each of these three functions individually, but what is the Jacobian when they are composed together?
 
 In single variable calculus, we have the chain rule which describes how to take derivatives of a composition of two or more scalar functions. More precisely, this states that if $y=f(g(x))$ for scalar functions $f,g:\mathbb R\to\mathbb R$ then
+
 $$
 \frac{dy}{dx}=\frac{df}{dg}\cdot\frac{dg}{dx}
 $$
