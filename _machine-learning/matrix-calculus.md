@@ -231,7 +231,7 @@ For (5) we've used the framework with the matrix-to-matrix function $G:D\mapsto 
 
 For (6) we've used the framework with the matrix-to-matrix function $G:-D\cdot R\mapsto X-D\cdot R$.
 
-For (7) we've used the framework with the matrix-to-scalar function $G:X-D\cdot R\mapsto \Vert X-D\cdot R\Vert_F^2$.
+For (7) we've used the framework with the matrix-to-scalar function $f:X-D\cdot R\mapsto \Vert X-D\cdot R\Vert_F^2$.
 
 Similarly, we have
 $$
