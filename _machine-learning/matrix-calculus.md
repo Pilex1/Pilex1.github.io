@@ -211,7 +211,7 @@ For (3) we've used $G:g(X\cdot W)\mapsto g(X\cdot W)-Y$
 
 For (4) we've used the framework with the matrix-to-scalar function $f:g(X\cdot W-Y)\mapsto\Vert g(X\cdot W)-Y\Vert_2^F$.
 
-### Dictionary learning example
+#### Dictionary learning example
 
 For the dictionary learning example we have
 $$
