@@ -1,0 +1,664 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            // console.log('MathJax initial typesetting complete');
+
+            // a hack, but you need this for lines created using \rule to be rendered in the correct colour
+            $("rect").removeAttr("fill");
+          });
+        }
+      }
+
+    };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
+
+  
+  
+
+</head>
+
+<body>
+  <!-- special case to handle the index page -->
+
+
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        <h1 class="text-center">Machine Learning</h1>
+        <p class="text-center">And human learning too</p>
+        
+    
+
+
+
+
+<nav class="justify-content-center">
+    
+        <a href="/index">
+            Home
+        </a>
+    
+        <a href="/computer-graphics/index">
+            Computer Graphics
+        </a>
+    
+        <a href="/visualizations/index">
+            Mathematical Visualizations
+        </a>
+    
+        <a href="/machine-learning/index">
+            Machine Learning
+        </a>
+    
+</nav>
+  <div class="container">
+    <div class="row my-2">
+        <div class="col col-lg-6 mx-auto">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Quick links</h4>
+                    
+                    
+                    
+                    <a class="d-block" href="/machine-learning/jacobian">Jacobian matrix</a>
+                    
+                    
+                    
+                    
+                    <a class="d-block" href="/machine-learning/chain-rule">Chain rule for vector-to-vector functions</a>
+                    
+                    
+                    
+                    
+                    <a class="d-block" href="/machine-learning/linear-regression">Linear regression</a>
+                    
+                    
+                    
+                    
+                    <a class="d-block" href="/machine-learning/neural-networks-1">Neural networks part 1</a>
+                    
+                    
+                    
+                    
+                    <a class="d-block" href="/machine-learning/neural-networks-2">Neural networks part 2</a>
+                    
+                    
+                    
+                    
+                    <a class="fw-bold text-light">Matrix calculus</a>
+
+                    
+
+                    
+                    
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-12">
+            <h1>Matrix calculus</h1>
+        </div>
+    </div>
+</div>
+
+  <script id="dsq-count-scr" src="//pilex-github.disqus.com/count.js" async></script>
+
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <p>In the previous two articles on neural networks, I introduced a framework to compute the derivative of a function with respect to a matrix. This article is intended to summarise everything about this matrix calculus framework in one place; having said that, you do not need to have read those articles to understand the framework and I will re-iterate what I said previously. On the other hand, if you <em>have</em> read the articles on neural networks, you may want to skip the introduction.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<h3 id="motivation">Motivation</h3>
+
+<p>It is often the case in machine learning that we want to optimize a real-valued objective function $f$ using gradient descent. Typically, $f$ may involve matrix operations and we may need to take the derivative of $f$ with respect to a matrix. For example, in a neural network with a single layer, we may have something like</p>
+
+\[f(W)=\Vert g(X\cdot W)-Y \Vert_F^2\]
+
+<p>where $X,W,Y$ are all matrices, $g:\mathbb R\to\mathbb R$ is being applied elementwise, and we want to compute</p>
+
+\[\frac{df}{dW}.\]
+
+<p>As another example, in dictionary learning we have the objective function</p>
+
+\[f(D,R)=\Vert X-D\cdot R\Vert_F^2\]
+
+<p>and we want to compute the two derivatives</p>
+
+\[\frac{df}{dD},\frac{df}{dR}.\]
+
+<p>In theory you could compute these by computing the derivative of each individual component of the matrix e.g. for the first example you would compute</p>
+
+\[\frac{df}{dW_{i,j}}\]
+
+<p>for all $i,j$; however this quickly becomes very cumbersome especially for more complicated functions. Instead, we would like to compute the matrix derivatives using only operations between matrices i.e. without resorting to having to compute the derivatives of the individual components.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>The function $f$ is essentially comprised of a series of matrix-to-matrix operations (e.g. matrix multiplication, or applying an elementwise function to a matrix), followed by a matrix-to-scalar function at the end (i.e. computing the Frobenius norm of a matrix).</p>
+
+<p>We will abstract this as follows: let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$ i.e. we have $f(G(X))$ which is matrix-to-scalar.</p>
+
+<p>Our goal is to find a set of rules for computing</p>
+
+\[\frac{df}{dX}\]
+
+<p>in terms of the matrix $\frac{df}{dG}$ and the function $G$.</p>
+
+<h3 id="matrix-to-matrix-derivatives">Matrix-to-matrix derivatives</h3>
+
+<p>To do this, we first let $f$ be arbitrary and fix $G$. This is best explained by example. Below, $G:\mathbb R^{m\times n}\to\mathbb R^{m\times p}$ is the matrix-to-matrix function that takes its input $X$ and right-multiplies it by a constant matrix $W$ so that $G:X\mapsto X\cdot W$. For this particular $G$, we can calculate $\frac{df}{dX}$ as follows.</p>
+
+<h4 id="right-matrix-multiplication">Right Matrix multiplication</h4>
+
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\tag{multivariable chain rule}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}(X_{k,1}W_{1,\ell}+X_{k,2}W_{2,\ell}+\cdots+X_{k,n}W_{n,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i}\frac{d}{dX_{i,j}}(X_{k,j}W_{j,\ell})\\
+&amp;=\sum_\ell \frac{df}{dG_{i,\ell}}\cdot \frac{d}{dX_{i,j}}(X_{i,j}W_{j,\ell})\\
+&amp;=\sum_\ell \frac{df}{dG_{i,\ell}}\cdot W_{j,\ell}\\
+&amp;=\sum_\ell \frac{df}{dG_{i,\ell}}\cdot W_{\ell,j}^T\\
+\implies \frac{df}{dX}&amp;=\frac{df}{dG}\cdot W^T.
+\end{align*}\]
+
+<p>This is essentially a sort of “chain rule”. We’ve written the derivative $\frac{df}{dX}$ in terms of $\frac{df}{dG}$ and $W$ (which comes from the function $G$). In a proper chain rule, we’d expect to see $\frac{dG}{dX}$ appearing somewhere; the right multiplication of $\frac{df}{dG}$ by $W^T$ takes on this role. It is not immediately clear how to define $\frac{dG}{dX}$ since $G$ is matrix-to-matrix and so $\frac{dG}{dX}$ would have to be 4 dimensional; hence I find it easier to write it in the form I have as above.</p>
+
+<h4 id="left-multiplication-by-matrix">Left multiplication by matrix</h4>
+
+<p>Using a similar line of reasoning, one can show (exercise to the reader) that if</p>
+
+\[\begin{align*}
+G:X\mapsto W\cdot X\\
+G:\mathbb R^{m\times n}\to\mathbb R^{p\times n}
+\end{align*}\]
+
+<p>where $W\in\mathbb R^{p\times m}$ is a constant, then</p>
+
+\[\frac{df}{dX}=W^T\cdot\frac{df}{dG}.\]
+
+<p>Notice here that our function $G$ is different; consequently the role of $\frac{dG}{dX}$ is now taken up by <strong>left</strong>-multiplying $\frac{df}{dG}$ by $W^T$.</p>
+
+<h4 id="elementwise-function-application">Elementwise function application</h4>
+
+<p>Here’s a different example that involves applying a scalar-to-scalar function $g:\mathbb R\to\mathbb R$ elementwise to each entry of a matrix.</p>
+
+<p>Let</p>
+
+\[\begin{align*}
+G:X\mapsto g(X)\\
+g:\mathbb R\to\mathbb R,G:\mathbb R^{m\times n}\to\mathbb R^{m\times n}.
+\end{align*}\]
+
+<p>Then</p>
+
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\tag{multivariable chain rule}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}g(X_{k,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\frac{d}{dX_{i,j}}g(X_{k,\ell})\\
+&amp;=\frac{df}{dG_{i,j}}\cdot\frac{d}{dX_{i,j}}g(X_{i,j})\\
+&amp;=\frac{df}{dG_{i,j}}\cdot g'(X_{i,j})\\
+\implies\frac{df}{dX}&amp;=\frac{df}{dG}\odot (g' (X)).
+\end{align*}\]
+
+<p>where $\odot$ denotes the elementwise (Hadamard) product between two matrices. I want to point out again that now the role of $\frac{dG}{dX}$ is to elementwise multiply $\frac{df}{dG}$ by $g’(X)$.</p>
+
+<h4 id="matrix-addition">Matrix addition</h4>
+
+<p>Here’s one final (and simple) example that involves adding a constant matrix.</p>
+
+<p>Let</p>
+
+\[\begin{align*}
+G:X\mapsto X+C\\
+G:\mathbb R^{m\times n}\to\mathbb R^{m\times n}
+\end{align*}\]
+
+<p>where $C\in\mathbb R^{m\times n}$ is a constant. Then</p>
+
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\tag{multivariate chain rule}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}(X_{k,\ell}+C_{k,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\frac{d}{dX_{i,j}}(X_{k,\ell}+C_{k,\ell})\\
+&amp;=\frac{df}{dG_{i,j}}\cdot\frac{d}{dX_{i,j}}(X_{i,j}+C_{i,j})\\
+&amp;=\frac{df}{dG_{i,j}}\\
+\implies \frac{df}{dX}&amp;=\frac{df}{dG}.
+\end{align*}\]
+
+<p>This is just a fancy way of saying that adding constants does not change the derivative.</p>
+
+<h3 id="matrix-to-scalar-derivatives">Matrix-to-scalar derivatives</h3>
+
+<p>So far we have written $\frac{df}{dX}$ in terms of $\frac{df}{dG}$. I now explain how to compute $\frac{df}{dG}$. We now let $G$ be arbitrary and fix $f$. In the below example $f$ computes the squared Frobenius norm.</p>
+
+<h4 id="squared-frobenius-norm">Squared Frobenius norm</h4>
+
+<p>Let</p>
+
+\[\begin{align*}
+f:G\mapsto \Vert G\Vert_F^2\\
+f:\mathbb R^{m\times n}\to\mathbb R
+\end{align*}\]
+
+<p>Then</p>
+
+\[\begin{align*}
+\frac{df}{dG_{i,j}}&amp;=\frac{d}{dG_{i,j}}\sum_{k,\ell}G_{k,\ell}^2\\
+&amp;=\frac{d}{dG_{i,j}}G_{i,j}^2\\
+&amp;=2G_{i,j}\\
+\implies \frac{df}{dG}&amp;=2G.
+\end{align*}\]
+
+<h3 id="computing-the-derivatives">Computing the derivatives</h3>
+
+<p>We now have the tools necessary to go back to our two examples and compute matrix derivatives!</p>
+
+<h4 id="neural-network-example">Neural network example</h4>
+
+<p>For the neural network example, we have</p>
+
+\[\begin{align}
+\frac{df}{dW}&amp;=\frac{d(\Vert g(X\cdot W)-Y \Vert_F^2)}{dW}\\
+&amp;=X^T\cdot\frac{d(\Vert g(X\cdot W)-Y \Vert_F^2)}{d(X\cdot W)}\tag 1\\
+&amp;=X^T\cdot\frac{d(\Vert g(X\cdot W)-Y \Vert_F^2)}{d(g(X\cdot W))}\odot g'(X\cdot W)\tag 2\\
+&amp;=X^T\cdot\frac{d(\Vert g(X\cdot W)-Y \Vert_F^2)}{d(g(X\cdot W)-Y)}\odot g'(X\cdot W)\tag 3\\
+&amp;=X^T\cdot2(g(X\cdot W)-Y)\odot g'(X\cdot W)\tag 4\\
+&amp;= 2X^T\cdot (g(X\cdot W)-Y)\odot g'(X\cdot W)
+\end{align}\]
+
+<p>For (1) we’ve used our matrix calculus framework with the matrix-to-matrix function $G:W\mapsto X\cdot W$.</p>
+
+<p>For (2) we’ve used $G:X\cdot W\mapsto g(X\cdot W)$.</p>
+
+<p>For (3) we’ve used $G:g(X\cdot W)\mapsto g(X\cdot W)-Y$</p>
+
+<p>For (4) we’ve used the framework with the matrix-to-scalar function $f:g(X\cdot W-Y)\mapsto\Vert g(X\cdot W)-Y\Vert_2^F$.</p>
+
+<h3 id="dictionary-learning-example">Dictionary learning example</h3>
+
+<p>For the dictionary learning example we have
+\(\begin{align*}
+\frac{df}{dD}&amp;=\frac{d(\Vert X-D\cdot R\Vert_F^2)}{dD}\\
+&amp;=\frac{d(\Vert X-D\cdot R\Vert_F^2)}{d(D\cdot R)}\cdot R^T\tag 5\\
+&amp;=\frac{d(\Vert X-D\cdot R\Vert_F^2)}{d(-D\cdot R)}\cdot -R^T\\
+&amp;=\frac{d(\Vert X-D\cdot R\Vert_F^2)}{d(X-D\cdot R)}\cdot -R^T\tag 6\\
+&amp;=2(X-D\cdot R)\cdot -R^T\tag 7\\
+&amp;=-2(X-D\cdot R)\cdot R^T\\
+&amp;=-2XR^T+2DRR^T
+\end{align*}\)</p>
+
+<p>For (5) we’ve used the framework with the matrix-to-matrix function $G:D\mapsto D\cdot R$.</p>
+
+<p>For (6) we’ve used the framework with the matrix-to-matrix function $G:-D\cdot R\mapsto X-D\cdot R$.</p>
+
+<p>For (7) we’ve used the framework with the matrix-to-scalar function $G:X-D\cdot R\mapsto \Vert X-D\cdot R\Vert_F^2$.</p>
+
+<p>Similarly, we have
+\(\begin{align*}
+\frac{df}{dR}&amp;=\frac{d(\Vert X-D\cdot R\Vert_F^2)}{dR}\\
+&amp;=(-D)^T\cdot\frac{d(\Vert X-D\cdot R\Vert_F^2)}{d(-D\cdot R)}\tag 8\\
+&amp;=(-D)^T\cdot\frac{d(\Vert X-D\cdot R\Vert_F^2)}{d(X-D\cdot R)}\tag 9\\
+&amp;=(-D)^T\cdot 2(X-D\cdot R)\tag {10}\\
+&amp;=-2D^TX+2D^TDR
+\end{align*}\)
+using similar steps to above.</p>
+
+<h2 id="formula-list">Formula List</h2>
+
+<p>Here I list the derivative calculations for commonly used operations.</p>
+
+<h3 id="matrix-to-matrix">Matrix to matrix</h3>
+
+<h4 id="right-matrix-multiplication-1">Right matrix multiplication</h4>
+
+\[\begin{align*}
+G:X\mapsto X\cdot W\\
+\frac{df}{dX}=\frac{df}{dG}\cdot W^T
+\end{align*}\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-1" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-1">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}(X_{k,1}W_{1,\ell}+X_{k,2}W_{2,\ell}+\cdots+X_{k,n}W_{n,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i}\frac{d}{dX_{i,j}}(X_{k,j}W_{j,\ell})\\
+&amp;=\sum_\ell \frac{df}{dG_{i,\ell}}\cdot \frac{d}{dX_{i,j}}(X_{i,j}W_{j,\ell})\\
+&amp;=\sum_\ell \frac{df}{dG_{i,\ell}}\cdot W_{j,\ell}\\
+&amp;=\sum_\ell \frac{df}{dG_{i,\ell}}\cdot W_{\ell,j}^T\\
+\implies \frac{df}{dX}&amp;=\frac{df}{dG}\cdot W^T.
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="left-matrix-multiplication">Left matrix multiplication</h4>
+
+\[\begin{align*}
+G:X\mapsto W\cdot X\\
+\frac{df}{dX}=W^T\cdot \frac{df}{dG}
+\end{align*}\]
+
+<h4 id="elementwise-matrix-multiplication">Elementwise matrix multiplication</h4>
+
+\[\begin{align*}
+G:X\mapsto X\odot C\\
+\frac{df}{dX}=\frac{df}{dG}\odot C
+\end{align*}\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-5" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\tag{multivariable chain rule}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}(X_{k,\ell}\cdot C_{k,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\cdot C_{k,\ell}\\
+&amp;=\frac{df}{dG_{i,j}}\cdot C_{i,j}\\
+\implies\frac{df}{dX}&amp;=\frac{df}{dG}\odot C
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="elementwise-function-application-1">Elementwise function application</h4>
+
+<p>Let</p>
+
+\[G:X\mapsto g(X)\\\]
+
+<p>where $g:\mathbb R\to\mathbb R$ is the scalar-to-scalar function that we are applying elementwise. Then</p>
+
+\[\frac{df}{dX}=\frac{df}{dG}\odot (g'(X))\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-2" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-2">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}g(X_{k,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\frac{d}{dX_{i,j}}g(X_{k,\ell})\\
+&amp;=\frac{df}{dG_{i,j}}\cdot\frac{d}{dX_{i,j}}g(X_{i,j})\\
+&amp;=\frac{df}{dG_{i,j}}\cdot g'(X_{i,j})\\
+\implies\frac{df}{dX}&amp;=\frac{df}{dG}\odot (g' (X)).
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="matrix-addition-1">Matrix addition</h4>
+
+\[\begin{align*}
+G:X\mapsto X+C\\
+\frac{df}{dX}=\frac{df}{dG}
+\end{align*}\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-3" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-3">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dX_{i,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{i,j}}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{i,j}}(X_{k,\ell}+C_{k,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\frac{d}{dX_{i,j}}(X_{k,\ell}+C_{k,\ell})\\
+&amp;=\frac{df}{dG_{i,j}}\cdot\frac{d}{dX_{i,j}}(X_{i,j}+C_{i,j})\\
+&amp;=\frac{df}{dG_{i,j}}\\
+\implies \frac{df}{dX}&amp;=\frac{df}{dG}.
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="row-broadcasted-addition">Row broadcasted addition</h4>
+
+<p>Let</p>
+
+\[G:X\mapsto C+X\]
+
+<p>where $X\in\mathbb R^{1\times n}$ is a <strong>row</strong> vector, $C\in\mathbb R^{m\times n}$ is a constant matrix, and the addition is broadcasted. Then</p>
+
+\[\frac{df}{dX}=\sum_{\text{rows}}\frac{df}{dG}.\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-4" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-4">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dX_{1,j}}&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{dG_{k,\ell}}{dX_{1,j}}\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot\frac{d}{dX_{1,j}}(C_{k,\ell}+X_{1,\ell})\\
+&amp;=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{\ell=j}\\
+&amp;=\sum_{k}\frac{df}{dG_{k,j}}\\
+\implies \frac{df}{dX}&amp;=\sum_{\text{rows}}\frac{df}{dG}.
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="column-broadcasted-addition">Column broadcasted addition</h4>
+
+<p>Let</p>
+
+\[G:X\mapsto C+X\]
+
+<p>where $X\in\mathbb R^{m\times 1}$ is a <strong>column</strong> vector, $C\in\mathbb R^{m\times n}$, and the addition is broadcasted. Then</p>
+
+\[\frac{df}{dX}=\sum_{\text{columns}}\frac{df}{dG}.\]
+
+<h3 id="matrix-to-scalar">Matrix to scalar</h3>
+
+<h4 id="squared-frobenius-norm-1">Squared Frobenius norm</h4>
+
+\[\begin{align*}
+f:G\mapsto \Vert G\Vert_F^2\\
+\frac{df}{dG}=2G.
+\end{align*}\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-6" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-6">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dG_{i,j}}&amp;=\frac{d}{dG_{i,j}}\sum_{k,\ell}G_{k,\ell}^2\\
+&amp;=\frac{d}{dG_{i,j}}G_{i,j}^2\\
+&amp;=2G_{i,j}\\
+\implies \frac{df}{dG}&amp;=2G.
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="matrix-sum">Matrix sum</h4>
+
+\[\begin{align*}
+f:G\mapsto\sum G\\
+\frac{df}{dG}=\vec 1
+\end{align*}\]
+
+<p>the matrix of all 1s.</p>
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-7" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-7">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+\[\begin{align*}
+\frac{df}{dG_{i,j}}&amp;=\frac{d}{dG_{i,j}}\sum_{k,\ell}G_{k,\ell}\\
+&amp;=\frac{d}{dG_{i,j}}G_{i,j}\\
+&amp;=1\\
+\implies \frac{df}{dG}&amp;=\vec 1.
+\end{align*}\]
+
+        </div>
+    </div>
+</div>
+
+<h4 id="quadratic-form">Quadratic form</h4>
+
+<p>Let</p>
+
+\[f:G\mapsto a^TGa\]
+
+<p>where $G\in\mathbb R^{n\times n}$ and $a\in\mathbb R^n$. Then</p>
+
+\[\frac{df}{dG}=aa^T\]
+
+<p><button class="btn btn-primary" data-bs-target="#_collapse-8" data-bs-toggle="collapse">Proof</button></p>
+<div class="collapse" id="_collapse-8">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Proof</h4>
+            
+<p>To compute this in index form explicitly, let $y=Xa$. Then</p>
+
+\[y_i=\sum_jX_{i,j}a_j\]
+
+<p>and so</p>
+
+\[\begin{align*}
+f(X)&amp;=a^Ty\\
+&amp;=\sum_i a_i y_i\\
+&amp;=\sum_i a_i\sum_jX_{i,j}a_j\\
+&amp;=\sum_{i,j}a_iX_{i,j}a_j
+\end{align*}\]
+
+<p>Then</p>
+
+\[\begin{align*}
+\left[\frac{df}{dX}\right]_{1,1,k,\ell}&amp;:=\frac{\partial f_{1,1}}{\partial X_{k,\ell}}\\
+&amp;=\frac{\partial}{\partial X_{k,\ell}}\sum_{i,j}a_iX_{i,j}a_j\\
+&amp;=a_ka_\ell1_{k=i,\ell=j}\\
+\implies\left[\frac{df}{dX}\right]&amp;=aa^T
+\end{align*}\]
+
+
+        </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    
+    
+    <div class="row">
+      <div class="col col-12">
+        
+        <div id="disqus_thread" class="my-5"></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+          var disqus_config = function () {
+            this.page.url = "/machine-learning/matrix-calculus.html";  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = "Matrix Calculus"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://pilex-github.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $("table").attr("class", "table");
+  </script>
+
+  <footer>
+    <hr>
+    <p class="centered"
+      style="margin: 15px; margin-left: auto; margin-right: auto; font-size: 14px; text-align: center">
+      Copyright Alex Tan &copy; 2022
+    </p>
+  </footer>
+</body>
+
+</html>

@@ -61,3 +61,5 @@ machine-learning:
       link: /machine-learning/neural-networks-1
     - title: Neural networks part 2
       link: /machine-learning/neural-networks-2
+    - title: Matrix calculus
+      link: /machine-learning/matrix-calculus

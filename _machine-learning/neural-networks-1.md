@@ -3,7 +3,7 @@
 
 There are a lot of articles, blogs, Youtube videos, etc. out there that introduce neural networks, however most of these do not discuss the mathematics behind neural network training in depth, which is what really interested me when I first learn about neural networks. Two valuable resources I found that *did* discuss this were Andrew Ng's ["Neural Networks and Deep Learning" course on Coursera](https://www.coursera.org/learn/neural-networks-deep-learning) and Michael Nielsen's [online book of the same title](http://neuralnetworksanddeeplearning.com/index.html), both of which I highly recommend you check out if you are interested in this topic. I wanted to present here my own take on deriving the backpropagation equations for neural network training; my approach involves developing a framework for computing derivatives of matrix valued functions.
 
-I first introduce briefly what a neural network is, so that you will be able to follow along even without any prior knowledge, though I do recommend the above two resources to gain a broader understanding. I then introduce my framework for computing derivatives, and then I derive the backpropagation equations using the framework.
+I first introduce briefly what a neural network is, so that you will be able to follow along even without any prior knowledge. I then introduce my framework for computing derivatives, and then I derive the backpropagation equations using the framework.
 
 ## Introduction
 
@@ -144,7 +144,7 @@ If we then apply the activation function $g^{[1]}$ elementwise to each component
 
 
 $$
-A^{[1]}:=g^{[1]}\circ Z^{[1]}=\begin{bmatrix}
+A^{[1]}:=g^{[1]}( Z^{[1]})=\begin{bmatrix}
 \rule[.5ex]{2.5ex}{0.5pt}{a^{(1)[1]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
 \vdots\\
 \rule[.5ex]{2.5ex}{0.5pt}{a^{(m)[1]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
@@ -165,7 +165,7 @@ Z^{[\ell]}&:=A^{[\ell-1]}\cdot W^{[\ell]}=\begin{bmatrix}
 \vdots\\
 \rule[.5ex]{2.5ex}{0.5pt}{z^{(m)[\ell]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
 \end{bmatrix}\\
-A^{[\ell]}&:=g^{[\ell]}\circ Z^{[\ell]}=\begin{bmatrix}
+A^{[\ell]}&:=g^{[\ell]}( Z^{[\ell]})=\begin{bmatrix}
 \rule[.5ex]{2.5ex}{0.5pt}{a^{(1)[\ell]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
 \vdots\\
 \rule[.5ex]{2.5ex}{0.5pt}{a^{(m)[\ell]}}^T\rule[.5ex]{2.5ex}{0.5pt}\\
@@ -235,40 +235,22 @@ for all $i,j,\ell$. This can be done in principal, but to make our lives easier,
 
 ## Matrix calculus
 
-Our function $f$ is essentially comprised of a series of matrix-to-matrix operations (e.g. matrix multiplication, or applying an elementwise function to a matrix), followed by a matrix-to-scalar function at the end (i.e. computing the $L_2$ norm). 
+Our function $f$ is essentially comprised of a series of matrix-to-matrix operations (e.g. matrix multiplication, or applying an elementwise function to a matrix), followed by a matrix-to-scalar function at the end (i.e. computing the Frobenius norm of a matrix). 
 
-We will abstract this as follows: let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$. Consider $f(G(X))$ which is matrix-to-scalar. 
+We will abstract this as follows: let $G$ be an arbitrary matrix-to-matrix function which takes input $X$, and $f$ be an arbitrary matrix-to-scalar function that takes as input $G$ i.e. we have $f(G(X))$ which is matrix-to-scalar. 
 
-
-### Matrix-to-matrix derivatives
-
-
-We will first compute
-
-
+Our goal is to find a set of rules for computing
 $$
 \frac{df}{dX}
 $$
+in terms of the matrix $\frac{df}{dG}$ and the function $G$.
+
+### Matrix-to-matrix derivatives
+
+To do this, we first let $f$ be arbitrary and fix $G$. This is best explained by example. Below, $G:\mathbb R^{m\times n}\to\mathbb R^{m\times p}$ is the matrix-to-matrix function that takes its input $X$ and right-multiplies it by a constant matrix $W$ so that $G:X\mapsto X\cdot W$. For this particular $G$, we can calculate $\frac{df}{dX}$ as follows.
 
 
-for different $G$ that we encounter. Again, the notation above means a matrix whose $i,j$th entry is $\frac{\partial f}{\partial X_{i,j}}$.
-
-
-#### Matrix multiplication
-
-**Right multiplication by matrix**
-
-Let
-
-
-$$
-\begin{align*}
-G:X\mapsto X\cdot W\\
-G:\mathbb R^{m\times n}\to\mathbb R^{m\times p}
-\end{align*}
-$$
-
-where $W\in\mathbb R^{n\times p}$ is a constant. Then 
+#### Right Matrix multiplication
 
 $$
 \begin{align*}
@@ -282,7 +264,9 @@ $$
 \end{align*}
 $$
 
-**Left multiplication by matrix**
+This is essentially a sort of "chain rule". We've written the derivative $\frac{df}{dX}$ in terms of $\frac{df}{dG}$ and $W$ (which comes from the function $G$). In a proper chain rule, we'd expect to see $\frac{dG}{dX}$ appearing somewhere; the right multiplication of $\frac{df}{dG}$ by $W^T$ takes on this role. It is not immediately clear how to define $\frac{dG}{dX}$ since $G$ is matrix-to-matrix and so $\frac{dG}{dX}$ would have to be 4 dimensional; hence I find it easier to write it in the form I have as above.
+
+#### Left multiplication by matrix
 
 Using a similar line of reasoning, one can show (exercise to the reader) that if
 
@@ -301,15 +285,19 @@ $$
 \frac{df}{dX}=W^T\cdot\frac{df}{dG}.
 $$
 
+Notice here that our function $G$ is different; consequently the role of $\frac{dG}{dX}$ is now taken up by **left**-multiplying $\frac{df}{dG}$ by $W^T$. 
+
 #### Elementwise function application
+
+Here's a different example that involves applying a scalar-to-scalar function $g:\mathbb R\to\mathbb R$ elementwise to each entry of a matrix.
 
 Let
 
 
 $$
 \begin{align*}
-G:X\mapsto g\circ X\\
-g:\mathbb R\to\mathbb R,G:\mathbb R^{m\times n}\to\mathbb R^{m\times n}
+G:X\mapsto g(X)\\
+g:\mathbb R\to\mathbb R,G:\mathbb R^{m\times n}\to\mathbb R^{m\times n}.
 \end{align*}
 $$
 
@@ -322,11 +310,15 @@ $$
 &=\sum_{k,\ell}\frac{df}{dG_{k,\ell}}\cdot 1_{k=i,\ell=j}\frac{d}{dX_{i,j}}g(X_{k,\ell})\\
 &=\frac{df}{dG_{i,j}}\cdot\frac{d}{dX_{i,j}}g(X_{i,j})\\
 &=\frac{df}{dG_{i,j}}\cdot g'(X_{i,j})\\
-\implies\frac{df}{dX}&=\frac{df}{dG}\odot (g'\circ X).
+\implies\frac{df}{dX}&=\frac{df}{dG}\odot (g' (X)).
 \end{align*}
 $$
 
+where $\odot$ denotes the elementwise (Hadamard) product between two matrices. I want to point out again that now the role of $\frac{dG}{dX}$ is to elementwise multiply $\frac{df}{dG}$ by $g'(X)$.
+
 #### Matrix addition
+
+Here's one final (and simple) example that involves adding a constant matrix.
 
 
 Let
@@ -352,23 +344,17 @@ $$
 \end{align*}
 $$
 
+This is just a fancy way of saying that adding constants does not change the derivative.
+
 ### Matrix-to-scalar derivatives
 
-Finally we will compute 
+So far we have written $\frac{df}{dX}$ in terms of $\frac{df}{dG}$. I now explain how to compute $\frac{df}{dG}$. We now let $G$ be arbitrary and fix $f$. In the below example $f$ computes the squared Frobenius norm.
 
 
-$$
-\frac{df}{dG}
-$$
+#### Squared Frobenius norm
 
 
-where $G$ is a matrix and $f$ is matrix-to-scalar.
-
-
-#### Frobenius norm
-
-
-Let 
+Let
 
 $$
 \begin{align*}
@@ -390,13 +376,15 @@ $$
 
 ## Derivative calculations
 
-We can now use our theory of matrix calculus to compute some partial derivative matrices.
+We now have all the pieces available to compute the derivatives in our neural network.
 
+### Derivative with respect to $A^{[L]}$
 
-### Derivative with respect to $A$
-
-To start off we will calculate
-
+Recall that if we have the model's predictions $A^{[L]}$ we define the loss to be
+$$
+f(A^{[L]})=\frac 1m\Vert A^{[L]}-Y\Vert_F^2
+$$
+Let's calculate
 
 $$
 \frac{df}{dA^{[L]}}.
@@ -409,84 +397,82 @@ We have
 $$
 \begin{align*}
 \frac{df}{dA^{[L]}}&=\frac{d(\frac 1m\Vert A^{[L]}-Y\Vert_F^2)}{dA^{[L]}}\\
-&=\frac 1m\frac{d(\Vert A^{[L]}-Y\Vert_F^2)}{dA^{[L]}}.
+&=\frac 1m\frac{d(\Vert A^{[L]}-Y\Vert_F^2)}{dA^{[L]}}\\
+&=\frac 1m\frac{d(\Vert A^{[L]}-Y\Vert_F^2)}{d(A^{[L]}-Y)}\\
+&=\frac 1m\cdot 2(A^{[L]}-Y).\\
 \end{align*}
 $$
 
-If we define $G:A^{[L]}\mapsto A^{[L]}-Y$ and $f:G\mapsto \Vert G\Vert_F^2$ then this is of the form $\frac{d}{dA^{[L]}}f(G(A^{[L]}))$ which fits within our matrix calculus framework. Using this, we get that
+To get to the second last line we have used our matrix calculus framework with the matrix-to-matrix function $G:A^{[L]}\mapsto A^{[L]}-Y$. To get to the last line, we have again used our matrix calculus framework, this time with the matrix-to-scalar function $f:A^{[L]}-Y\mapsto \Vert A^{[L]}-Y\Vert_F^2$.
 
+### Derivative with respect to $Z^{[L]}$
+
+Recall that $A^{[L]}=g^{[L]}(Z^{[L]})$ where $g^{[L]}$ is the activation function of the last layer. We can calculate
+$$
+\frac{df}{dZ^{[L]}}
+$$
+using our matrix calculus framework since
 $$
 \begin{align*}
-\frac{df}{dA^{[L]}}&=\frac 1m\cdot 2(A^{[L]}-Y)\\
-&=\frac 2m\cdot (A^{[L]}-Y)
+\frac{df}{dZ^{[L]}}&=\frac{df}{dA^{[L]}}\odot {g^{[L]}}'(Z^{[L]})\\
+&=\frac 2m (A^{[L]}-Y)\odot ({g^{[L]}}'(Z^{[L]})).
 \end{align*}
 $$
+The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:Z^{[L]}\mapsto g^{[L]}(Z^{[L]})$ and the second equality is due to substituting our computation for $\frac{df}{dA^{[L]}}$ that we just did above.
 
-Next let's calculate $\frac{df}{dA^{[\ell]}}$ for a non-final layer $\ell=1,2,\cdots,L-1$. Notice that $A^{[\ell]}$ is used as the "input" for the next layer $\ell+1$ i.e.
+### Derivative with respect to $W^{[L]}$
 
+We can now calculate
+$$
+\frac{df}{dW^{[L]}}
+$$
+which is one of the terms that we need to calculate for gradient descent. Recalling that $Z^{[L]}=A^{[L-1]}\cdot W^{[L]}$, we have
+$$
+\begin{align*}
+\frac{df}{dW^{[L]}}&={A^{[L-1]}}^T\cdot\frac{df}{dZ^{[L]}}\\
+&=\frac 2m {A^{[L-1]}}^T\cdot (A^{[L]}-Y)\odot ({g^{[L]}}'(Z^{[L]})).
+\end{align*}
+$$
+The first equality is due to the matrix calculus framework with matrix-to-matrix function $G:W^{[L]}\mapsto A^{[L-1]}\cdot W^{[L]}$ and the second equality is due to substituting the result above.
+
+### Derivatives in an arbitrary layer
+
+It's now pretty easy to calculate the derivatives in any arbitrary layer. First, let's calculate $\frac{df}{dA^{[\ell]}}$ for a non-final layer $\ell=1,2,\cdots,L-1$. Notice that $A^{[\ell]}$ is used as the "input" for the next layer $\ell+1$ i.e.
 
 $$
 Z^{[\ell+1]}=A^{[\ell]}\cdot W^{[\ell+1]}.
 $$
 
-Our matrix calculus framework (define $G:A^{[\ell]}\mapsto A^{[\ell]}\cdot W^{[\ell+1]}$ and $f:G=Z^{[\ell+1]}\mapsto\cdots$ where the $\cdots$ represents the final MSE value) then tells us that
+Our matrix calculus framework then tells us
 
 $$
-\frac{df}{dA^{[\ell]}}=\frac{df}{dZ^{[\ell+1]}}\cdot {W^{[\ell+1]}}^T.
+\frac{df}{dA^{[\ell]}}=\frac{df}{dZ^{[\ell+1]}}\cdot {W^{[\ell+1]}}^T
 $$
 
-### Derivative with respect to $Z$
-
-Next, let's calculate $\frac{df}{dZ^{[\ell]}}$ for all layers $\ell=1,2,\cdots,L$. Notice that for all layers $\ell$ we have
-
+We can calculate the derivatives with respect to $Z^{[\ell]}$ and $W^{[\ell]}$ in the exact same way that we calculated the derivatives for $Z^{[L]}$ and $W^{[L]}$ respectively (check yourself), so we get
 $$
-A^{[\ell]}=g^{[\ell]}\circ Z^{[\ell]}.
-$$
-
-Our matrix calculus framework (with $G:Z^{[\ell]}\mapsto g\circ Z^{[\ell]}$ and $f:G=A^{[\ell]}\mapsto\cdots$) then tells us that
-
-$$
-\frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'\circ Z^{[\ell]})
-$$
-
-### Derivative with respect to $W$
-
-Finally, let's calculate $\frac{df}{dW^{[\ell]}}$ for all layers $\ell=1,2,\cdots,L$. For all layers we have
-
-$$
-Z^{[\ell]}=A^{[\ell-1]}\cdot W^{[\ell]}.
-$$
-
-Our matrix calculus framework (with $G:W^{[\ell]}\mapsto A^{[\ell-1]}\cdot W^{[\ell]}$ and $f:G=Z^{[\ell]}\mapsto\cdots$) gives us
-
-$$
+\frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'( Z^{[\ell]}))\\
 \frac{df}{dW^{[\ell]}}={A^{[\ell-1]}}^T\cdot\frac{df}{dZ^{[\ell]}}
 $$
 
-## Putting things together
+## Derivative summary
+
+To summarise, our matrix calculus framework allowed us to compute the derivatives of the loss function with respect to any matrix quantity in our neural network. Explicitly, we have
+$$
+\begin{align*}
+\frac{df}{dA^{[L]}}=\frac 1m\cdot 2(A^{[L]}-Y)\\
+\frac{df}{dA^{[\ell]}}=\frac{df}{dZ^{[\ell+1]}}\cdot {W^{[\ell+1]}}^T,&\qquad \ell =1,2,\cdots,L-1\\
+\frac{df}{dZ^{[\ell]}}=\frac{df}{dA^{[\ell]}}\odot (g'( Z^{[\ell]})),&\qquad \ell=1,2,\cdots,L\\
+\frac{df}{dW^{[\ell]}}={A^{[\ell-1]}}^T\cdot\frac{df}{dZ^{[\ell]}},&\qquad\ell=1,2,\cdots,L
+\end{align*}
+$$
+
+
+## Final notes
 
 Note that although we only needed to calculate $\frac{df}{dW^{[\ell]}}$, we also calculated $\frac{df}{dA^{[\ell]}}$ and $\frac{df}{dZ^{[\ell]}}$ as they are required in intermediate calculations.
 
-<!--
-Let's see an explicit example. Consider a two layer neural network. This has two weight matrices $W^{[1]},W^{[2]}$ and two activation functions $g^{[1]},g^{[2]}$. The MSE in full is
-
-$$
-f(W^{[1]},W^{[2]})=\frac 1m\Vert g^{[2]}\circ ((g^{[1]}\circ (X\cdot W^{[1]})\cdot W^{[2]}))-Y\Vert_F^2
-$$
-
-and the derivatives are
-
-$$
-\begin{align*}
-\frac{df}{dW^{[2]}}&={A^{[1]}}^T\cdot \frac{df}{dZ^{[2]}}\\
-&={A^{[1]}}^T\cdot (\frac{df}{dA^{[2]}}\odot ({g^{[2]}}'\circ Z^{[2]}))\\
-&={A^{[1]}}^T\cdot (\frac 2m (A^{[2]}-Y)\odot ({g^{[2]}}'\circ Z^{[2]}))\\
-
-\end{align*}
-$$
--->
-
-Anyways, the point of all this was to calculate $\frac{df}{dW^{[\ell]}}$ so that we could apply gradient descent to approximate $W^*$, the optimal set of weights that result in the lowest MSE across all the training examples. To do this, typically all the weights are initialized randomly, and the weights are updated as
+Now that we've calculate $\frac{df}{dW^{[\ell]}}$, we can apply gradient descent to approximate $W^*$, the optimal set of weights that result in the lowest MSE across all the training examples. To do this, typically all the weights are initialized randomly, and the weights are updated as
 
 $$
 W^{[\ell]}\leftarrow W^{[\ell]}-\alpha \cdot \frac{df}{dW^{[\ell]}}
