@@ -446,7 +446,7 @@ f:G\mapsto\sum G\\
 \end{align*}
 $$
 
-the matrix of all 1s.
+the vector of all 1s.
 
 {% capture proof7 %}
 $$
