@@ -13,7 +13,7 @@ Here you'll find a collection of various articles and interactive programs rangi
 
 I recently graduated from University of Sydney in mathematics and computer science with first class honours and the university medal. 
 
-In my honours thesis, supervised by [Dr. Clément Canonne](https://ccanonne.github.io/), I proved a novel theoretical result in machine learning via tools from information theory. Specifically, I proved that the expected generalisation error of learning halfspaces in $\mathbb{R}^n$ via their Fourier coefficients is $O\left(\sqrt{\frac{n\log m}{m}}\right)$ when using $m$ i.i.d. samples drawn uniformly from the $n$-dimensional Boolean hypercube, and $O\left(\sqrt{\frac{n}{m}}\right)$ when using i.i.d. samples drawn from the $n$-dimensional Gaussian density. You can read my full thesis [here](/assets/thesis.pdf).
+In my honours thesis, supervised by [Dr. Clément Canonne](https://ccanonne.github.io/), I proved a novel theoretical result in machine learning via tools from information theory and statistics. Specifically, I proved that the expected generalisation error of learning halfspaces in $\mathbb{R}^n$ via their Fourier coefficients is $O\left(\sqrt{\frac{n\log m}{m}}\right)$ when using $m$ i.i.d. samples drawn uniformly from the $n$-dimensional Boolean hypercube, and $O\left(\sqrt{\frac{n}{m}}\right)$ when using i.i.d. samples drawn from the $n$-dimensional Gaussian density. You can read my full thesis [here](/assets/thesis.pdf).
 
 ## Links
 
